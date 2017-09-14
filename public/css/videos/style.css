@@ -1,0 +1,276 @@
+/* large desktops and up ----------- */
+@media screen and (min-width: 1200px) {
+
+    .title {
+        font-size: 20em;
+    }
+
+    .loader-text {
+        font-size: 4em;
+    }
+
+}
+
+/* tablets/desktops and up ----------- */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    .title {
+        font-size: 15em;
+    }
+
+    .loader-text {
+        font-size: 3.5em;
+    }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .title {
+        font-size: 10em;
+    }
+
+    .loader-text {
+        font-size: 3em;
+    }
+
+}
+
+/* Extra small devices (phones, up to 480px) */
+@media screen and (max-width: 767px) {
+
+    .title {
+        font-size: 5em;
+    }
+
+    .loader-text {
+        font-size: 2em;
+    }
+
+}
+
+@media only screen and (orientation: landscape) {
+
+    .landscape-indicator {
+        display: none !important;
+    }
+}
+
+/* landscape indicator on/off */
+.landscape-indicator {
+    z-index: 1000;
+    display: block;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    color: white;
+}
+
+body {
+    background-color: black;
+}
+
+h1 {
+    font-family: Times New Roman;
+    color: black;
+}
+
+.arrow-container {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100000;
+    /*background-color: red;*/
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 20px;
+}
+
+.arrow {
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+}
+
+.next {
+    position: absolute;
+    right: 20px;
+    background-image: url('/images/arrow-next.png');
+    background-size: cover;
+}
+
+.prev {
+    background-image: url('/images/arrow-prev.png');
+    background-size: cover;
+}
+
+.loader-wrapper {
+    height: 100vh;
+}
+
+.loader-background {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    opacity: 0.4;
+    background-color: white;
+    z-index: 1
+}
+
+.loader-content {
+    height: 100%;
+    z-index: 1;
+}
+
+.loader-text {
+    color: white;
+    text-align: center;
+}
+
+.quotes {
+    display: none;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flow-r {
+    flex-flow: row;
+}
+
+.flow-c {
+    flex-flow: column;
+}
+/* player stuff */
+.video-wrapper {
+    height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0;
+}
+
+.player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0;
+    z-index: 1;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+}
+
+/* MENU CSS */
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .overlay a {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 2em;
+        color: #818181;
+        display: block; /* Display block instead of inline */
+        transition: 0.3s; /* Transition effects on hover (color) */
+    }
+}
+
+/* Extra small devices (phones, up to 480px) */
+@media screen and (max-width: 767px) {
+    .overlay a {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 1.5em;
+        color: #818181;
+        display: block; /* Display block instead of inline */
+        transition: 0.3s; /* Transition effects on hover (color) */
+    }
+}
+
+
+/* The Overlay (background) */
+.overlay {
+    /* Height & width depends on how you want to reveal the overlay (see JS below) */
+    height: 0%;
+    width: 100%;
+    position: fixed; /* Stay in place */
+    z-index: 10000; /* Sit on top */
+    left: 0;
+    top: 0;
+    background-color: white; /* Black w/opacity */
+    opacity: 0.7;
+    overflow-y: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+
+/* Position the content inside the overlay */
+.overlay-content {
+    position: relative;
+    width: 100%; /* 100% width */
+    /*text-align: left; /* Centered text/links */*/
+    margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+/* The navigation links inside the overlay */
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    color: #818181;
+    font-family: Times New Roman;
+    font-size: 4em;
+    display: block; /* Display block instead of inline */
+    transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+/* When you mouse over the navigation links, change their color */
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+    transition: border 1s;
+}
+
+/* Position the close button (top right corner) */
+.overlay .closebtn {
+    position: absolute;
+    top: 0px;
+    right: 45px;
+    font-size: 60px;
+}
+
+
+/* menu item styling */
+.menu-item {
+    padding: 10px 20px 5px 20px;
+}
+
+.b-right {
+    text-align: right;
+    border-right: solid black 1px;
+    border-top: solid black 1px;
+}
+
+.b-left {
+    text-align: left;
+    border-left: solid black 1px;
+    border-bottom: solid black 1px;
+}
+
+
+/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+@media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+    }
+}
