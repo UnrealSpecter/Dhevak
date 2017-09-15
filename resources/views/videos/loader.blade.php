@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 video-wrapper">
+<!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 video-wrapper"> -->
     <!-- <video autoplay muted class="loader-video" data-current-video="loader" id="player">
         <source id="source" class="source" src="">
     </video> -->
@@ -55,9 +55,10 @@
     <video autoplay muted class="player" id="main" poster="{{ URL::asset('/images/posters/contact/contact-main-poster.jpg') }}">
         <source id="main-source" src="">
     </video>
-    <video preload="auto" loop autoplay muted class="player" id="loop" poster="{{ URL::asset('/images/posters/contact/contact-loop-poster.jpg') }}">
+    <div class="loop-poster player" id="loop"></div>
+    <!-- <video preload="auto" loop autoplay muted class="player" id="loop">
         <source id="loop-source" src="">
-    </video>
+    </video> -->
     <video autoplay muted class="player" id="outro-left" posters="{{ URL::asset('/images/posters/contact/contact-outro-left-poster.jpg') }}">
         <source id="outro-left-source" src="">
     </video>
@@ -66,10 +67,10 @@
         <source id="outro-right-source" src="">
     </video>
  </video>
-</div>
+<!-- </div> -->
 
-<div class="arrow-container">
+<!-- <div class="arrow-container">
     <div class="arrow prev" data-direction=""></div>
     <div class="arrow next" data-direction="projecten"></div>
-</div>
+</div> -->
 @endsection

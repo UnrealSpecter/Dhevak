@@ -19,46 +19,18 @@ $(window).on('load', function() {
         }
         showNextQuote();
         player = initializePlayer();
-        player.play(player.currentVideo.name, 'loop');
+        player.play(player.currentVideo.name, 'main');
 
+        $('.arrow').on('click', function(e){
+            var arrow = $(e.target);
+            if(arrow.hasClass('next')){
+                playNext = true;
+            }
+            if(arrow.hasClass('prev')){
+                playPrevious = true;
+            }
+        });
 
-
-});
-
-//seemless loop playin
-$(document).ready(function(){
-
-    var $video = $("#loop");
-    var $clone = $video.clone();
-    $video.after($clone);
-
-    var video = $video[0];
-    var clone = $clone[0];
-
-    clone.hidden = true;
-    $(clone).addClass('clone');
-    clone.pause();
-    clone.currentTime = 0;
-
-    video.ontimeupdate = function() {
-        if (video.currentTime >= video.duration - .1) {
-            clone.play();
-            video.hidden = true;
-            clone.hidden = false;
-            video.pause();
-            video.currentTime = 0;
-        }
-    }
-
-    clone.ontimeupdate = function() {
-        if (clone.currentTime >= clone.duration - .1) {
-            video.play();
-            clone.hidden = true;
-            video.hidden = false;
-            clone.pause();
-            clone.currentTime = 0;
-        }
-    }
 });
 
 //function that checks if the video is finished playing.
@@ -69,20 +41,23 @@ function isFinished(e) {
     console.log(video);
 
     if(video == 'main'){
-        player.play(player.currentVideo.name, 'loop');
+        console.log('show loop');
+        player.showLoop();
+        // player.play(player.currentVideo.name, 'loop');
     }
     if(video == 'loop' && !playNext && !playPrevious){
+        console.log('just loop');
         player.play(player.currentVideo.name, 'loop');
     }
     if(video == 'loop' && playNext){
-        console.log('entering playnext')
+        console.log('loop playnext');
         player.play(player.currentVideo.name, 'outroRight', nextVideo);
         playNext = false;
     }
     if(video == 'loop' && playPrevious) {
-        console.log('entering playPreivous');
-        console.log('previousVideo var: ' + playPrevious )
+        console.log('loop playPrevious');
         player.play(player.currentVideo.name, 'outroLeft', previousVideo);
+        playPrevious = false;
     }
     if(video == 'outro-right') {
         player.play(player.currentVideo.name, 'preIntroLeft');
@@ -100,7 +75,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[4];
+    this.currentVideo                   = videos[2];
 
     //players
     this.preIntroLeftPlayerElement      = document.getElementById('pre-intro-left');
@@ -118,7 +93,7 @@ function Player(videos){
     this.postIntroLeftPlayerElement     .addEventListener('ended', isFinished, false);
     this.postIntroRightPlayerElement    .addEventListener('ended', isFinished, false);
     this.mainPlayerElement              .addEventListener('ended', isFinished, false);
-    this.loopPlayerElement              .addEventListener('ended', isFinished, false);
+    // this.loopPlayerElement              .addEventListener('ended', isFinished, false);
     this.outroLeftPlayerElement         .addEventListener('ended', isFinished, false);
     this.outroRightPlayerElement        .addEventListener('ended', isFinished, false);
 
@@ -128,7 +103,7 @@ function Player(videos){
     this.postIntroLeftSource            = document.getElementById('post-intro-left-source');
     this.postIntroRightSource           = document.getElementById('post-intro-right-source');
     this.mainSource                     = document.getElementById('main-source');
-    this.loopSource                     = document.getElementById('loop-source');
+    // this.loopSource                     = document.getElementById('loop-source');
     this.outroLeftSource                = document.getElementById('outro-left-source');
     this.outroRightSource               = document.getElementById('outro-right-source');
 
@@ -145,15 +120,19 @@ function Player(videos){
         playerElement.load();
         playerElement.play();
 
-        if(pieceName == 'loop'){
-            document.getElementsByClassName('clone')[0].setAttribute('src', source);
-        }
-
         if(direction){
             console.log('logging direction' + direction);
             this.setCurrentVideo(directionToGo);
         }
 
+    }
+
+    this.showLoop = function(){
+        var loop = $('#loop');
+        var videoName = player.currentVideo.name;
+        this.switchPlayer(loop);
+        //posters/name/name-loop-poster.jpg
+        loop.css('background-image', 'url(' + '/images/posters/' + videoName + '/' + videoName + '-loop-poster.jpg' + ')');
     }
 
     this.switchPlayer = function(playerElement){
@@ -227,6 +206,7 @@ function Player(videos){
     };
 
     this.setCurrentVideo = function(direction){
+        alert(direction);
         $.each(this.videos, function(index, video) {
             if(video.name == directionToGo){
                 console.log(video.name);
@@ -307,14 +287,14 @@ function initializePlayer() {
     //wat-doen-wij-anders
     var watDoenWijAnders = new Video('wat-doen-wij-anders',
         3,
-        'watDoenWijAnders-pre-intro-left',
-        'watDoenWijAnders-pre-intro-right',
-        'watDoenWijAnders-post-intro-left',
-        'watDoenWijAnders-post-intro-right',
-        'watDoenWijAnders-outro-left',
-        'watDoenWijAnders-outro-right',
-        'watDoenWijAnders-main',
-        'watDoenWijAnders-loop'
+        'wat-doen-wij-anders-pre-intro-left',
+        'wat-doen-wij-anders-pre-intro-right',
+        'wat-doen-wij-anders-post-intro-left',
+        'wat-doen-wij-anders-post-intro-right',
+        'wat-doen-wij-anders-outro-left',
+        'wat-doen-wij-anders-outro-right',
+        'wat-doen-wij-anders-main',
+        'wat-doen-wij-anders-loop'
     );
 
     //contact
@@ -359,13 +339,11 @@ $(window).bind(mousewheelevt, function(e){
     var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta //check for detail first, because it is used by Opera and FF
 
     if(delta > 0) {
-        // console.log('scroll prev');
-        // player.play(player.currentVideo.name, 'outroLeft', previousVideo);
+        console.log('scrolling up');
         playPrevious = true;
     }
     else{
-        // console.log('scroll')
-        // player.play(player.currentVideo.name, 'outroRight', nextVideo);
+        console.log('scrolling down');
         playNext = true;
     }
 
