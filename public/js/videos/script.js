@@ -31,6 +31,15 @@ $(window).on('load', function() {
             }
         });
 
+        //set contact copy elements
+        var clipboard = new Clipboard('.btn');
+        clipboard.on('success', function(e) {
+            toast(e.text, 5000, 'epic-toast');
+            console.info('Action:', e.action);
+            console.info('Text:', e.text);
+            console.info('Trigger:', e.trigger);
+            e.clearSelection();
+        });
 });
 
 //function that checks if the video is finished playing.
@@ -75,7 +84,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[2];
+    this.currentVideo                   = videos[4];
 
     //players
     this.preIntroLeftPlayerElement      = document.getElementById('pre-intro-left');
@@ -131,7 +140,6 @@ function Player(videos){
         var loop = $('#loop');
         var videoName = player.currentVideo.name;
         this.switchPlayer(loop);
-        //posters/name/name-loop-poster.jpg
         loop.css('background-image', 'url(' + '/images/posters/' + videoName + '/' + videoName + '-loop-poster.jpg' + ')');
     }
 

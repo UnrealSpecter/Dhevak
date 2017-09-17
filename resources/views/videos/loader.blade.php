@@ -10,10 +10,6 @@
 
 <div class="landscape-indicator flex">FLIP IT FAGGOT.</div>
 
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" onclick="openNav()" style="z-index: 200; position: absolute; left: 0; width: 200px; height: 100px; display: flex; flex-flow: row; justify-content: center; align-items: center; background-color: black; color: white;">
-  <span class="open-menu-button">menu</span>
-</div>
-
 <div class="loader-wrapper flex col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="loader-background"></div>
     <div class="loader-content flex flow-c col-lg-10 col-md-10 col-sm-10 col-xs-10">
@@ -55,7 +51,7 @@
     <video autoplay muted class="player" id="main" poster="{{ URL::asset('/images/posters/contact/contact-main-poster.jpg') }}">
         <source id="main-source" src="">
     </video>
-    <div class="loop-poster player" id="loop"></div>
+    <div class="loop-poster" id="loop"></div>
     <!-- <video preload="auto" loop autoplay muted class="player" id="loop">
         <source id="loop-source" src="">
     </video> -->
@@ -73,4 +69,7 @@
     <div class="arrow prev" data-direction=""></div>
     <div class="arrow next" data-direction="projecten"></div>
 </div> -->
+
+@include('videos.contact-partial')
+
 @endsection

@@ -15,10 +15,16 @@
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/bootstrap/css/bootstrap.css')}}" />
         <script type="text/javascript" src="{{ URL::asset('plugins/bootstrap/js/bootstrap.js')}}"></script>
 
-        <!-- <link href="{{ URL::asset('plugins/videojs/css/video-js.css') }}" rel="stylesheet">
-        <script src="{{ URL::asset('plugins/videojs/js/videojs-ie8.js') }}"></script>
-        <script src="{{ URL::asset('plugins/videojs/js/video.js') }}"></script> -->
+        <!-- superlightweight clipboard copy library -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+        <script type="text/javascript" src="{{ URL::asset('plugins/clipboard/js/clipboard.min.js') }}"></script>
 
+        <!-- include toasts -->
+
+        <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/toasts/css/toast.css') }}">
+        <script type="text/javascript" src="{{ URL::asset('plugins/toasts/js/toast.js')}}"></script>
+
+        <!-- simple animation library -->
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/animate/css/animate.css') }}" />
         @yield('css')
 
