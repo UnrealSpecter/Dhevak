@@ -70,6 +70,5 @@
     <div class="arrow next" data-direction="projecten"></div>
 </div> -->
 
-@include('videos.contact-partial')
 
 @endsection

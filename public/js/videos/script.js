@@ -34,7 +34,7 @@ $(window).on('load', function() {
         //set contact copy elements
         var clipboard = new Clipboard('.btn');
         clipboard.on('success', function(e) {
-            toast(e.text, 5000, 'epic-toast');
+            // toast('hallo', 5000, 'epic-toast');
             console.info('Action:', e.action);
             console.info('Text:', e.text);
             console.info('Trigger:', e.trigger);
@@ -50,29 +50,43 @@ function isFinished(e) {
     console.log(video);
 
     if(video == 'main'){
-        console.log('show loop');
+        player.currentVideo.introPlayed = true;
         player.showLoop();
         // player.play(player.currentVideo.name, 'loop');
     }
-    if(video == 'loop' && !playNext && !playPrevious){
-        console.log('just loop');
-        player.play(player.currentVideo.name, 'loop');
-    }
-    if(video == 'loop' && playNext){
-        console.log('loop playnext');
-        player.play(player.currentVideo.name, 'outroRight', nextVideo);
-        playNext = false;
-    }
-    if(video == 'loop' && playPrevious) {
-        console.log('loop playPrevious');
-        player.play(player.currentVideo.name, 'outroLeft', previousVideo);
-        playPrevious = false;
-    }
+    // if(video == 'loop' && !playNext && !playPrevious){
+    //     console.log('just loop');
+    //     player.play(player.currentVideo.name, 'loop');
+    // }
+    // if(video == 'loop' && playNext){
+    //     console.log('loop playnext');
+    //     player.play(player.currentVideo.name, 'outroRight', nextVideo);
+    //     playNext = false;
+    // }
+    // if(video == 'loop' && playPrevious) {
+    //     console.log('loop playPrevious');
+    //     player.play(player.currentVideo.name, 'outroLeft', previousVideo);
+    //     playPrevious = false;
+    // }
     if(video == 'outro-right') {
-        player.play(player.currentVideo.name, 'preIntroLeft');
+        if(player.currentVideo.introPlayed == false){
+            console.log('play pre intro');
+            player.play(player.currentVideo.name, 'preIntroLeft');
+        }
+        else {
+            console.log('play post intro');
+            player.play(player.currentVideo.name, 'postIntroLeft');
+        }
     }
     if(video == 'outro-left') {
-        player.play(player.currentVideo.name, 'postIntroRight');
+        if(player.currentVideo.introPlayed == false){
+            player.play(player.currentVideo.name, 'preIntroRight');
+        }
+        else {
+            player.play(player.currentVideo.name, 'postIntroRight');
+        }
+
+
     }
     if(video == 'pre-intro-left') {
         player.play(player.currentVideo.name, 'main');
@@ -84,7 +98,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[4];
+    this.currentVideo                   = videos[1];
 
     //players
     this.preIntroLeftPlayerElement      = document.getElementById('pre-intro-left');
@@ -128,11 +142,6 @@ function Player(videos){
         this.switchPlayer(playerElement);
         playerElement.load();
         playerElement.play();
-
-        if(direction){
-            console.log('logging direction' + direction);
-            this.setCurrentVideo(directionToGo);
-        }
 
     }
 
@@ -213,14 +222,9 @@ function Player(videos){
         console.log('The currently selected video is: ' + player.current.name);
     };
 
-    this.setCurrentVideo = function(direction){
-        alert(direction);
-        $.each(this.videos, function(index, video) {
-            if(video.name == directionToGo){
-                console.log(video.name);
-                this.currentVideo = video;
-            }
-        });
+    this.setCurrentVideo = function(orderToPlay){
+        this.currentVideo = this.videos[orderToPlay];
+        console.log(this.currentVideo);
     }
 
     return this;
@@ -348,14 +352,31 @@ $(window).bind(mousewheelevt, function(e){
 
     if(delta > 0) {
         console.log('scrolling up');
-        playPrevious = true;
+        if(setAndCheckPreviousNext('previous')){
+            player.play(player.currentVideo.name, 'outroLeft');
+            player.setCurrentVideo(player.currentVideo.order - 1);
+            console.log(player.currentVideo);
+        }
     }
     else{
         console.log('scrolling down');
-        playNext = true;
+        if(setAndCheckPreviousNext('next')){
+            player.play(player.currentVideo.name, 'outroRight');
+            player.setCurrentVideo(player.currentVideo.order + 1);
+            console.log(player.currentVideo);
+        }
     }
 
 });
+
+//check if there's a previous video
+function setAndCheckPreviousNext(action){
+    if(action === 'previous' && player.currentVideo.order > 1 || player.currentVideo.order < 4 && action === 'next'){
+        return true;
+    }else {
+        return false;
+    }
+}
 
 function setNextPrevious(currentVideo){
 
