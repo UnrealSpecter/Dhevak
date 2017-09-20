@@ -45,21 +45,21 @@
     <video autoplay muted class="player" id="post-intro-left" poster="{{ URL::asset('/images/posters/contact/contact-post-intro-left-poster.jpg') }}">
         <source id="post-intro-left-source" src="">
     </video>
-    <video autoplay muted class="player" id="post-intro-right">
+    <video autoplay muted class="player" id="post-intro-right" poster="{{ URL::asset('/images/posters/home/home-post-intro-right-poster.jpg') }}">
         <source id="post-intro-right-source" src="">
     </video>
-    <video autoplay muted class="player" id="main" poster="{{ URL::asset('/images/posters/contact/contact-main-poster.jpg') }}">
+    <video autoplay muted class="player" id="main" poster="{{ URL::asset('/images/posters/home/home-main-poster.jpg') }}">
         <source id="main-source" src="">
     </video>
-    <div class="loop-poster" id="loop"></div>
+    <img src="{{ URL::asset('/images/posters/home/home-main-poster.jpg') }}" class="loop-poster" id="loop"/>
     <!-- <video preload="auto" loop autoplay muted class="player" id="loop">
         <source id="loop-source" src="">
     </video> -->
-    <video autoplay muted class="player" id="outro-left" posters="{{ URL::asset('/images/posters/contact/contact-outro-left-poster.jpg') }}">
+    <video autoplay muted class="player" id="outro-left" posters="{{ URL::asset('/images/posters/home/home-outro-left-poster.jpg') }}">
         <source id="outro-left-source" src="">
     </video>
 
-    <video autoplay muted class="player" id="outro-right">
+    <video autoplay muted class="player" id="outro-right" posters="{{ URL::asset('/images/posters/home/home-outro-right-poster.jpg') }}">
         <source id="outro-right-source" src="">
     </video>
  </video>
