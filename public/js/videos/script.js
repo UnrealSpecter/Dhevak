@@ -144,8 +144,8 @@ function Player(videos){
         //if there is a player and its not the same player as the previous one then swap them out.
         else if(playerToHide && playerToHide[0].id !== playerToReveal[0].id){
             console.log(playerToReveal);
-            playerToReveal.animate({ opacity: 1 }, 5000);
-            playerToHide.animate({ opacity: 0 }, 5000);
+            playerToReveal.animate({ opacity: 1 }, 500);
+            playerToHide.animate({ opacity: 0 }, 1000);
             playerToHide = playerToReveal;
         }
     }
