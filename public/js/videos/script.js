@@ -41,6 +41,11 @@ $(window).on('load', function() {
             console.info('Trigger:', e.trigger);
             e.clearSelection();
         });
+
+        //navigate with arrows
+        $('.arrow').on('click', function(){
+            arrowNavigation($(this));
+        });
 });
 
 //function that checks if the video is finished playing.
@@ -48,10 +53,15 @@ function isFinished(e) {
     var video = $(e.target).attr('id');
     console.log(video);
 
+    if(video == 'pre-intro-left') {
+        player.play(player.currentVideo.name, 'main');
+    }
+
     if(video == 'main'){
         player.currentVideo.introPlayed = true;
         player.showLoop();
     }
+
     if(video == 'outro-right') {
         if(player.currentVideo.introPlayed == false){
             player.play(player.currentVideo.name, 'preIntroLeft');
@@ -68,9 +78,11 @@ function isFinished(e) {
             player.play(player.currentVideo.name, 'postIntroRight');
         }
     }
-    if(video == 'pre-intro-left') {
-        player.play(player.currentVideo.name, 'main');
+
+    if(video == 'post-intro-right' || video == 'post-intro-left'){
+        player.showLoop();
     }
+
 }
 
 function Player(videos){
@@ -327,15 +339,38 @@ $(window).bind(mousewheelevt, function(e){
     var evt = window.event || e //equalize event object
     evt = evt.originalEvent ? evt.originalEvent : evt; //convert to originalEvent if possible
     var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta //check for detail first, because it is used by Opera and FF
+    var direction = delta;
+    if(direction > 0){
+        playPreviousOrNext('previous');
+    }
+    else{
+        playPreviousOrNext('next');
+    }
+});
 
+function arrowNavigation(element){
+
+    var arrow = $(element);
+    console.log(arrow);
+    if(arrow.hasClass('next')){
+        playPreviousOrNext('next');
+    }
+    else if (arrow.hasClass('previous')) {
+        playPreviousOrNext('previous');
+    }
+
+}
+
+
+function playPreviousOrNext(direction){
     if(!isVideoPlaying){
-        if(delta > 0) {
+        if(direction === 'previous') {
             if(setAndCheckPreviousNext('previous')){
                 player.play(player.currentVideo.name, 'outroLeft');
                 player.setCurrentVideo(player.currentVideo.order - 1);
             }
         }
-        else{
+        else if(direction === 'next'){
             if(setAndCheckPreviousNext('next')){
                 player.play(player.currentVideo.name, 'outroRight');
                 player.setCurrentVideo(player.currentVideo.order + 1);
@@ -344,8 +379,7 @@ $(window).bind(mousewheelevt, function(e){
         //set video playing attribute
         isVideoPlaying = true;
     }
-
-});
+}
 
 //check if there's a previous video
 function setAndCheckPreviousNext(action){
