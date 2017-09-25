@@ -65,12 +65,13 @@
  </video>
 <!-- </div> -->
 
-<div class="arrow-container">
+<div class="explanation-container animated fadeInUp hidden">
     <div class="arrow previous"></div>
     <div class="arrow next"></div>
-    <div class="scroll-indicator" style="margin-bottom: 1%; position: absolute; bottom: 0; width: 50%; left: 25%; display:flex; flex-flow: column; align-items: center;">
-        <div style="-ms-transform: rotate(7deg); /* IE 9 */ -webkit-transform: rotate(7deg); /* Chrome, Safari, Opera */ transform: rotate(7deg); background-image: url('/images/arrow-prev.png');"></div>
-        <div>Navigate by scrolling.</div>
+    <div class="scroll-indicator">
+        <!-- <div style="-ms-transform: rotate(7deg); /* IE 9 */ -webkit-transform: rotate(7deg); /* Chrome, Safari, Opera */ transform: rotate(7deg); background-image: url('/images/arrow-prev.png');"></div> -->
+        <div class="animated fadeInDown">Navigeer door te scrollen </div>
+        <div class="animated fadeInUp explanation-confirm"> Ok, Ik snap het </div>
     </div>
 </div>
 

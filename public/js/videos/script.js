@@ -1,6 +1,7 @@
 //wait till all resources are loaded
 var player;
 var playerToHide;
+var contentToHide;
 var nextVideo;
 var previousVideo;
 var playNext = false;
@@ -45,6 +46,18 @@ $(window).on('load', function() {
         //navigate with arrows
         $('.arrow').on('click', function(){
             arrowNavigation($(this));
+        });
+
+        var swipeManager = new Hammer(window);
+        swipeManager.on('swipeleft', function(ev) {
+            playPreviousOrNext('previous');
+        });
+        swipeManager.on('swiperight', function(ev){
+            playPreviousOrNext('next');
+        });
+
+        $('.explanation-confirm').on('click', function(){
+            $('.explanation-container').removeClass('fadeInUp').addClass('fadeOutDown');
         });
 });
 
@@ -129,6 +142,10 @@ function Player(videos){
         var sourceElement   = this.getSource(pieceName);
         var playerElement   = this.getPlayerElement(pieceName);
 
+        if($('.' + this.currentVideo.name).hasClass(this.currentVideo.name)){
+            $('.' + this.currentVideo.name).addClass('hidden');
+        }
+
         sourceElement.setAttribute('src', source);
         this.switchPlayer(playerElement);
         playerElement.load();
@@ -141,7 +158,23 @@ function Player(videos){
         isVideoPlaying = false;
         var videoName = player.currentVideo.name;
         this.switchPlayer(loop);
+        this.makeContentActive(videoName);
         loop.attr('src', '/images/posters/' + videoName + '/' + videoName + '-loop-poster.jpg');
+    }
+
+    this.makeContentActive = function(videoName){
+
+        var contentToReveal = $('.' + videoName);
+        console.log(videoName);
+        if(!contentToHide){
+            $('.explanation-container').removeClass('hidden');
+            contentToReveal.removeClass('hidden');
+            contentToHide = contentToReveal;
+        }
+        else if(contentToHide) {
+            contentToHide.addClass('hidden');
+            contentToReveal.removeClass('hidden');
+        }
     }
 
     this.switchPlayer = function(playerElement){
@@ -151,7 +184,7 @@ function Player(videos){
         //if there isnt a player to hide it means its the first playthrough so just reveal the player and play.
         if(!playerToHide) {
             playerToReveal.animate({ opacity: 1 }, 100);
-            playerToHide = $(playerElement);
+            playerToHide = playerToReveal;
         }
         //if there is a player and its not the same player as the previous one then swap them out.
         else if(playerToHide && playerToHide[0].id !== playerToReveal[0].id){

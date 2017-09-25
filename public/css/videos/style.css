@@ -86,36 +86,68 @@ h1 {
     left: 0;
 }
 
-.arrow-container {
-    height: 100vh;
+.explanation-container {
+    box-shadow: -1px -1px 50px -15px #000000;
+    height: 10%;
     width: 100vw;
-    position: absolute;
+    position: fixed;
     left: 0;
-    top: 0;
+    bottom: 0;
+    background-color: white;
     z-index: 100000;
-    /*background-color: red;*/
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    padding: 20px;
+}
+
+.scroll-indicator {
+    font-family: Raleway;
+    color: black;
+    font-size: 2em;
+    text-transform: uppercase;
+    position: absolute;
+    bottom: 0;
+    width: 50%;
+    height: 100%;
+    left: 25%;
+    display:flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.explanation-confirm {
+    border: solid 5px black;
+    padding: 5px;
+    font-weight: bold;
+    margin: 0 0 0 1%;
+    cursor:pointer;
 }
 
 .arrow {
-    height: 100px;
-    width: 100px;
+    height: 100%;
+    width: 10%;
     cursor: pointer;
 }
 
 .next {
     position: absolute;
-    right: 20px;
-    background-image: url('/images/arrow-next.png');
-    background-size: cover;
+    right: 0;
+    background-color: black;
+    background: url('/images/arrow-next.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .previous {
-    background-image: url('/images/arrow-prev.png');
-    background-size: cover;
+    position: absolute;
+    left: 0;
+    background-color: black;
+    background: url('/images/arrow-prev.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .loader-wrapper {
@@ -283,4 +315,17 @@ h1 {
         top: 15px;
         right: 35px;
     }
+}
+
+#content-wrapper {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.hidden {
+    display: none;
 }

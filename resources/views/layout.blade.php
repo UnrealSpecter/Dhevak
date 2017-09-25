@@ -7,6 +7,8 @@
 
         <title>Dhevak Redesign</title>
 
+        <link rel="icon" href="{{ URL::asset('/images/dhevak-logo.png')}}">
+
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/normalize/css/normalize.css')}}" />
         <script type="text/javascript" src="{{ URL::asset('plugins/jquery/js/jquery-3.2.1.min.js') }}"></script>
@@ -16,7 +18,8 @@
         <script type="text/javascript" src="{{ URL::asset('plugins/bootstrap/js/bootstrap.js')}}"></script>
 
         <!-- superlightweight clipboard copy library -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+        <script type="text/javascript" src="{{ URL::asset('plugins/hammer/js/hammer.js') }}"></script>
+        <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script> -->
         <script type="text/javascript" src="{{ URL::asset('plugins/clipboard/js/clipboard.min.js') }}"></script>
 
         <!-- include toasts -->
