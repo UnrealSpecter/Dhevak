@@ -335,3 +335,25 @@ h1 {
     font-weight: bold;
     opacity: 1;
 }
+
+/* WAT DOEN WIJ ANDERS STYLING */
+.explanation-video {
+    object-fit: cover;
+    background:transparent no-repeat;
+    background-size: cover;
+    z-index: 1000000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.wat-doen-wij-anders-explanation-video {
+    position: fixed;
+    top: 13%;
+    left: 23%;
+    background-color: black;
+    width: 54.5%;
+    height: 61%;
+}

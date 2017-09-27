@@ -180,10 +180,13 @@ function Player(videos){
 
     this.showLoop = function(){
         var loop = $('#loop');
-        isVideoPlaying = false;
         var videoName = player.currentVideo.name;
+
+        isVideoPlaying = false;
+
         this.switchPlayer(loop);
         this.makeContentActive(videoName);
+
         loop.attr('src', '/images/posters/' + videoName + '/' + videoName + '-loop-poster.jpg');
     }
 
