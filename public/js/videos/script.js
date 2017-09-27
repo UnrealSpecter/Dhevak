@@ -126,6 +126,7 @@ function Player(videos){
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
     this.currentVideo                   = videos[1];
+    this.currentVideoPiece              = 'main';
 
     //players
     this.preIntroLeftPlayerElement      = document.getElementById('pre-intro-left');
@@ -165,6 +166,7 @@ function Player(videos){
         var sourceElement   = this.getSource(pieceName);
         var playerElement   = this.getPlayerElement(pieceName);
 
+        //hide the content
         if($('.' + this.currentVideo.name).hasClass(this.currentVideo.name)){
             $('.' + this.currentVideo.name).addClass('hidden');
         }
@@ -204,7 +206,8 @@ function Player(videos){
     this.switchPlayer = function(playerElement){
 
         var playerToReveal = $(playerElement);
-
+        //set the poster before switching the player
+        playerToReveal.attr('poster', '/images/posters/' + this.currentVideo.name + '/' + this.currentVideoPiece + '-poster.jpg' );
         //if there isnt a player to hide it means its the first playthrough so just reveal the player and play.
         if(!playerToHide) {
             playerToReveal.animate({ opacity: 1 }, 100);
@@ -244,9 +247,14 @@ function Player(videos){
         for(var name in video) {
             var value = video[name];
             if(name == pieceName){
+                player.setCurrentVideoPiece(value);
                 return value;
             }
         }
+    }
+
+    this.setCurrentVideoPiece = function(piece){
+        this.currentVideoPiece = piece;
     }
 
     this.getVideo = function(videoName){
