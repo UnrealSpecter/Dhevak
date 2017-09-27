@@ -125,7 +125,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[1];
+    this.currentVideo                   = videos[3];
     this.currentVideoPiece              = 'main';
 
     //players
