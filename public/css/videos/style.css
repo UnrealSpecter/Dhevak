@@ -329,3 +329,9 @@ h1 {
 .hidden {
     display: none;
 }
+
+/* MENU STYLING */
+.current-video {
+    font-weight: bold;
+    opacity: 1;
+}

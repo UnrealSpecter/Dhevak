@@ -4,16 +4,16 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <!-- Overlay content -->
     <div class="overlay-content">
-        <a class="invisible" href="#">
+        <a class="invisible current-video" href="#home" data-order="1">
             <span class="b-right menu-item">HOME</span>
         </a>
-        <a class="invisible" href="#">
+        <a class="invisible" href="#projecten" data-order="2">
             <span class="b-right  menu-item">PROJECTEN</span>
         </a>
-        <a class="invisible" href="#">
+        <a class="invisible" href="#wat-doen-wij-anders" data-order="3">
             <span class="b-right menu-item">WAT DOEN WIJ ANDERS</span>
         </a>
-        <a class="invisible" href="#">
+        <a class="invisible" href="#contact" data-order="4">
             <span class="b-right  menu-item">CONTACT</span>
         </a>
     </div>
