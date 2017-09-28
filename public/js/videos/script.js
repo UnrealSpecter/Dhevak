@@ -25,7 +25,9 @@ $(window).on('load', function() {
                 .fadeOut(1000, showNextQuote);
         }
         showNextQuote();
-        player = initializePlayer();
+        setTimeout(function(){
+            initializePlayer();
+        }, 30000);
         player.play(player.currentVideo.name, 'main');
 
         $('.arrow').on('click', function(e){
@@ -41,10 +43,14 @@ $(window).on('load', function() {
         //set contact copy elements
         var clipboard = new Clipboard('.btn');
         clipboard.on('success', function(e) {
-            // toast('hallo', 5000, 'epic-toast');
-            console.info('Action:', e.action);
-            console.info('Text:', e.text);
-            console.info('Trigger:', e.trigger);
+            var toastrText = e.text;
+            var clickedElement = $(e.trigger);
+            if(clickedElement.hasClass('email-button')){
+                toastr.info('Dhevak email gekopieerd. Mail ons! Geef ons een reden om weer even een kopje thee te drinken. : ' + toastrText);
+            }
+            else if(clickedElement.hasClass('phone-number-button')){
+                toastr.info('Dhevak 06 gekopieerd. Bel ons & we babbelen graag! : ' + toastrText);
+            }
             e.clearSelection();
         });
 
@@ -88,6 +94,7 @@ function ifMobile(){
 function isFinished(e) {
     var video = $(e.target).attr('id');
     console.log(video);
+    console.log('INTROPLAYED: ' + player.currentVideo.introPlayed);
 
     if(video == 'pre-intro-left') {
         player.play(player.currentVideo.name, 'main');
@@ -99,7 +106,7 @@ function isFinished(e) {
     }
 
     if(video == 'outro-right') {
-        if(player.currentVideo.introPlayed == false){
+        if(player.currentVideo.introPlayed === false){
             player.play(player.currentVideo.name, 'preIntroLeft');
         }
         else {
@@ -107,7 +114,7 @@ function isFinished(e) {
         }
     }
     if(video == 'outro-left') {
-        if(player.currentVideo.introPlayed == false){
+        if(player.currentVideo.introPlayed === false){
             player.play(player.currentVideo.name, 'preIntroLeft');
         }
         else {
@@ -125,7 +132,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[4];
+    this.currentVideo                   = videos[2];
     this.currentVideoPiece              = 'main';
 
     //players
@@ -193,7 +200,10 @@ function Player(videos){
     this.makeContentActive = function(videoName){
 
         var contentToReveal = $('.' + videoName);
-        console.log(videoName);
+
+        //sets the menu item thats currently active
+        setActiveMenuItem(this.currentVideo.name);
+
         if(!contentToHide){
             $('.explanation-container').removeClass('hidden');
             contentToReveal.removeClass('hidden');
@@ -288,7 +298,7 @@ function Player(videos){
     return this;
 }
 
-function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntroRight, outroLeft, outroRight, main, loop) {
+function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntroRight, outroLeft, outroRight, main, loop, introPlayed) {
 
     this.videoSource   = document.createElement('source');
     this.src = '/videos/' + name;
@@ -314,7 +324,7 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
     this.loop              = loop;
 
     //set introPlayed to false so that after the first play we dont ever play the intro again.
-    this.introPlayed = false;
+    this.introPlayed = introPlayed;
 
     this.returnSource = function(video){
         var source = this.src + '/' + video + '.mp4';
@@ -327,7 +337,7 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
 //initializes the different video objects and the main player object that will handle them all.
 function initializePlayer() {
 
-    var loader = new Video('loader', 0, null, null, null, null, null, null, null, 'loader-loop');
+    var loader = new Video('loader', 0, null, null, null, null, null, null, null, 'loader-loop', null);
 
     var home = new Video('home',
         1,
@@ -338,7 +348,8 @@ function initializePlayer() {
         null,
         'home-outro-right',
         'home-main',
-        'home-loop'
+        'home-loop',
+        true
     );
 
     //projecten video object
@@ -351,7 +362,8 @@ function initializePlayer() {
         'projecten-outro-left',
         'projecten-outro-right',
         'projecten-main',
-        'projecten-loop'
+        'projecten-loop',
+        false
     );
 
     //wat-doen-wij-anders
@@ -364,7 +376,8 @@ function initializePlayer() {
         'wat-doen-wij-anders-outro-left',
         'wat-doen-wij-anders-outro-right',
         'wat-doen-wij-anders-main',
-        'wat-doen-wij-anders-loop'
+        'wat-doen-wij-anders-loop',
+        false
     );
 
     //contact
@@ -377,7 +390,8 @@ function initializePlayer() {
         'contact-outro-left',
         'contact-outro-right',
         'contact-main',
-        'contact-loop'
+        'contact-loop',
+        false
     );
 
     var videos = [];
@@ -394,6 +408,11 @@ function initializePlayer() {
     prev = $('.prev').data('direction');
     next = $('.next').data('direction');
 
+    //set up toast options
+    toastr.options.positionClass = 'toast-top-full-width';
+    toastr.options.preventDuplicates = true;
+    toastr.options.progressBar = true;
+
     //hide loader
     $('.loader-wrapper').addClass('invisible');
 
@@ -409,9 +428,11 @@ $(window).bind(mousewheelevt, function(e){
     var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta //check for detail first, because it is used by Opera and FF
     var direction = delta;
     if(direction > 0){
+        closeNav();
         playPreviousOrNext('previous');
     }
     else{
+        closeNav();
         playPreviousOrNext('next');
     }
 });
@@ -466,6 +487,13 @@ function navigateThroughMenu(order){
             closeNav()
         }
     }
+}
+
+function setActiveMenuItem(name){
+    var element = $('.' + name);
+    console.log(element);
+    $('.current-video').removeClass('current-video');
+    element.addClass('current-video');
 }
 
 //check if there's a previous video

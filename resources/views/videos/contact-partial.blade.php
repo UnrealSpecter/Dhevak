@@ -18,10 +18,10 @@
 
     <!-- social media container  -->
     <div class="social-media">
-        <a href="https://www.facebook.com/dhevakart/" class="facebook"    style="position: relative; height: 50%; background-color: white; width: 50%;" target="_blank"></a>
-        <a href="https://twitter.com/DhevakArt/media" class="twitter"     style="position: relative; height: 50%; background-color: white; width: 50%;" target="_blank"></a>
-        <a href="https://www.instagram.com/dhevakart/" class="instagram"  style="position: relative; height: 50%; background-color: white; width: 50%;" target="_blank"></a>
-        <a href="https://www.instagram.com/dhevakart/" class="linkedin"   style="position: relative; height: 50%; background-color: white; width: 50%;" target="_blank"></a>
+        <a href="https://twitter.com/DhevakArt/media" class="facebook"      target="_blank"></a>
+        <a href="https://www.facebook.com/dhevakart/" class="twitter"       target="_blank"></a>
+        <a href="https://www.instagram.com/dhevakart/" class="instagram"    target="_blank"></a>
+        <a href="https://www.instagram.com/dhevakart/" class="linkedin"     target="_blank"></a>
     </div>
 
 </div>

@@ -335,6 +335,55 @@ h1 {
     font-weight: bold;
     opacity: 1;
 }
+/* HOME STYLING */
+.home-menu {
+    z-index: 200;
+    top: 5%;
+    position: absolute;
+    right: 1.5%;
+    width: 12%;
+    height: 9%;
+    cursor: pointer;
+}
+
+/* PROJECTEN STYLING */
+.projecten-menu {
+    z-index: 200;
+    bottom: 16%;
+    position: absolute;
+    left: 44%;
+    border: solid 1px white;
+    width: 12%;
+    height: 17%;
+    cursor: pointer;
+}
+
+.projecten-left {
+    position: fixed;
+    border: solid white 1px;
+    height: 35%;
+    width: 23.5%;
+    top: 17%;
+    left: 9.5%;
+}
+
+.projecten-middle {
+    position: fixed;
+    border: solid white 1px;
+    height: 52%;
+    width: 21%;
+    top: 8%;
+    left: 40%;
+}
+
+.projecten-right {
+    position: fixed;
+    border: solid white 1px;
+    height: 35%;
+    width: 23%;
+    top: 17%;
+    right: 9%;
+}
 
 /* WAT DOEN WIJ ANDERS STYLING */
 .explanation-video {
@@ -366,11 +415,11 @@ h1 {
     top: 7%;
     width: 11%;
     height: 8%;
-    border: solid white 1px;
     display: flex;
     flex-flow: row;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .contact-information {
@@ -381,8 +430,6 @@ h1 {
     top: 17.5%;
     width: 58%;
     height: 38.5%;
-    background-color: white;
-    border: white solid 1px;
     left: 1%;
     padding: 0;
 }
@@ -391,20 +438,19 @@ h1 {
     height: 100%;
     width: 100%;
     padding: 0;
+    cursor: pointer;
 }
 
 .dhevak-email {
     height: 47.5%;
     width: 100%;
-    background-color: red;
-    opacity: 0.3;
+    opacity: 0;
     margin-bottom: 2.5%;
 }
 
 .dhevak-phone-number {
     height: 50%;
-    background-color: white;
-    opacity: 0.3;
+    opacity: 0;
 }
 
 .social-media {
@@ -414,7 +460,21 @@ h1 {
     height: 62%;
     width: 32%;
     top: 16%;
-    border: solid white 1px;
     display: flex;
     flex-flow: row wrap;
+}
+
+.social-media > a {
+    position: relative;
+    height: 50%;
+    width: 50%;
+}
+
+/* custom toast styling */
+.toast {
+    background-color: white;
+}
+
+.toast-message {
+    color: black;
 }

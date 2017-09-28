@@ -23,7 +23,7 @@
         <div class="loader-text quotes">Meer dan 90% van stenen bestaan uit mineralen</div>
         <div class="loader-text quotes">Ik ken een mop over een bloem, maar in het engels is hij flower</div>
         <div class="loader-text quotes">100% van de mensen die water drinken gaan dood</div>
-        <div class="loader-text quotes">Dhèvak heeft net zoveel wk's gewonnen als het nederlands elftal</div>
+        <div class="loader-text quotes">Dhèvak heeft net zoveel WK's gewonnen als het nederlands elftal</div>
         <div class="loader-text quotes">Het geheime ingredient van coca-cola is Dhèvak</div>
         <div class="loader-text quotes">De biopic over ons leven komt uit in 2045</div>
         <div class="loader-text quotes">Dhèvak. De eerste, de echte.</div>
@@ -32,46 +32,38 @@
     </div>
 </div>
 
-<!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 video-wrapper"> -->
-    <!-- <video autoplay muted class="loader-video" data-current-video="loader" id="player">
-        <source id="source" class="source" src="">
-    </video> -->
-    <video autoplay muted class="player" id="pre-intro-left">
-        <source id="pre-intro-left-source" src="">
-    </video>
-    <video autoplay muted class="player" id="pre-intro-right">
-        <source id="pre-intro-right-source" src="">
-    </video>
-    <video autoplay muted class="player" id="post-intro-left">
-        <source id="post-intro-left-source" src="">
-    </video>
-    <video autoplay muted class="player" id="post-intro-right">
-        <source id="post-intro-right-source" src="">
-    </video>
-    <video autoplay muted class="player" id="main">
-        <source id="main-source" src="">
-    </video>
-    <img src="{{ URL::asset('/images/posters/home/home-main-poster.jpg') }}" class="loop-poster" id="loop"/>
-    <!-- <video preload="auto" loop autoplay muted class="player" id="loop">
-        <source id="loop-source" src="">
-    </video> -->
-    <video autoplay muted class="player" id="outro-left">
-        <source id="outro-left-source" src="">
-    </video>
-
-    <video autoplay muted class="player" id="outro-right">
-        <source id="outro-right-source" src="">
-    </video>
- </video>
-<!-- </div> -->
+<video autoplay muted class="player loader-video" data-current-video="loader" id="player">
+    <source id="source" class="source" src="">
+</video>
+<video autoplay muted class="player" id="pre-intro-left">
+    <source id="pre-intro-left-source" src="">
+</video>
+<video autoplay muted class="player" id="pre-intro-right">
+    <source id="pre-intro-right-source" src="">
+</video>
+<video autoplay muted class="player" id="post-intro-left">
+    <source id="post-intro-left-source" src="">
+</video>
+<video autoplay muted class="player" id="post-intro-right">
+    <source id="post-intro-right-source" src="">
+</video>
+<video autoplay muted class="player" id="main">
+    <source id="main-source" src="">
+</video>
+<video autoplay muted class="player" id="outro-left">
+    <source id="outro-left-source" src="">
+</video>
+<video autoplay muted class="player" id="outro-right">
+    <source id="outro-right-source" src="">
+</video>
+<img src="{{ URL::asset('/images/posters/home/home-main-poster.jpg') }}" class="loop-poster" id="loop"/>
 
 <div class="explanation-container animated fadeInUp hidden">
     <div class="arrow previous"></div>
     <div class="arrow next"></div>
     <div class="scroll-indicator">
-        <!-- <div style="-ms-transform: rotate(7deg); /* IE 9 */ -webkit-transform: rotate(7deg); /* Chrome, Safari, Opera */ transform: rotate(7deg); background-image: url('/images/arrow-prev.png');"></div> -->
         <div class="animated fadeInDown">Navigeer door te scrollen </div>
-        <div class="animated fadeInUp explanation-confirm"> Ok, Ik snap het </div>
+        <div class="animated fadeInUp explanation-confirm"> Ok, Ik snap het</div>
     </div>
 </div>
 

@@ -23,9 +23,8 @@
         <script type="text/javascript" src="{{ URL::asset('plugins/clipboard/js/clipboard.min.js') }}"></script>
 
         <!-- include toasts -->
-
-        <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/toasts/css/toast.css') }}">
-        <script type="text/javascript" src="{{ URL::asset('plugins/toasts/js/toast.js')}}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/toastr/css/toastr.min.css') }}">
+        <script type="text/javascript" src="{{ URL::asset('plugins/toastr/js/toastr.min.js')}}"></script>
 
         <!-- simple animation library -->
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/animate/css/animate.css') }}" />
