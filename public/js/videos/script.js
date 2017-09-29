@@ -26,9 +26,11 @@ $(window).on('load', function() {
         }
         showNextQuote();
         setTimeout(function(){
-            initializePlayer();
-        }, 30000);
-        player.play(player.currentVideo.name, 'main');
+            player = initializePlayer();
+            player.play(player.currentVideo.name, 'main');
+        }, 10000);
+
+
 
         $('.arrow').on('click', function(e){
             var arrow = $(e.target);
@@ -132,7 +134,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[2];
+    this.currentVideo                   = videos[1];
     this.currentVideoPiece              = 'main';
 
     //players
