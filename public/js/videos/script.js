@@ -8,6 +8,7 @@ var playNext = false;
 var playPrevious = false;
 var isVideoPlaying = true;
 var isMobile = false; //initiate as false
+var explanationVideo;
 
 $(window).ready(function(){
 
@@ -35,7 +36,7 @@ $(window).on('load', function() {
         setTimeout(function(){
             player = initializePlayer();
             player.play(player.currentVideo.name, 'main');
-        }, 60000);
+        }, 1000);
 
         $('.arrow').on('click', function(e){
             var arrow = $(e.target);
@@ -137,7 +138,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[1];
+    this.currentVideo                   = videos[3];
     this.currentVideoPiece              = 'main';
 
     //players
@@ -416,6 +417,8 @@ function initializePlayer() {
     toastr.options.preventDuplicates = true;
     toastr.options.progressBar = true;
 
+    //set explanation video element
+    explanationVideo = document.getElementById("explanation-video");
 
     return player;
 }
@@ -468,6 +471,8 @@ function playPreviousOrNext(direction){
         }
         //set video playing attribute
         isVideoPlaying = true;
+        //pause the video if its playing
+        explanationVideo.pause();
     }
 }
 
@@ -480,12 +485,16 @@ function navigateThroughMenu(order){
         if(currentVideo.order > order){
             player.play(player.currentVideo.name, 'outroLeft');
             player.setCurrentVideo(order);
-            closeNav()
+            //pause the video if its playing
+            explanationVideo.pause();
+            closeNav();
         }
         else if(currentVideo.order < order){
             player.play(player.currentVideo.name, 'outroRight');
             player.setCurrentVideo(order);
-            closeNav()
+            //pause the video if its playing
+            explanationVideo.pause();
+            closeNav();
         }
     }
 }
