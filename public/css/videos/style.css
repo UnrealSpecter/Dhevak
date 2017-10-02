@@ -166,6 +166,7 @@ h1 {
 .loader-content {
     height: 100%;
     z-index: 1;
+    white-space: nowrap;
 }
 
 .loader-text {

@@ -9,28 +9,33 @@ var playPrevious = false;
 var isVideoPlaying = true;
 var isMobile = false; //initiate as false
 
+$(window).ready(function(){
+
+    //cycle through quotes
+    var quotes = $(".quotes");
+    var quoteIndex = -1;
+    function showNextQuote() {
+        ++quoteIndex;
+        quotes.eq(quoteIndex % quotes.length)
+            .fadeIn(1000)
+            .delay(1000)
+            .fadeOut(1000, showNextQuote);
+    }
+    showNextQuote();
+
+});
+
 $(window).on('load', function() {
 
         //check if we're on a mobile device
         ifMobile();
 
-        //cycle through quotes
-        var quotes = $(".quotes");
-        var quoteIndex = -1;
-        function showNextQuote() {
-            ++quoteIndex;
-            quotes.eq(quoteIndex % quotes.length)
-                .fadeIn(1000)
-                .delay(1000)
-                .fadeOut(1000, showNextQuote);
-        }
-        showNextQuote();
+        $('.title').fadeOut();
+
         setTimeout(function(){
             player = initializePlayer();
             player.play(player.currentVideo.name, 'main');
-        }, 10000);
-
-
+        }, 60000);
 
         $('.arrow').on('click', function(e){
             var arrow = $(e.target);
@@ -95,8 +100,6 @@ function ifMobile(){
 //function that checks if the video is finished playing.
 function isFinished(e) {
     var video = $(e.target).attr('id');
-    console.log(video);
-    console.log('INTROPLAYED: ' + player.currentVideo.introPlayed);
 
     if(video == 'pre-intro-left') {
         player.play(player.currentVideo.name, 'main');
@@ -219,7 +222,6 @@ function Player(videos){
     }
 
     this.switchPlayer = function(playerElement){
-
         var playerToReveal = $(playerElement);
         //set the poster before switching the player
         playerToReveal.attr('poster', '/images/posters/' + this.currentVideo.name + '/' + this.currentVideoPiece + '-poster.jpg' );
@@ -230,7 +232,6 @@ function Player(videos){
         }
         //if there is a player and its not the same player as the previous one then swap them out.
         else if(playerToHide && playerToHide[0].id !== playerToReveal[0].id){
-            console.log(playerToReveal);
             playerToReveal.animate({ opacity: 1 }, 500);
             playerToHide.animate({ opacity: 0 }, 1000);
             playerToHide = playerToReveal;
@@ -415,8 +416,6 @@ function initializePlayer() {
     toastr.options.preventDuplicates = true;
     toastr.options.progressBar = true;
 
-    //hide loader
-    $('.loader-wrapper').addClass('invisible');
 
     return player;
 }
@@ -493,7 +492,6 @@ function navigateThroughMenu(order){
 
 function setActiveMenuItem(name){
     var element = $('.' + name);
-    console.log(element);
     $('.current-video').removeClass('current-video');
     element.addClass('current-video');
 }
