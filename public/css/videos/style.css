@@ -101,27 +101,34 @@ h1 {
 }
 
 .scroll-indicator {
+    height: 100%;
     font-family: Raleway;
     color: black;
     font-size: 2em;
     text-transform: uppercase;
     position: absolute;
     bottom: 0;
-    width: 50%;
-    height: 100%;
-    left: 25%;
     display:flex;
     flex-flow: row;
     align-items: center;
     justify-content: center;
 }
 
-.explanation-confirm {
+.scroll-indicator > div {
+    white-space: nowrap;
+}
+
+.explanation-confirm, .explanation-help {
     border: solid 5px black;
-    padding: 5px;
+    padding: 5px 15px 5px 15px;
     font-weight: bold;
     margin: 0 0 0 1%;
     cursor:pointer;
+}
+
+.explanation-help > a {
+    text-decoration: none;
+    color: black;
 }
 
 .arrow {
@@ -276,13 +283,13 @@ h1 {
 }
 
 /* When you mouse over the navigation links, change their color */
-.overlay a:hover, .overlay a:focus {
+.overlay a:hover, .overlay a:focus, .project-overlay a:hover, .project-overlay a:focus {
     color: #f1f1f1;
     transition: border 1s;
 }
 
 /* Position the close button (top right corner) */
-.overlay .closebtn {
+.overlay .closebtn, .project-overlay .closebtn {
     position: absolute;
     top: 0px;
     right: 45px;
@@ -366,9 +373,11 @@ h1 {
     width: 23.5%;
     top: 17%;
     left: 9.5%;
+    cursor: pointer;
 }
 
 .projecten-middle {
+    cursor: pointer;
     position: fixed;
     border: solid white 1px;
     height: 52%;
@@ -384,15 +393,23 @@ h1 {
     width: 23%;
     top: 17%;
     right: 9%;
+    cursor: pointer;
+}
+
+.project-overlay > * {
+    margin-bottom: 5%;
 }
 
 .project-overlay {
-    height: 100vh;
-    width: 100vw;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
     opacity: 1;
     overflow-y: scroll;
     overflow-x: hidden;
     background-color: white;
+    padding: 0;
 }
 
 .project-bg-title {
@@ -406,13 +423,14 @@ h1 {
     position: fixed;
     font-family: Raleway;
     font-size: 30em;
-    opacity: 0.3;
+    opacity: 0.1;
     white-space: nowrap;
+    color: green;
 }
 
 .project-title {
+    pointer-events: none;
     height: 100vh;
-    width: 100vw;
     font-size: 10em;
     display: flex;
     justify-content: center;
@@ -420,34 +438,74 @@ h1 {
     text-transform: uppercase;
     font-family: Raleway;
     font-weight: bold;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.project-website {
-    height: 20%;
+.project-description {
+    font-size: 1.5em;
+    font-family: Raleway;
+    color: black;
+    line-height: 125%;
+}
+
+.project-website > a {
     font-size: 3em;
     color: #f3f3f3;
     font-family: Raleway;
     font-weight: bold;
     text-transform: uppercase;
+    text-decoration: none;
 }
 
-.project-social-media-wrapper {
+.project-social-media-wrapper, .project-roles-wrapper {
     height: 20%;
-    width: 100vw;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
 }
 
-.project-social-media-link {
+.project-social-media-wrapper, .project-website {
+    margin: 0;
+}
+
+.project-social-media-link, .project-role {
     height: 100%;
-    width: 15%;
-    margin-right: 1%;
-    background-color: black;
+    text-align: center;
+    margin: 15px;
+    background-color: transparent;
+    color: black;
+    border: solid black 5px;
+    font-size: 1.25em;
+    font-family: Raleway;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+}
+
+.project-social-media-link > a {
+    height: 100%;
+    width: 100%;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1.25em;
 }
 
 .center {
     text-align: center;
+}
+
+
+.sub-title {
+    font-family: Raleway;
+    font-weight: bold;
+    font-size: 3em;
+    text-transform: uppercase;
+    margin: 1% 0 2% 0;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+    padding: 0;
+    pointer-events: none;
 }
 
 /* WAT DOEN WIJ ANDERS STYLING */

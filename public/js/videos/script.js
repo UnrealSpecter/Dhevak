@@ -28,6 +28,7 @@ $(window).ready(function(){
 });
 
 $(window).on('load', function() {
+        $('.myCarousel').carousel();
 
         //play the intro animation
         introAnimation();
@@ -110,12 +111,12 @@ function introAnimation(){
 }
 
 function showProjectDetails(){
-    $('.project-overlay').removeClass('invisible').removeClass('animated slideInUp').addClass('animated slideInDown');
+    $('.project-overlay').removeClass('invisible').removeClass('animated slideOutUp').addClass('animated slideInDown');
     projectContentActive = true;
 }
 
 function hideProjectDetails(){
-    $('.project-overlay').addClass('invisible').removeClass('animated slideInDown').addClass('animated slideInUp');
+    $('.project-overlay').removeClass('animated slideInDown').addClass('animated slideOutUp');
     projectContentActive = false;
 }
 
