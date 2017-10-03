@@ -9,7 +9,7 @@
 
     <div class="project-overlay invisible col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <!-- Button to close the overlay navigation -->
-        <a href="javascript:void(0)" class="closebtn" onclick="hideProjectDetails()">&times;</a>
+        <a href="javascript:void(0)" class="closebtn" style="z-index: 100000000;" onclick="hideProjectDetails()">&times;</a>
 
         <div class="col-lg-12 project-bg-title center">PROJECT TITLE</div>
 

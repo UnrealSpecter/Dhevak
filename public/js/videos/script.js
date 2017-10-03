@@ -103,6 +103,12 @@ $(window).on('load', function() {
                 scroll(e);
             }
         });
+
+        //viewportChecker
+        $('.project-social-media-wrapper').viewportChecker({
+            classToAdd: 'animated fadeIn', // Class to add to the elements when they are visible
+            offset: 0
+        });
 });
 
 function introAnimation(){
@@ -111,7 +117,7 @@ function introAnimation(){
 }
 
 function showProjectDetails(){
-    $('.project-overlay').removeClass('invisible').removeClass('animated slideOutUp').addClass('animated slideInDown');
+    $('.project-overlay').removeClass('invisible slideOutUp').addClass('animated slideInDown');
     projectContentActive = true;
 }
 

@@ -28,6 +28,10 @@
 
         <!-- simple animation library -->
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/animate/css/animate.css') }}" />
+
+        <!-- viewport checker -->
+        <script src="{{ URL::asset('plugins/viewportchecker/js/viewport.js') }}"></script>
+        <script src="{{ URL::asset('plugins/viewportchecker/js/viewportchecker.js') }}"></script>
         @yield('css')
 
         @yield('js')
