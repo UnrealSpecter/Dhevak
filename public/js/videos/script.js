@@ -11,6 +11,10 @@ var isMobile = false; //initiate as false
 var explanationVideo;
 var projectContentActive = false;
 
+window.onload = function(){
+      window.document.body.onload = loaded(); // note removed parentheses
+};
+
 $(window).ready(function(){
 
     //cycle through quotes
@@ -27,7 +31,7 @@ $(window).ready(function(){
 
 });
 
-$(window).on('load', function() {
+function loaded(){
 
         alert('loaded everything');
 
@@ -94,7 +98,9 @@ $(window).on('load', function() {
         });
 
         // project details on frame click
-        $('.projecten-left, .projecten-middle, .projecten-right').on('click', function(){
+        $('.projecten-left, .projecten-middle, .projecten-right').on('click', function(e){
+            var project = e.target.id;
+            console.log(project);
             showProjectDetails();
         });
 
@@ -105,7 +111,8 @@ $(window).on('load', function() {
             }
         });
 
-});
+}
+
 
 function introAnimation(){
     $('.title').fadeOut();
@@ -171,7 +178,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[1];
+    this.currentVideo                   = videos[2];
     this.currentVideoPiece              = 'main';
 
     //players
