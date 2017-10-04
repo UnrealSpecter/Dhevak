@@ -28,7 +28,7 @@ $(window).ready(function(){
 });
 
 $(window).on('load', function() {
-        $('.myCarousel').carousel();
+
 
         //play the intro animation
         introAnimation();
@@ -93,7 +93,7 @@ $(window).on('load', function() {
         });
 
         // project details on frame click
-        $('.projecten').on('click', function(){
+        $('.projecten-left, .projecten-middle, .projecten-right').on('click', function(){
             showProjectDetails();
         });
 
@@ -117,11 +117,14 @@ function introAnimation(){
 }
 
 function showProjectDetails(){
-    $('.project-overlay').removeClass('invisible slideOutUp').addClass('animated slideInDown');
+    console.log('hullo');
+    $('.project-overlay').removeClass('invisible animated slideOutUp').addClass('animated slideInDown');
     projectContentActive = true;
 }
 
 function hideProjectDetails(){
+    console.log('dafuq');
+    $('.myCarousel').carousel('pause');
     $('.project-overlay').removeClass('animated slideInDown').addClass('animated slideOutUp');
     projectContentActive = false;
 }
