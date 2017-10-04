@@ -29,6 +29,7 @@ $(window).ready(function(){
 
 $(window).on('load', function() {
 
+        alert('loaded everything');
 
         //play the intro animation
         introAnimation();
@@ -104,11 +105,6 @@ $(window).on('load', function() {
             }
         });
 
-        //viewportChecker
-        $('.project-social-media-wrapper').viewportChecker({
-            classToAdd: 'animated fadeIn', // Class to add to the elements when they are visible
-            offset: 0
-        });
 });
 
 function introAnimation(){
@@ -117,14 +113,12 @@ function introAnimation(){
 }
 
 function showProjectDetails(){
-    console.log('hullo');
     $('.project-overlay').removeClass('invisible animated slideOutUp').addClass('animated slideInDown');
     projectContentActive = true;
 }
 
 // hide the project details
 function hideProjectDetails(){
-    console.log('dafuq');
     $('.myCarousel').carousel('pause');
     $('.project-overlay').removeClass('animated slideInDown').addClass('animated slideOutUp');
     projectContentActive = false;
@@ -177,12 +171,12 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[2];
+    this.currentVideo                   = videos[1];
     this.currentVideoPiece              = 'main';
 
     //players
     this.preIntroLeftPlayerElement      = document.getElementById('pre-intro-left');
-    this.preIntroRightPlayerElement     = document.getElementById('pre-intro-right');
+    // this.preIntroRightPlayerElement     = document.getElementById('pre-intro-right');
     this.postIntroLeftPlayerElement     = document.getElementById('post-intro-left');
     this.postIntroRightPlayerElement    = document.getElementById('post-intro-right');
     this.mainPlayerElement              = document.getElementById('main');
@@ -192,7 +186,7 @@ function Player(videos){
 
     //playerEnded events
     this.preIntroLeftPlayerElement      .addEventListener('ended', isFinished, false);
-    this.preIntroRightPlayerElement     .addEventListener('ended', isFinished, false);
+    // this.preIntroRightPlayerElement     .addEventListener('ended', isFinished, false);
     this.postIntroLeftPlayerElement     .addEventListener('ended', isFinished, false);
     this.postIntroRightPlayerElement    .addEventListener('ended', isFinished, false);
     this.mainPlayerElement              .addEventListener('ended', isFinished, false);
@@ -202,7 +196,7 @@ function Player(videos){
 
     //sources
     this.preIntroLeftSource             = document.getElementById('pre-intro-left-source');
-    this.preIntroRightSource            = document.getElementById('pre-intro-right-source');
+    // this.preIntroRightSource            = document.getElementById('pre-intro-right-source');
     this.postIntroLeftSource            = document.getElementById('post-intro-left-source');
     this.postIntroRightSource           = document.getElementById('post-intro-right-source');
     this.mainSource                     = document.getElementById('main-source');

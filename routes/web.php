@@ -11,14 +11,30 @@
 |
 */
 
+//start default
 Route::get('/', function () {
-    return view('videos.loader');
+    return view('partials.video-base');
 });
 
+Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['auth', 'admin']], function() {
+    Route::resource('projects', 'ProjectsController');
+});
+
+
+// the old test of the video's
 Route::get('/old', function () {
     return view('videos.old-loader');
 });
 
+//routes for our promotion images
 Route::get('/hunebedcentrum', function(){
     return view('big-promotion.hunebed');
+});
+
+Route::get('/petervandijk', function(){
+    return view('big-promotion.peter-van-dijk');
+});
+
+Route::get('/whitegoblingames', function(){
+    return view('big-promotion.white-goblin-games');
 });

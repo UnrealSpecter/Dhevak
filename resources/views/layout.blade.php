@@ -19,7 +19,6 @@
 
         <!-- superlightweight clipboard copy library -->
         <script type="text/javascript" src="{{ URL::asset('plugins/hammer/js/hammer.js') }}"></script>
-        <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script> -->
         <script type="text/javascript" src="{{ URL::asset('plugins/clipboard/js/clipboard.min.js') }}"></script>
 
         <!-- include toasts -->
