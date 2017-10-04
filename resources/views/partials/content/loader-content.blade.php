@@ -5,7 +5,7 @@
 <div class="loader-wrapper flex col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
     <div class="loader-content flex flow-c col-lg-11 col-md-11 col-sm-11 col-xs-11">
-        <h1 class="title">Dhèvak</h1>
+        <h1 class="title flex">Dhèvak</h1>
         <div class="loader-text quotes">Loading Entertainment</div>
         <div class="loader-text quotes">Oh wacht dit is een nederlandse website</div>
         <div class="loader-text quotes">Het wachten is bijna voorbij</div>

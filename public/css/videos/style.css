@@ -179,6 +179,8 @@ h1 {
 .loader-text {
     color: white;
     text-align: center;
+    /*white-space: nowrap;*/
+    height: 25%;
 }
 
 .quotes {

@@ -9,6 +9,5 @@
 
     <div class="project-overlay invisible col-lg-12 col-md-12 col-sm-12 col-xs-12">
         @include('partials.content.projecten.first-project')
-    
     </div>
 </div>

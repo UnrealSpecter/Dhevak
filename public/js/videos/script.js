@@ -115,8 +115,8 @@ function loaded(){
 
 
 function introAnimation(){
-    $('.title').fadeOut();
-    $('.loader-content').fadeOut();
+    // $('.title').fadeOut();
+    // $('.loader-content').fadeOut();
 }
 
 function showProjectDetails(){
@@ -178,7 +178,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[2];
+    this.currentVideo                   = videos[1];
     this.currentVideoPiece              = 'main';
 
     //players
