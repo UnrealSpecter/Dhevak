@@ -122,6 +122,7 @@ function showProjectDetails(){
     projectContentActive = true;
 }
 
+// hide the project details
 function hideProjectDetails(){
     console.log('dafuq');
     $('.myCarousel').carousel('pause');
