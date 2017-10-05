@@ -1,10 +1,10 @@
-<div class="project-content hidden" data-project="1">
+<div class="project-content d-none" data-project="1">
     <!-- Button to close the overlay navigation -->
     <a href="javascript:void(0)" class="closebtn" style="z-index: 100000000;" onclick="hideProjectDetails()">&times;</a>
 
     <div class="col-lg-12 project-bg-title center">TITLE 1</div>
 
-    <div class="flex col-lg-12" style="height: 100vh; width: 100vw; position: absolute; top: 0; left: 0; align-items: flex-end;">
+    <div class="scroll-down-indicator flex col-lg-12">
         <img class="img-responsive" style="height: 20%; margin-bottom: 20px;" src="{{ URL::asset('/images/arrow-down.jpg') }}">
     </div>
 
@@ -83,23 +83,41 @@
     </div>
 
     <div class="sub-title col-lg-12 center">het eindresultaat</div>
-    <div class="col-lg-12 project-website center">
+    <div class="col-lg-12 flex project-website center">
         <a href="" target="_blank"> WWW.PROJECT-WEBSITE.NL </a>
     </div>
 
     <div class="sub-title col-lg-12 center">Social Media</div>
     <div class="col-lg-12 project-social-media-wrapper">
-        <div class="col-lg-2 project-social-media-link">
-            <a class="flex" href="#" target="_blank">FACEBOOK</a>
+        <div class="col-lg-2 project-social-media-link flex">
+            <a class="flex" href="#" target="_blank">
+                <img class="img-fluid" src="{{ URL::asset('/images/social-media/dhevak-facebook-icon.jpg') }}" alt="facebook-icon">
+                <div class="social-media-text">FACEBOOK</div>
+            </a>
         </div>
-        <div class="col-lg-2 project-social-media-link">
-            <a class="flex" href="#" target="_blank">TWITTER</a>
+        <div class="col-lg-2 project-social-media-link flex">
+            <a class="flex" href="#" target="_blank">
+                <img class="img-fluid" src="{{ URL::asset('/images/social-media/dhevak-twitter-icon.jpg') }}" alt="twitter-icon">
+                <div class="social-media-text">twitter</div>
+            </a>
         </div>
-        <div class="col-lg-2 project-social-media-link">
-            <a class="flex" href="#" target="_blank">INSTAGRAM</a>
+        <div class="col-lg-2 project-social-media-link flex">
+            <a class="flex" href="#" target="_blank">
+                <img class="img-fluid" src="{{ URL::asset('/images/social-media/dhevak-youtube-icon.jpg') }}" alt="youtube-icon">
+                <div class="social-media-text">youtube</div>
+            </a>
         </div>
-        <div class="col-lg-2 project-social-media-link">
-            <a class="flex" href="#" target="_blank">LINKEDIN</a>
+        <div class="col-lg-2 project-social-media-link flex">
+            <a class="flex" href="#" target="_blank">
+                <img class="img-fluid" src="{{ URL::asset('/images/social-media/dhevak-instagram-icon.jpg') }}" alt="instagram-icon">
+                <div class="social-media-text">instagram</div>
+            </a>
+        </div>
+        <div class="col-lg-2 project-social-media-link flex">
+            <a class="flex" href="#" target="_blank">
+                <img class="img-fluid" src="{{ URL::asset('/images/social-media/dhevak-linkedin-icon.jpg') }}" alt="linkedin-icon">
+                <div class="social-media-text">linkedin</div>
+            </a>
         </div>
     </div>
 </div>

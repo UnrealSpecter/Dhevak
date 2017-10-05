@@ -1,4 +1,4 @@
-<div class="project-content" data-project="3">
+<div class="project-content d-none" data-project="3">
     <!-- Button to close the overlay navigation -->
     <a href="javascript:void(0)" class="closebtn" style="z-index: 100000000;" onclick="hideProjectDetails()">&times;</a>
 
@@ -90,15 +90,23 @@
     <div class="sub-title col-lg-12 center">Social Media</div>
     <div class="col-lg-12 project-social-media-wrapper">
         <div class="col-lg-2 project-social-media-link">
+            <img src="{{ URL::asset('/images/social-media/dhevak-facebook-icon.jpg') }}" alt="facebook-icon">
             <a class="flex" href="#" target="_blank">FACEBOOK</a>
         </div>
         <div class="col-lg-2 project-social-media-link">
+            <img src="{{ URL::asset('/images/social-media/dhevak-twitter-icon.jpg') }}" alt="facebook-icon">
             <a class="flex" href="#" target="_blank">TWITTER</a>
         </div>
         <div class="col-lg-2 project-social-media-link">
+            <img src="{{ URL::asset('/images/social-media/dhevak-instagram-icon.jpg') }}" alt="facebook-icon">
             <a class="flex" href="#" target="_blank">INSTAGRAM</a>
         </div>
         <div class="col-lg-2 project-social-media-link">
+            <img src="{{ URL::asset('/images/social-media/dhevak-youtube-icon.jpg') }}" alt="facebook-icon">
+            <a class="flex" href="#" target="_blank">YOUTUBE</a>
+        </div>
+        <div class="col-lg-2 project-social-media-link">
+            <img src="{{ URL::asset('/images/social-media/dhevak-linkedin-icon.jpg') }}" alt="facebook-icon">
             <a class="flex" href="#" target="_blank">LINKEDIN</a>
         </div>
     </div>

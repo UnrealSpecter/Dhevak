@@ -8,6 +8,8 @@
     </div>
     <div class="video-controls">
         <!-- wat-doen-wij-anders menu -->
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wat-doen-wij-anders-menu" class="fullscreen-video" onclick="openNav()"> MENU </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wat-doen-wij-anders-menu">
+            <img src="{{ URL::asset('/images/social-media/dhevak-hamburger-icon.jpg') }}" alt="menu-button" class="img-fluid" style="height: 100%;" onclick="openNav()">
+        </div>
     </div>
 </div>

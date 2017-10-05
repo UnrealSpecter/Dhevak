@@ -99,9 +99,8 @@ function loaded(){
 
         // project details on frame click
         $('.projecten-left, .projecten-middle, .projecten-right').on('click', function(e){
-            var project = e.target.id;
-            console.log(project);
-            showProjectDetails();
+            var project = $(e.target).parent().attr('data-project');
+            showProjectDetails(project);
         });
 
         //scroll events
@@ -124,8 +123,23 @@ function introAnimation(){
     $('.loader-content').fadeOut();
 }
 
-function showProjectDetails(){
-    $('.project-overlay').removeClass('invisible animated slideOutUp').addClass('animated slideInDown');
+var projectToShow;
+var projectToHide;
+function showProjectDetails(project){
+    $('.project-content').each(function(index, element){
+        projectToShow = $(element);
+        if(projectToShow.attr('data-project') == project){
+            $('.project-overlay').removeClass('invisible animated slideOutUp').addClass('animated slideInDown');
+            if(!projectToHide){
+                projectToShow.removeClass('d-none');
+            }
+            else if(projectToHide){
+                projectToShow.removeClass('d-none');
+                projectToHide.addClass('d-none');
+            }
+            projectToHide = projectToShow;
+        }
+    });
     projectContentActive = true;
 }
 
@@ -203,7 +217,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[1];
+    this.currentVideo                   = videos[2];
     this.currentVideoPiece              = 'main';
 
     //players
