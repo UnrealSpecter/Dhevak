@@ -1,4 +1,4 @@
-<div class="project-content" data-project="3">
+<div class="project-content" data-project="5">
     <!-- Button to close the overlay navigation -->
     <a href="javascript:void(0)" class="closebtn" style="z-index: 100000000;" onclick="hideProjectDetails()">&times;</a>
 

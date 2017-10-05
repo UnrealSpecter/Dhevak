@@ -1,7 +1,7 @@
 /* large desktops and up ----------- */
 @media screen and (min-width: 1200px) {
 
-    .title {
+    .loader-title {
         font-size: 20em;
     }
 
@@ -14,7 +14,7 @@
 /* tablets/desktops and up ----------- */
 @media (min-width: 992px) and (max-width: 1199px) {
 
-    .title {
+    .loader-title {
         font-size: 15em;
     }
 
@@ -26,7 +26,7 @@
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991px) {
 
-    .title {
+    .loader-title {
         font-size: 10em;
     }
 
@@ -39,7 +39,7 @@
 /* Extra small devices (phones, up to 480px) */
 @media screen and (max-width: 767px) {
 
-    .title {
+    .loader-title {
         font-size: 5em;
     }
 
@@ -176,11 +176,16 @@ h1 {
     white-space: nowrap;
 }
 
+.loader-title {
+    pointer-events: none;
+}
+
 .loader-text {
     color: white;
     text-align: center;
-    /*white-space: nowrap;*/
+    white-space: nowrap;
     height: 25%;
+    pointer-events: none;
 }
 
 .quotes {
@@ -372,28 +377,46 @@ a {
 
 .projecten-left {
     position: fixed;
-    height: 35%;
-    width: 23.5%;
-    top: 17%;
-    left: 9.5%;
+    height: 28.25%;
+    width: 19.5%;
+    top: 20.5%;
+    left: 11.5%;
     cursor: pointer;
 }
 
 .projecten-middle {
     cursor: pointer;
     position: fixed;
-    height: 52%;
-    width: 21%;
-    top: 8%;
-    left: 40%;
+    height: 49.5%;
+    width: 19.75%;
+    top: 9.5%;
+    left: 40.65%;
 }
 
 .projecten-right {
     position: fixed;
-    height: 35%;
-    width: 23%;
-    top: 17%;
-    right: 9%;
+    height: 28.5%;
+    width: 20%;
+    top: 20%;
+    right: 10.25%;
+    cursor: pointer;
+}
+
+.arrow-up {
+    position: fixed;
+    height: 18.5%;
+    bottom: 17%;
+    width: 21%;
+    left: 11%;
+    cursor: pointer;
+}
+
+.arrow-down {
+    position: fixed;
+    height: 18.5%;
+    bottom: 18%;
+    width: 21.5%;
+    right: 11.5%;
     cursor: pointer;
 }
 
@@ -411,6 +434,15 @@ a {
     overflow-x: hidden;
     background-color: white;
     padding: 0;
+    z-index: 100000;
+}
+
+.project-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%; 
+    width: 100%;
 }
 
 .project-bg-title {

@@ -10,6 +10,8 @@ var isVideoPlaying = true;
 var isMobile = false; //initiate as false
 var explanationVideo;
 var projectContentActive = false;
+var projectNavigation = [];
+var projectCount;
 
 window.onload = function(){
       window.document.body.onload = loaded(); // note removed parentheses
@@ -32,8 +34,6 @@ $(window).ready(function(){
 });
 
 function loaded(){
-
-        alert('loaded everything');
 
         //play the intro animation
         introAnimation();
@@ -111,12 +111,17 @@ function loaded(){
             }
         });
 
+        // project navigation
+        $('.arrow-up, .arrow-down').on('click', function(e){
+            var direction = $(e.target).attr('data-direction');
+            navigateUpOrDownThroughProjects(direction);
+        });
 }
 
 
 function introAnimation(){
-    // $('.title').fadeOut();
-    // $('.loader-content').fadeOut();
+    $('.title').fadeOut();
+    $('.loader-content').fadeOut();
 }
 
 function showProjectDetails(){
@@ -129,6 +134,26 @@ function hideProjectDetails(){
     $('.myCarousel').carousel('pause');
     $('.project-overlay').removeClass('animated slideInDown').addClass('animated slideOutUp');
     projectContentActive = false;
+}
+
+// switch projects that are visible on the project page. Up or Down based on direction.
+function navigateUpOrDownThroughProjects(direction){
+    var modifier;
+    if(direction === 'previous-projects'){
+        modifier = 3;
+    }
+    else if(direction === 'next-projects') {
+        modifier = -3;
+    }
+    $.each(projectNavigation, function(index, project){
+        var projectId = parseInt($(project).attr('data-project'));
+        var newProjectValue = (projectId + modifier);
+        if(newProjectValue > projectCount || newProjectValue < 0){
+            newProjectValue = "";
+        }
+        $(project).attr('data-project', newProjectValue);
+
+    });
 }
 
 //check if we're on mobile.
@@ -459,6 +484,18 @@ function initializePlayer() {
 
     //set explanation video element
     explanationVideo = document.getElementById("explanation-video");
+
+    // store all project elements in an array for use in navigateUpOrDownThroughProjects
+    $('.project').each(function(index, project){
+        projectNavigation.push(project);
+    });
+
+    //store the amount of projects we have.
+    projectCount = 0;
+    $('.project-content').each(function(index, project){
+        projectCount++;
+    });
+
 
     return player;
 }

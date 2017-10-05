@@ -1,8 +1,8 @@
-<div class="project-content" style="height: 100%; width: 100%;">
+<div class="project-content hidden" data-project="2">
     <!-- Button to close the overlay navigation -->
     <a href="javascript:void(0)" class="closebtn" style="z-index: 100000000;" onclick="hideProjectDetails()">&times;</a>
 
-    <div class="col-lg-12 project-bg-title center">PROJECT TITLE</div>
+    <div class="col-lg-12 project-bg-title center">TITLE 2</div>
 
     <div class="flex col-lg-12" style="height: 100vh; width: 100vw; position: absolute; top: 0; left: 0; align-items: flex-end;">
         <img class="img-responsive" style="height: 20%; margin-bottom: 20px;" src="{{ URL::asset('/images/arrow-down.jpg') }}">
