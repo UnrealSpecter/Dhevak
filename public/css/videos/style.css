@@ -494,6 +494,66 @@ a {
     padding: 20px;
 }
 
+/* carousel custom */
+.projects {
+  background-color: white;
+  overflow: hidden;
+  width: 100%;
+}
+
+.projects ul {
+  list-style: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+}
+
+.projects ul li {
+  display: inline-block;
+  padding: 1rem;
+  position: relative;
+  text-align: center;
+  width: 100vw;
+}
+
+.projects ul li p {
+    font-size: 1.5em;
+    font-family: Raleway;
+    color: black;
+    line-height: 175%;
+    letter-spacing: 1px;
+}
+
+.projects-control {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.projects-control i {
+  cursor: pointer;
+  padding: 1.3rem;
+  margin-bottom: 1%;
+}
+
+#projects-l {
+    background-image: url('/images/arrow-prev.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    padding: 2%;
+}
+
+#projects-r {
+    background-image: url('/images/arrow-next.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    padding: 2%;
+}
+
 .project-website > a {
     font-size: 3.5em;
     color: green;
@@ -579,6 +639,26 @@ a {
 .carousel-indicators > li.active {
     background-color: gray;
 }
+
+.carousel-control-prev-icon, .carousel-control-prev-icon:hover, .carousel-control-prev-icon:focus {
+    background-image: url('/images/img-arrow-prev.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 50%;
+    width: 50%;
+}
+
+.carousel-control-next-icon, .carousel-control-next-icon:hover, .carousel-control-next-icon:focus  {
+    background-image: url('/images/img-arrow-next.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 50%;
+    width: 50%;
+}
+
+
 
 .center {
     text-align: center;

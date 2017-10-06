@@ -19,47 +19,35 @@
 
     <div class="sub-title col-lg-12 center">Het Project</div>
 
-    <div id="carouselExampleIndicators" class="carousel slide col-lg-8 offset-lg-2" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-                <div class="col-lg-12 project-description flex animated slideInLeft">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mihi enim satis est, ipsis non satis. Diodorus, eius auditor, adiungit ad honestatem vacuitatem doloris.
-                Non ossint; Duo Reges: constructio interrete. Contemnit enim disserendi elegantiam, confuse loquitur. Etenim semper illud extra est, quod arte comprehenditur.
-                Sunt autem, qui dicant foedus esse quoddam sapientium, ut ne minus amicos quam se ipsos diligant. Non est ista, inquam, Piso, magna dissensio. Possumusne ergo in vita summum bonum dicere, cum id ne in cena quidem posse videamur? Graece donan, Latine voluptatem vocant. Quid censes in Latino fore? Qui potest igitur habitare in beata vita summi mali metus?
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="col-lg-12 project-description flex animated slideInLeft">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mihi enim satis est, ipsis non satis. Diodorus, eius auditor, adiungit ad honestatem vacuitatem doloris.
-                Non ossint; Duo Reges: constructio interrete. Contemnit enim disserendi elegantiam, confuse loquitur. Etenim semper illud extra est, quod arte comprehenditur.
-                Sunt autem, qui dicant foedus esse quoddam sapientium, ut ne minus amicos quam se ipsos diligant. Non est ista, inquam, Piso, magna dissensio. Possumusne ergo in vita summum bonum dicere, cum id ne in cena quidem posse videamur? Graece donan, Latine voluptatem vocant. Quid censes in Latino fore? Qui potest igitur habitare in beata vita summi mali metus?
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="col-lg-12 project-description flex animated slideInLeft">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mihi enim satis est, ipsis non satis. Diodorus, eius auditor, adiungit ad honestatem vacuitatem doloris.
-                Non ossint; Duo Reges: constructio interrete. Contemnit enim disserendi elegantiam, confuse loquitur. Etenim semper illud extra est, quod arte comprehenditur.
-                Sunt autem, qui dicant foedus esse quoddam sapientium, ut ne minus amicos quam se ipsos diligant. Non est ista, inquam, Piso, magna dissensio. Possumusne ergo in vita summum bonum dicere, cum id ne in cena quidem posse videamur? Graece donan, Latine voluptatem vocant. Quid censes in Latino fore? Qui potest igitur habitare in beata vita summi mali metus?
-                </div>
-            </div>
+    <!-- custom text carousel -->
+    <section class="projects">
+        <div>
+            <ul id="projects-ul">
+                <li>
+                    <p class="col-lg-8 offset-lg-2">Hashtag bespoke YOLO, put a bird on it hammock polaroid wayfarers tattooed neutra squid lumbersexual meh humblebrag VHS. Cred tumblr cold-pressed messenger bag small batch trust fund, mustache next level. Keytar swag kogi viral waistcoat flexitarian.</p>
+                    <small>Some dude</small>
+                </li>
+                <li>
+                    <p class="col-lg-8 offset-lg-2">Readymade fashion axe chia, deep v photo booth gochujang jean shorts asymmetrical XOXO you probably haven't heard of them locavore heirloom kale chips dreamcatcher Readymade fashion axe chia, deep v photo booth gochujang jean shorts asymmetrical XOXO you probably haven't heard of them locavore heirloom kale chips dreamcatcher. Readymade fashion axe chia, deep v photo booth gochujang jean shorts asymmetrical XOXO you probably haven't heard of them locavore heirloom kale chips dreamcatcher.. </p>
+                    <small>Some guy</small>
+                </li>
+                <li>
+                    <p class="col-lg-8 offset-lg-2">Put a bird on it austin jean shorts direct trade cornhole, sriracha street art. Keytar craft beer kitsch polaroid, affogato tofu vinyl butcher.</p>
+                    <small>Some other guy</small>
+                </li>
+                <li>
+                    <p class="col-lg-8 offset-lg-2">Hashtag bespoke YOLO, put a bird on it hammock polaroid wayfarers tattooed neutra squid lumbersexual meh humblebrag VHS. Cred tumblr cold-pressed messenger bag small batch trust fund, mustache next level. Keytar swag kogi viral waistcoat flexitarian.</p>
+                    <small>Some dude</small>
+                </li>
+            </ul>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
+        <div class="projects-control">
+            <i class="fa fa-angle-left fa-2x" id="projects-l"></i>
+            <i class="fa fa-angle-right fa-2x" id="projects-r"></i>
+        </div>
+    </section>
 
-
-    <!-- bootstrap 4 carousel -->
+    <!-- bootstrap image carousel carousel -->
     <div id="carouselExampleControls" class="carousel slide col-lg-8 offset-lg-2" data-ride="carousel">
         <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">

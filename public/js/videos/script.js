@@ -7,7 +7,7 @@ var previousVideo;
 var playNext = false;
 var playPrevious = false;
 var isVideoPlaying = true;
-var isMobile = true; //initiate as false
+var isMobile = false; //initiate as false
 var explanationVideo;
 var projectContentActive = false;
 var projectNavigation = [];
@@ -44,6 +44,7 @@ function loaded(){
         player = initializePlayer();
         if(!isMobile){
             player.play(player.currentVideo.name, 'main');
+            player.loadVideos();
         }else if(isMobile) {
             //show content loops only on mobile without the video's.
             player.showLoop();
@@ -118,6 +119,72 @@ function loaded(){
             var direction = $(e.target).attr('data-direction');
             navigateUpOrDownThroughProjects(direction);
         });
+
+        // custom carousel
+        // Get carousel elements
+        var tLeftButton = $("#projects-l");
+        var tRightButton = $("#projects-r");
+
+        // Get number of <li> elements in carousel
+
+        var tItemCount = document.getElementById('projects-ul').querySelectorAll('li').length;
+
+        // Set length based on that
+
+        var tWidth = tItemCount * 100 + "vw";
+        $(".projects ul").css("width", tWidth);
+
+        // Button functionality
+
+        var tPosition = 0;
+        console.log(tPosition);
+
+        tRightButton.click(function() {
+          if (tPosition < (tItemCount - 1)) {
+            tPosition++;
+            var m = "-" + (100 * tPosition) + "vw";
+            $(".projects ul").animate({
+              "left": m
+            }, 500);
+            greyButton();
+          }
+        });
+
+        tLeftButton.click(function() {
+          if (tPosition > 0) {
+            tPosition--;
+            var m = "-" + (100 * tPosition) + "vw";
+            $(".projects ul").animate({
+              "left": m
+            }, 500);
+            greyButton();
+          }
+        });
+
+        // Grey out buttons if not useable
+
+        var greyButton = function() {
+          if (tPosition == 0) {
+            tLeftButton.css("opacity", "0.3");
+            tLeftButton.css("cursor", "default");
+          } else if (tPosition == (tItemCount - 1)) {
+            tRightButton.css("opacity", "0.3");
+            tRightButton.css("cursor", "default");
+          } else {
+            tRightButton.css("opacity", "1");
+            tRightButton.css("cursor", "pointer");
+            tLeftButton.css("opacity", "1");
+            tLeftButton.css("cursor", "pointer");
+          }
+        }
+
+        greyButton();
+        // And finally, if there's only one quote, kill the buttons altogether
+        if ( tItemCount == 1 ) {
+          $('.projects-control').css('display','none');
+        }
+
+
 }
 
 
@@ -225,7 +292,6 @@ function Player(videos){
 
     //players
     this.preIntroLeftPlayerElement      = document.getElementById('pre-intro-left');
-    // this.preIntroRightPlayerElement     = document.getElementById('pre-intro-right');
     this.postIntroLeftPlayerElement     = document.getElementById('post-intro-left');
     this.postIntroRightPlayerElement    = document.getElementById('post-intro-right');
     this.mainPlayerElement              = document.getElementById('main');
@@ -235,23 +301,29 @@ function Player(videos){
 
     //playerEnded events
     this.preIntroLeftPlayerElement      .addEventListener('ended', isFinished, false);
-    // this.preIntroRightPlayerElement     .addEventListener('ended', isFinished, false);
     this.postIntroLeftPlayerElement     .addEventListener('ended', isFinished, false);
     this.postIntroRightPlayerElement    .addEventListener('ended', isFinished, false);
     this.mainPlayerElement              .addEventListener('ended', isFinished, false);
-    // this.loopPlayerElement              .addEventListener('ended', isFinished, false);
     this.outroLeftPlayerElement         .addEventListener('ended', isFinished, false);
     this.outroRightPlayerElement        .addEventListener('ended', isFinished, false);
 
     //sources
     this.preIntroLeftSource             = document.getElementById('pre-intro-left-source');
-    // this.preIntroRightSource            = document.getElementById('pre-intro-right-source');
     this.postIntroLeftSource            = document.getElementById('post-intro-left-source');
     this.postIntroRightSource           = document.getElementById('post-intro-right-source');
     this.mainSource                     = document.getElementById('main-source');
-    // this.loopSource                     = document.getElementById('loop-source');
     this.outroLeftSource                = document.getElementById('outro-left-source');
     this.outroRightSource               = document.getElementById('outro-right-source');
+
+    this.loadVideos = function(){
+        console.log('loading');
+            //load.main - load.outroright - load.postintroright
+            $.each(this.videos, function(index, video){
+                $.each(video.pieces, function(index, piece){
+                    console.log('videoname: ' + video.name + ' videopiece: ' + piece);
+                });
+            });
+    }
 
     this.play = function(videoName, pieceName, direction){
 
@@ -388,6 +460,7 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
 
     this.videoSource   = document.createElement('source');
     this.src = '/videos/' + name;
+    this.pieces = [];
 
     //store all the video's in the properties.
     this.name = name;
@@ -416,6 +489,30 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
         var source = this.src + '/' + video + '.mp4';
         return source;
     }
+
+    this.collectPieces = function(preIntroLeft, postIntroLeft, postIntroRight, outroLeft, outroRight, main){
+        if(preIntroLeft !== null){
+            this.pieces.push('pre-intro-left');
+        }
+        if(postIntroLeft !== null){
+            this.pieces.push('post-intro-left');
+        }
+        if(postIntroRight !== null){
+            this.pieces.push('post-intro-right');
+        }
+        if(outroLeft !== null){
+            this.pieces.push('outro-left');
+        }
+        if(outroRight !== null){
+            this.pieces.push('outro-right');
+        }
+        if(main !== null){
+            this.pieces.push('main');
+        }
+    }
+
+    //add all the parts to the parts array
+    this.collectPieces(preIntroLeft, postIntroLeft, postIntroRight, outroLeft, outroRight, main);
 
     return this;
 }
