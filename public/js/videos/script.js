@@ -7,7 +7,7 @@ var previousVideo;
 var playNext = false;
 var playPrevious = false;
 var isVideoPlaying = true;
-var isMobile = false; //initiate as false
+var isMobile = true; //initiate as false
 var explanationVideo;
 var projectContentActive = false;
 var projectNavigation = [];
@@ -41,10 +41,13 @@ function loaded(){
         //check if we're on a mobile device
         ifMobile();
 
-        setTimeout(function(){
-            player = initializePlayer();
+        player = initializePlayer();
+        if(!isMobile){
             player.play(player.currentVideo.name, 'main');
-        }, 1000);
+        }else if(isMobile) {
+            //show content loops only on mobile without the video's.
+            player.showLoop();
+        }
 
         $('.arrow').on('click', function(e){
             var arrow = $(e.target);
@@ -292,13 +295,13 @@ function Player(videos){
         if(!contentToHide){
             $('.explanation-container').removeClass('hidden');
             contentToReveal.removeClass('hidden');
-            contentToHide = contentToReveal;
         }
         else if(contentToHide) {
             $('.explanation-container').addClass('hidden');
             contentToHide.addClass('hidden');
             contentToReveal.removeClass('hidden');
         }
+        contentToHide = contentToReveal;
     }
 
     this.switchPlayer = function(playerElement){
@@ -549,27 +552,36 @@ function playPreviousOrNext(direction){
     if(!isVideoPlaying){
         if(direction === 'previous') {
             if(setAndCheckPreviousNext('previous')){
-                player.play(player.currentVideo.name, 'outroLeft');
+                if(!isMobile){
+                    player.play(player.currentVideo.name, 'outroLeft');
+                }
                 player.setCurrentVideo(player.currentVideo.order - 1);
             }
         }
         else if(direction === 'next'){
             if(setAndCheckPreviousNext('next')){
-                player.play(player.currentVideo.name, 'outroRight');
+                if(!isMobile){
+                    player.play(player.currentVideo.name, 'outroRight');
+                }
                 player.setCurrentVideo(player.currentVideo.order + 1);
             }
         }
-        //set video playing attribute
-        isVideoPlaying = true;
-        //pause the video if its playing
-        explanationVideo.pause();
+        if(!isMobile){
+            //set video playing attribute
+            isVideoPlaying = true;
+            //pause the video if its playing
+            explanationVideo.pause();
+        }
+        if(isMobile){
+            player.showLoop();
+        }
     }
 }
 
 //navigate by using the menu items
 function navigateThroughMenu(order){
     //if there's not a video playing
-    if(!isVideoPlaying){
+    if(!isVideoPlaying && !isMobile){
         //go left or right
         var currentVideo = player.currentVideo;
         if(currentVideo.order > order){
@@ -586,6 +598,9 @@ function navigateThroughMenu(order){
             explanationVideo.pause();
             closeNav();
         }
+    }
+    else if(isMobile){
+
     }
 }
 
