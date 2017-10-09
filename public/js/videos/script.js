@@ -36,15 +36,12 @@ $(window).ready(function(){
 
 function loaded(){
 
-        //play the intro animation
-        introAnimation();
-
         //check if we're on a mobile device
         ifMobile();
 
         player = initializePlayer();
         if(!isMobile){
-            // player.play(player.currentVideo.name, 'main');
+            player.play(player.currentVideo.name, player.currentVideoPiece);
             player.loadVideos();
         }else if(isMobile) {
             //show content loops only on mobile without the video's.
@@ -193,8 +190,7 @@ function loaded(){
 
 
 function introAnimation(){
-    $('.title').fadeOut();
-    $('.loader-content').fadeOut();
+    $('.loader-content').addClass('animated fadeOut');
 }
 
 var projectToShow;
@@ -258,18 +254,19 @@ function ifMobile(){
 
 //function that checks if the video is finished playing.
 function isFinished(e) {
-    var video = $(e.target).attr('id');
+    var video = $(e.target);
 
-    if(video == 'pre-intro-left') {
+    if(video.hasClass('pre-intro-left')) {
         player.play(player.currentVideo.name, 'main');
     }
 
-    if(video == 'main'){
+    if(video.hasClass('main')){
+        console.log('entered');
         player.currentVideo.introPlayed = true;
         player.showLoop();
     }
 
-    if(video == 'outro-right') {
+    if(video.hasClass('outro-right')) {
         if(player.currentVideo.introPlayed === false){
             player.play(player.currentVideo.name, 'preIntroLeft');
         }
@@ -277,7 +274,7 @@ function isFinished(e) {
             player.play(player.currentVideo.name, 'postIntroLeft');
         }
     }
-    if(video == 'outro-left') {
+    if(video.hasClass('outro-left')) {
         if(player.currentVideo.introPlayed === false){
             player.play(player.currentVideo.name, 'preIntroLeft');
         }
@@ -286,7 +283,7 @@ function isFinished(e) {
         }
     }
 
-    if(video == 'post-intro-right' || video == 'post-intro-left'){
+    if(video.hasClass('post-intro-right') || video.hasClass('post-intro-left')){
         player.showLoop();
     }
 
@@ -296,25 +293,17 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[1];
+    this.currentVideo                   = videos[2];
     this.currentVideoPiece              = 'main';
 
     //players
-    this.preIntroLeftPlayerElement      = document.getElementById('pre-intro-left');
-    this.postIntroLeftPlayerElement     = document.getElementById('post-intro-left');
-    this.postIntroRightPlayerElement    = document.getElementById('post-intro-right');
-    this.mainPlayerElement              = document.getElementById('main');
-    this.loopPlayerElement              = document.getElementById('loop');
-    this.outroLeftPlayerElement         = document.getElementById('outro-left');
-    this.outroRightPlayerElement        = document.getElementById('outro-right');
-
-    //playerEnded events
-    this.preIntroLeftPlayerElement      .addEventListener('ended', isFinished, false);
-    this.postIntroLeftPlayerElement     .addEventListener('ended', isFinished, false);
-    this.postIntroRightPlayerElement    .addEventListener('ended', isFinished, false);
-    this.mainPlayerElement              .addEventListener('ended', isFinished, false);
-    this.outroLeftPlayerElement         .addEventListener('ended', isFinished, false);
-    this.outroRightPlayerElement        .addEventListener('ended', isFinished, false);
+    this.preIntroLeftPlayerElement      = document.getElementsByClassName('pre-intro-left');
+    this.postIntroLeftPlayerElement     = document.getElementsByClassName('post-intro-left');
+    this.postIntroRightPlayerElement    = document.getElementsByClassName('post-intro-right');
+    this.mainPlayerElement              = document.getElementsByClassName('main');
+    this.loopPlayerElement              = document.getElementsByClassName('loop');
+    this.outroLeftPlayerElement         = document.getElementsByClassName('outro-left');
+    this.outroRightPlayerElement        = document.getElementsByClassName('outro-right');
 
     //sources
     this.preIntroLeftSource             = document.getElementById('pre-intro-left-source');
@@ -324,28 +313,46 @@ function Player(videos){
     this.outroLeftSource                = document.getElementById('outro-left-source');
     this.outroRightSource               = document.getElementById('outro-right-source');
 
+    this.addEventListenerToPlayers = function(){
+
+        var propertyCount = 0;
+
+        for (var key in this) {
+            if (Object.prototype.hasOwnProperty.call(this, key)) {
+                var val = this[key];
+                if(propertyCount >= 3 && propertyCount < 10){
+                    $.each(val, function(index, playerElement){
+                        playerElement.addEventListener('ended', isFinished, false);
+                    });
+                }
+                propertyCount++;
+            }
+        }
+    }
+
     //keep track of loaded videos
     this.loadVideos = function(){
-        var count = 0;
+
         var loadedVideos = 0;
         console.log('loading');
 
         $.each(this.videos, function(videoIndex, video){
             $.each(video.pieces, function(pieceIndex, piece){
-                var videoSelector = '.' + video.name + '#' + piece;
-                //get(0) gets the native dom element.
-                $(videoSelector).get(0).load();
+                if(video.name !== player.currentVideo.name){
+                    var videoSelector = '.' + video.name + '.' + piece;
+                    //get(0) gets the native dom element.
+                    $(videoSelector).get(0).load();
+                }
             });
         });
 
         var players = document.getElementsByClassName('player');
         $.each(players, function(index, player){
-            if(!$(player).hasClass('home')) {
-                console.log($(player).attr('id'));
-            }
             player.oncanplaythrough = function() {
+                if(loadedVideos >= 2){
+                    introAnimation();
+                }
                 loadedVideos++;
-                console.log(loadedVideos);
             };
         });
 
@@ -355,18 +362,17 @@ function Player(videos){
 
         var video           = this.getVideo(videoName);
         var piece           = this.getPiece(video, pieceName);
-        var source          = video.returnSource(piece);
-        var sourceElement   = this.getSource(pieceName);
-        var playerElement   = this.getPlayerElement(pieceName);
-
+        // var source          = video.returnSource(piece);
+        // var sourceElement   = this.getSource(pieceName);
+        var videoSelector   = '.' + videoName + '.' + piece;
+        var playerElement   = $(videoSelector).get(0);
+        console.log(videoSelector);
         //hide the content
-        if($('.' + this.currentVideo.name).hasClass(this.currentVideo.name)){
-            $('.' + this.currentVideo.name).addClass('hidden');
+        if($('.' + this.currentVideo.name + '-content').hasClass(this.currentVideo.name + '-content')){
+            $('.' + this.currentVideo.name + '-content').addClass('hidden');
         }
 
-        sourceElement.setAttribute('src', source);
         this.switchPlayer(playerElement);
-        // playerElement.load();
         playerElement.play();
 
     }
@@ -385,8 +391,8 @@ function Player(videos){
 
     this.makeContentActive = function(videoName){
 
-        var contentToReveal = $('.' + videoName);
-
+        var contentToReveal = $('.' + videoName + '-content');
+        console.log(contentToReveal);
         //sets the menu item thats currently active
         setActiveMenuItem(this.currentVideo.name);
 
@@ -405,7 +411,8 @@ function Player(videos){
     this.switchPlayer = function(playerElement){
         var playerToReveal = $(playerElement);
         //set the poster before switching the player
-        playerToReveal.attr('poster', '/images/posters/' + this.currentVideo.name + '/' + this.currentVideoPiece + '-poster.jpg' );
+
+        playerToReveal.attr('poster', '/images/posters/' + this.currentVideo.name + '/' + this.currentVideo.name + '-' + this.currentVideoPiece + '-poster.jpg' );
         //if there isnt a player to hide it means its the first playthrough so just reveal the player and play.
         if(!playerToHide) {
             playerToReveal.animate({ opacity: 1 }, 100);
@@ -478,6 +485,9 @@ function Player(videos){
     this.setCurrentVideo = function(orderToPlay){
         this.currentVideo = this.videos[orderToPlay];
     }
+
+    //add eventlistener to players
+    this.addEventListenerToPlayers();
 
     return this;
 }
@@ -553,10 +563,10 @@ function initializePlayer() {
         null,
         null,
         null,
-        'home-post-intro-right',
+        'post-intro-right',
         null,
-        'home-outro-right',
-        'home-main',
+        'outro-right',
+        'main',
         null,
         true
     );
@@ -564,13 +574,13 @@ function initializePlayer() {
     //projecten video object
     var projecten = new Video('projecten',
         2,
-        'projecten-pre-intro-left',
+        'pre-intro-left',
         null,
-        'projecten-post-intro-left',
-        'projecten-post-intro-right',
-        'projecten-outro-left',
-        'projecten-outro-right',
-        'projecten-main',
+        'post-intro-left',
+        'post-intro-right',
+        'outro-left',
+        'outro-right',
+        'main',
         null,
         false
     );
@@ -578,13 +588,13 @@ function initializePlayer() {
     //wat-doen-wij-anders
     var watDoenWijAnders = new Video('wat-doen-wij-anders',
         3,
-        'wat-doen-wij-anders-pre-intro-left',
+        'pre-intro-left',
         null,
-        'wat-doen-wij-anders-post-intro-left',
-        'wat-doen-wij-anders-post-intro-right',
-        'wat-doen-wij-anders-outro-left',
-        'wat-doen-wij-anders-outro-right',
-        'wat-doen-wij-anders-main',
+        'post-intro-left',
+        'post-intro-right',
+        'outro-left',
+        'outro-right',
+        'main',
         null,
         false
     );
@@ -592,13 +602,13 @@ function initializePlayer() {
     //contact
     var contact = new Video('contact',
         4,
-        'contact-pre-intro-left',
+        'pre-intro-left',
         null,
-        'contact-post-intro-left',
+        'post-intro-left',
         null,
-        'contact-outro-left',
+        'outro-left',
         null,
-        'contact-main',
+        'main',
         null,
         false
     );

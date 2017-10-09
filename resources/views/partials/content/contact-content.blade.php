@@ -1,5 +1,5 @@
 <!-- contact-partial -->
-<div id="content-wrapper" class="contact hidden">
+<div id="content-wrapper" class="contact-content hidden">
 
     <!-- contact menu -->
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 contact-menu" onclick="openNav()">
