@@ -14,7 +14,7 @@ var projectNavigation = [];
 var projectCount;
 
 window.onload = function(){
-    //   window.document.body.onload = loaded(); // note removed parentheses
+      window.document.body.onload = loaded(); // note removed parentheses
 };
 
 $(window).ready(function(){
@@ -33,10 +33,20 @@ $(window).ready(function(){
 
 });
 
+var loadedVideos = 0;
 function loaded(){
 
         //play the intro animation
-        introAnimation();
+        var players = document.getElementsByClassName("player");
+        console.log(players.length);
+        $.each(players, function(index, player){
+            player.oncanplaythrough = function() {
+                loadedVideos++;
+                console.log(loadedVideos);
+                introAnimation();
+            };
+        });
+
 
         //check if we're on a mobile device
         ifMobile();
@@ -135,10 +145,7 @@ function loaded(){
         $(".projects ul").css("width", tWidth);
 
         // Button functionality
-
         var tPosition = 0;
-        console.log(tPosition);
-
         tRightButton.click(function() {
           if (tPosition < (tItemCount - 1)) {
             tPosition++;
@@ -185,11 +192,11 @@ function loaded(){
         }
 
         // scroll to certain element
-        $("#button").click(function() {
-            $('html, body').animate({
-                scrollTop: $("#elementtoScrollToID").offset().top
-            }, 2000);
-        });
+        // $("#button").click(function() {
+        //     $('html, body').animate({
+        //         scrollTop: $("#elementtoScrollToID").offset().top
+        //     }, 2000);
+        // });
 
 }
 
@@ -208,8 +215,9 @@ function showProjectDetails(project){
             $('.project-overlay').removeClass('invisible animated slideOutUp').addClass('animated slideInDown');
             if(!projectToHide){
                 projectToShow.removeClass('d-none');
+
             }
-            else if(projectToHide){
+            else if(projectToHide && $(projectToHide).attr('data-project') !== $(projectToShow).attr('data-project')){
                 projectToShow.removeClass('d-none');
                 projectToHide.addClass('d-none');
             }
@@ -235,12 +243,16 @@ function navigateUpOrDownThroughProjects(direction){
     else if(direction === 'next-projects') {
         modifier = -3;
     }
+
     $.each(projectNavigation, function(index, project){
+
         var projectId = parseInt($(project).attr('data-project'));
         var newProjectValue = (projectId + modifier);
+
         if(newProjectValue > projectCount || newProjectValue < 0){
             newProjectValue = "";
         }
+
         $(project).attr('data-project', newProjectValue);
 
     });
@@ -293,7 +305,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[2];
+    this.currentVideo                   = videos[1];
     this.currentVideoPiece              = 'main';
 
     //players
@@ -344,9 +356,10 @@ function Player(videos){
             $('.' + this.currentVideo.name).addClass('hidden');
         }
 
+        console.log(playerElement);
         sourceElement.setAttribute('src', source);
         this.switchPlayer(playerElement);
-        playerElement.load();
+        // playerElement.load();
         playerElement.play();
 
     }
@@ -537,7 +550,7 @@ function initializePlayer() {
         null,
         'home-outro-right',
         'home-main',
-        'home-loop',
+        null,
         true
     );
 
@@ -545,13 +558,13 @@ function initializePlayer() {
     var projecten = new Video('projecten',
         2,
         'projecten-pre-intro-left',
-        'projecten-pre-intro-right',
+        null,
         'projecten-post-intro-left',
         'projecten-post-intro-right',
         'projecten-outro-left',
         'projecten-outro-right',
         'projecten-main',
-        'projecten-loop',
+        null,
         false
     );
 
@@ -559,13 +572,13 @@ function initializePlayer() {
     var watDoenWijAnders = new Video('wat-doen-wij-anders',
         3,
         'wat-doen-wij-anders-pre-intro-left',
-        'wat-doen-wij-anders-pre-intro-right',
+        null,
         'wat-doen-wij-anders-post-intro-left',
         'wat-doen-wij-anders-post-intro-right',
         'wat-doen-wij-anders-outro-left',
         'wat-doen-wij-anders-outro-right',
         'wat-doen-wij-anders-main',
-        'wat-doen-wij-anders-loop',
+        null,
         false
     );
 
@@ -573,13 +586,13 @@ function initializePlayer() {
     var contact = new Video('contact',
         4,
         'contact-pre-intro-left',
-        'contact-pre-intro-right',
+        null,
         'contact-post-intro-left',
-        'contact-post-intro-right',
+        null,
         'contact-outro-left',
-        'contact-outro-right',
+        null,
         'contact-main',
-        'contact-loop',
+        null,
         false
     );
 
@@ -637,6 +650,7 @@ function scroll(e){
     }
 }
 
+/* NAVIGATION BY USING THE ARROWS AT THE BOTTOM OF THE SCREEN */
 function arrowNavigation(element){
 
     var arrow = $(element);
