@@ -33,27 +33,18 @@ $(window).ready(function(){
 
 });
 
-var loadedVideos = 0;
+
 function loaded(){
 
         //play the intro animation
-        var players = document.getElementsByClassName("player");
-        console.log(players.length);
-        $.each(players, function(index, player){
-            player.oncanplaythrough = function() {
-                loadedVideos++;
-                console.log(loadedVideos);
-                introAnimation();
-            };
-        });
-
+        introAnimation();
 
         //check if we're on a mobile device
         ifMobile();
 
         player = initializePlayer();
         if(!isMobile){
-            player.play(player.currentVideo.name, 'main');
+            // player.play(player.currentVideo.name, 'main');
             player.loadVideos();
         }else if(isMobile) {
             //show content loops only on mobile without the video's.
@@ -93,7 +84,7 @@ function loaded(){
         if(isMobile){ //test this thing on a tablet aswell. I dont know if that's considered mobile.
             var swipeManager = new Hammer(window);
             swipeManager.on('swipeleft', function(ev) {
-                    playPreviousOrNext('previous');
+                playPreviousOrNext('previous');
             });
             swipeManager.on('swiperight', function(ev){
                 playPreviousOrNext('next');
@@ -333,14 +324,31 @@ function Player(videos){
     this.outroLeftSource                = document.getElementById('outro-left-source');
     this.outroRightSource               = document.getElementById('outro-right-source');
 
+    //keep track of loaded videos
     this.loadVideos = function(){
+        var count = 0;
+        var loadedVideos = 0;
         console.log('loading');
-            //load.main - load.outroright - load.postintroright
-            $.each(this.videos, function(index, video){
-                $.each(video.pieces, function(index, piece){
-                    console.log('videoname: ' + video.name + ' videopiece: ' + piece);
-                });
+
+        $.each(this.videos, function(videoIndex, video){
+            $.each(video.pieces, function(pieceIndex, piece){
+                var videoSelector = '.' + video.name + '#' + piece;
+                //get(0) gets the native dom element.
+                $(videoSelector).get(0).load();
             });
+        });
+
+        var players = document.getElementsByClassName('player');
+        $.each(players, function(index, player){
+            if(!$(player).hasClass('home')) {
+                console.log($(player).attr('id'));
+            }
+            player.oncanplaythrough = function() {
+                loadedVideos++;
+                console.log(loadedVideos);
+            };
+        });
+
     }
 
     this.play = function(videoName, pieceName, direction){
@@ -356,7 +364,6 @@ function Player(videos){
             $('.' + this.currentVideo.name).addClass('hidden');
         }
 
-        console.log(playerElement);
         sourceElement.setAttribute('src', source);
         this.switchPlayer(playerElement);
         // playerElement.load();
@@ -628,7 +635,6 @@ function initializePlayer() {
     $('.project-content').each(function(index, project){
         projectCount++;
     });
-
 
     return player;
 }
