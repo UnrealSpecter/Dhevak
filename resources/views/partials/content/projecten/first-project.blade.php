@@ -2,18 +2,18 @@
     <!-- Button to close the overlay navigation -->
     <a href="javascript:void(0)" class="closebtn" style="z-index: 100000000;" onclick="hideProjectDetails()">&times;</a>
 
-    <div class="col-lg-12 project-bg-title center">TITLE 1</div>
+    <div class="col-lg-12 project-bg-title center">Jouw Project?</div>
 
     <div class="scroll-down-indicator flex col-lg-12">
         <img class="img-responsive" style="height: 20%; margin-bottom: 20px;" src="{{ URL::asset('/images/arrow-down.jpg') }}">
     </div>
 
-    <div class="col-lg-12 project-title center">PROJECT TITLE</div>
+    <div class="col-lg-12 project-title center">Jouw Project?</div>
 
     <div class="sub-title col-lg-12 center">onze rol</div>
     <div class="col-lg-12 project-roles-wrapper">
         <div class="col-lg-2 project-role flex">Website Design</div>
-        <div class="col-lg-2 project-role flex">Social Media Marketing</div>
+        <div class="col-lg-2 project-role flex">Culturele Projecten</div>
         <div class="col-lg-2 project-role flex">Grafisch Design</div>
     </div>
 

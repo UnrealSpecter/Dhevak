@@ -14,7 +14,7 @@ var projectNavigation = [];
 var projectCount;
 
 window.onload = function(){
-      window.document.body.onload = loaded(); // note removed parentheses
+    //   window.document.body.onload = loaded(); // note removed parentheses
 };
 
 $(window).ready(function(){
@@ -184,6 +184,12 @@ function loaded(){
           $('.projects-control').css('display','none');
         }
 
+        // scroll to certain element
+        $("#button").click(function() {
+            $('html, body').animate({
+                scrollTop: $("#elementtoScrollToID").offset().top
+            }, 2000);
+        });
 
 }
 
