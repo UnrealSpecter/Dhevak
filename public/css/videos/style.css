@@ -211,6 +211,7 @@ h1 {
 .flow-c {
     flex-flow: column;
 }
+
 /* player stuff */
 .video-wrapper {
     height: 100vh;
