@@ -261,7 +261,6 @@ function isFinished(e) {
     }
 
     if(video.hasClass('main')){
-        console.log('entered');
         player.currentVideo.introPlayed = true;
         player.showLoop();
     }
@@ -316,7 +315,6 @@ function Player(videos){
     this.addEventListenerToPlayers = function(){
 
         var propertyCount = 0;
-
         for (var key in this) {
             if (Object.prototype.hasOwnProperty.call(this, key)) {
                 var val = this[key];
@@ -334,15 +332,14 @@ function Player(videos){
     this.loadVideos = function(){
 
         var loadedVideos = 0;
-        console.log('loading');
-
         $.each(this.videos, function(videoIndex, video){
             $.each(video.pieces, function(pieceIndex, piece){
-                if(video.name !== player.currentVideo.name){
+                // if(video.name !== player.currentVideo.name){
                     var videoSelector = '.' + video.name + '.' + piece;
                     //get(0) gets the native dom element.
                     $(videoSelector).get(0).load();
-                }
+                    $(videoSelector).attr('poster', '/images/posters/' + video.name + '/' + video.name + '-' + piece + '-poster.jpg');
+                // }
             });
         });
 
@@ -362,11 +359,9 @@ function Player(videos){
 
         var video           = this.getVideo(videoName);
         var piece           = this.getPiece(video, pieceName);
-        // var source          = video.returnSource(piece);
-        // var sourceElement   = this.getSource(pieceName);
         var videoSelector   = '.' + videoName + '.' + piece;
         var playerElement   = $(videoSelector).get(0);
-        console.log(videoSelector);
+
         //hide the content
         if($('.' + this.currentVideo.name + '-content').hasClass(this.currentVideo.name + '-content')){
             $('.' + this.currentVideo.name + '-content').addClass('hidden');
@@ -378,6 +373,7 @@ function Player(videos){
     }
 
     this.showLoop = function(){
+        console.log('showloop');
         var loop = $('#loop');
         var videoName = player.currentVideo.name;
 
@@ -390,9 +386,8 @@ function Player(videos){
     }
 
     this.makeContentActive = function(videoName){
-
         var contentToReveal = $('.' + videoName + '-content');
-        console.log(contentToReveal);
+
         //sets the menu item thats currently active
         setActiveMenuItem(this.currentVideo.name);
 
@@ -738,7 +733,7 @@ function navigateThroughMenu(order){
 }
 
 function setActiveMenuItem(name){
-    var element = $('.' + name);
+    var element = $('.menu-' + name);
     $('.current-video').removeClass('current-video');
     element.addClass('current-video');
 }
