@@ -160,6 +160,7 @@ h1 {
 
 .loader-wrapper {
     height: 100vh;
+    z-index: 1;
 }
 
 .loader-background {
@@ -168,12 +169,10 @@ h1 {
     width: 100vw;
     opacity: 0.4;
     background-color: white;
-    z-index: 1
 }
 
 .loader-content {
     height: 100%;
-    z-index: 1;
     white-space: nowrap;
 }
 

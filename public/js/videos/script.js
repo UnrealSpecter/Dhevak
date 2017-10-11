@@ -41,7 +41,7 @@ function loaded(){
 
         player = initializePlayer();
         if(!isMobile){
-            player.play(player.currentVideo.name, player.currentVideoPiece);
+            // player.play(player.currentVideo.name, player.currentVideoPiece);
             player.loadVideos();
         }else if(isMobile) {
             //show content loops only on mobile without the video's.
@@ -124,11 +124,9 @@ function loaded(){
         var tRightButton = $("#projects-r");
 
         // Get number of <li> elements in carousel
-
         var tItemCount = document.getElementById('projects-ul').querySelectorAll('li').length;
 
         // Set length based on that
-
         var tWidth = tItemCount * 100 + "vw";
         $(".projects ul").css("width", tWidth);
 
@@ -157,7 +155,6 @@ function loaded(){
         });
 
         // Grey out buttons if not useable
-
         var greyButton = function() {
           if (tPosition == 0) {
             tLeftButton.css("opacity", "0.3");
@@ -190,7 +187,7 @@ function loaded(){
 
 
 function introAnimation(){
-    $('.loader-content').addClass('animated fadeOut');
+    $('.loader-wrapper').addClass('animated fadeOut');
 }
 
 var projectToShow;
@@ -254,6 +251,7 @@ function ifMobile(){
 
 //function that checks if the video is finished playing.
 function isFinished(e) {
+
     var video = $(e.target);
 
     if(video.hasClass('pre-intro-left')) {
@@ -292,7 +290,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[2];
+    this.currentVideo                   = videos[1];
     this.currentVideoPiece              = 'main';
 
     //players
@@ -331,28 +329,57 @@ function Player(videos){
     //keep track of loaded videos
     this.loadVideos = function(){
 
+        //cross browser
+        window.URL = window.URL || window.webkitURL;
         var loadedVideos = 0;
         $.each(this.videos, function(videoIndex, video){
             $.each(video.pieces, function(pieceIndex, piece){
                 // if(video.name !== player.currentVideo.name){
-                    var videoSelector = '.' + video.name + '.' + piece;
-                    //get(0) gets the native dom element.
-                    $(videoSelector).get(0).load();
-                    $(videoSelector).attr('poster', '/images/posters/' + video.name + '/' + video.name + '-' + piece + '-poster.jpg');
+
+                    var req = new XMLHttpRequest();
+                    req.open('GET', '/videos/' + video.name + '/' + video.name + '-' + piece + '.mp4', true);
+                    req.responseType = 'blob';
+
+                    req.onload = function() {
+                        // Onload is triggered even on 404 // so we need to check the status code
+                        if (this.status === 200) {
+                            var videoSelector = '.' + video.name + '.' + piece;
+                            var videoBlob = this.response;
+                            var vid = URL.createObjectURL(videoBlob); // IE10+
+
+                            // Video is now downloaded // and we can set it as source on the video element and the poster
+                            $(videoSelector + '> source').attr('src', vid);
+                            $(videoSelector).attr('poster', '/images/posters/' + video.name + '/' + video.name + '-' + piece + '-poster.jpg');
+
+                            //increment loadedVideos so we can start the intro animation once they are all loaded
+                            $(videoSelector).get(0).load();
+                            loadedVideos++;
+
+                            if(loadedVideos >= 19){
+                                introAnimation();
+                                player.play('home', 'main');
+                            }
+
+                        }
+                    }
+
+                    req.onerror = function() {
+                        console.log('video loading error');
+                    }
+
+                    req.send();
+                    // var videoSelector = '.' + video.name + '.' + piece;
+                    // //get(0) gets the native dom element.
+                    // $(videoSelector).get(0).load();
+                    // $(videoSelector).attr('poster', '/images/posters/' + video.name + '/' + video.name + '-' + piece + '-poster.jpg');
                 // }
             });
         });
 
-        var players = document.getElementsByClassName('player');
-        $.each(players, function(index, player){
-            player.oncanplaythrough = function() {
-                if(loadedVideos >= 2){
-                    introAnimation();
-                }
-                loadedVideos++;
-            };
-        });
-
+        // var players = document.getElementsByClassName('player');
+        // $.each(players, function(index, player){
+        //
+        // });
     }
 
     this.play = function(videoName, pieceName, direction){
@@ -367,13 +394,13 @@ function Player(videos){
             $('.' + this.currentVideo.name + '-content').addClass('hidden');
         }
 
-        this.switchPlayer(playerElement);
+        this.switchPlayer($(playerElement));
+        playerElement.load();
         playerElement.play();
 
     }
 
     this.showLoop = function(){
-        console.log('showloop');
         var loop = $('#loop');
         var videoName = player.currentVideo.name;
 
@@ -404,6 +431,7 @@ function Player(videos){
     }
 
     this.switchPlayer = function(playerElement){
+
         var playerToReveal = $(playerElement);
         //set the poster before switching the player
 
@@ -414,9 +442,17 @@ function Player(videos){
             playerToHide = playerToReveal;
         }
         //if there is a player and its not the same player as the previous one then swap them out.
-        else if(playerToHide && playerToHide[0].id !== playerToReveal[0].id){
-            playerToReveal.animate({ opacity: 1 }, 500);
-            playerToHide.animate({ opacity: 0 }, 1000);
+        else if(playerToHide){
+            playerToReveal.css({
+                'opacity' : '1',
+                'z-index': '1'
+            });
+            playerToHide.css({
+                'z-index' : '2'
+            });
+            playerToHide.animate({
+                'opacity' : '0'
+            }, 500);
             playerToHide = playerToReveal;
         }
     }
@@ -665,14 +701,13 @@ function scroll(e){
 function arrowNavigation(element){
 
     var arrow = $(element);
-    console.log(arrow);
+
     if(arrow.hasClass('next')){
         playPreviousOrNext('next');
     }
     else if (arrow.hasClass('previous')) {
         playPreviousOrNext('previous');
     }
-
 }
 
 
