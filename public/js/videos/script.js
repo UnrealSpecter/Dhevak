@@ -7,7 +7,7 @@ var previousVideo;
 var playNext = false;
 var playPrevious = false;
 var isVideoPlaying = true;
-var isMobile = false; //initiate as false
+var isMobile = true; //initiate as false
 var explanationVideo;
 var projectContentActive = false;
 var projectNavigation = [];
@@ -40,13 +40,16 @@ function loaded(){
         ifMobile();
 
         player = initializePlayer();
+
         if(!isMobile){
-            // player.play(player.currentVideo.name, player.currentVideoPiece);
-            player.loadVideos();
+            if(player.loadVideos()){
+                introAnimation();
+            }
         }else if(isMobile) {
             //show content loops only on mobile without the video's.
-            player.showLoop();
-        }
+            introAnimation();
+        };
+
 
         $('.arrow').on('click', function(e){
             var arrow = $(e.target);
@@ -187,7 +190,23 @@ function loaded(){
 
 
 function introAnimation(){
-    $('.loader-wrapper').addClass('animated fadeOut');
+
+    //at this point the videos are loaded and we can start the intro animation
+    $('.loader-text-block').removeClass('fadeInUp').addClass('fadeOutDown');
+    $('.intro-quote-block').removeClass('d-none').addClass('animated fadeInUp');
+
+    if(!isMobile){
+        setTimeout(function(){
+            $('.loader-wrapper').addClass('animated fadeOut');
+            $('.explanation-container').removeClass('d-none');
+        }, 2000, player.play(player.currentVideo.name, player.currentVideoPiece));
+    }
+    else if(isMobile){
+        setTimeout(function(){
+            $('.loader-wrapper').addClass('animated fadeOut');
+            $('.explanation-container').removeClass('d-none');
+        }, 2000, player.showLoop());
+    }
 }
 
 var projectToShow;
@@ -356,8 +375,7 @@ function Player(videos){
                             loadedVideos++;
 
                             if(loadedVideos >= 19){
-                                introAnimation();
-                                player.play('home', 'main');
+                                return true;
                             }
 
                         }
@@ -368,18 +386,9 @@ function Player(videos){
                     }
 
                     req.send();
-                    // var videoSelector = '.' + video.name + '.' + piece;
-                    // //get(0) gets the native dom element.
-                    // $(videoSelector).get(0).load();
-                    // $(videoSelector).attr('poster', '/images/posters/' + video.name + '/' + video.name + '-' + piece + '-poster.jpg');
                 // }
             });
         });
-
-        // var players = document.getElementsByClassName('player');
-        // $.each(players, function(index, player){
-        //
-        // });
     }
 
     this.play = function(videoName, pieceName, direction){
@@ -401,12 +410,15 @@ function Player(videos){
     }
 
     this.showLoop = function(){
+        console.log('loop');
         var loop = $('#loop');
         var videoName = player.currentVideo.name;
 
         isVideoPlaying = false;
 
-        this.switchPlayer(loop);
+        if(!isMobile){
+            this.switchPlayer(loop);
+        }
         this.makeContentActive(videoName);
 
         loop.attr('src', '/images/posters/' + videoName + '/' + videoName + '-loop-poster.jpg');
@@ -419,11 +431,10 @@ function Player(videos){
         setActiveMenuItem(this.currentVideo.name);
 
         if(!contentToHide){
-            $('.explanation-container').removeClass('hidden');
             contentToReveal.removeClass('hidden');
         }
         else if(contentToHide) {
-            $('.explanation-container').addClass('hidden');
+            $('.explanation-container').addClass('d-none');
             contentToHide.addClass('hidden');
             contentToReveal.removeClass('hidden');
         }
@@ -443,6 +454,8 @@ function Player(videos){
         }
         //if there is a player and its not the same player as the previous one then swap them out.
         else if(playerToHide){
+            console.log(playerToReveal);
+            console.log(playerToHide);
             playerToReveal.css({
                 'opacity' : '1',
                 'z-index': '1'

@@ -3,7 +3,7 @@
 
     <!-- contact menu -->
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 contact-menu" onclick="openNav()">
-      <span class="open-menu-button">menu</span>
+      <span class="open-menu-button"></span>
     </div>
 
     <!-- phone number and email that get copied on click. -->

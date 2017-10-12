@@ -16,10 +16,10 @@ Route::get('/', function () {
     return view('partials.video-base');
 });
 
-Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['auth', 'admin']], function() {
+
+Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('projects', 'ProjectsController');
 });
-
 
 // the old test of the video's
 Route::get('/old', function () {
@@ -38,3 +38,6 @@ Route::get('/petervandijk', function(){
 Route::get('/whitegoblingames', function(){
     return view('big-promotion.white-goblin-games');
 });
+
+// auth
+Auth::routes();

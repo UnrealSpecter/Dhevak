@@ -1,5 +1,5 @@
 <!-- explanation-container -->
-<div class="explanation-container animated fadeInUp hidden">
+<div class="explanation-container animated fadeInUp d-none">
     <div class="arrow previous"></div>
     <div class="arrow next"></div>
     <div class="scroll-indicator">

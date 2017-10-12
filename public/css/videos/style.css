@@ -5,7 +5,7 @@
         font-size: 20em;
     }
 
-    .loader-text {
+    .loader-text, .intro-text {
         font-size: 4em;
     }
 
@@ -18,7 +18,7 @@
         font-size: 15em;
     }
 
-    .loader-text {
+    .loader-text, .intro-text {
         font-size: 3.5em;
     }
 }
@@ -43,7 +43,7 @@
         font-size: 5em;
     }
 
-    .loader-text {
+    .loader-text, .intro-text {
         font-size: 2em;
     }
 
@@ -71,6 +71,8 @@
 
 body {
     background-color: black;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 h1 {
@@ -161,6 +163,7 @@ h1 {
 .loader-wrapper {
     height: 100vh;
     z-index: 1;
+    background: url('/images/posters/home/home-main-poster.jpg');
 }
 
 .loader-background {
@@ -186,12 +189,26 @@ h1 {
     justify-content: center;*/
 }
 
-.loader-text {
+.loader-text, .intro-text {
     color: white;
     text-align: center;
     white-space: nowrap;
     height: 25%;
     pointer-events: none;
+}
+
+.quote-wrapper {
+    min-height: 10%;
+    width: 100%;
+    position: relative;
+}
+
+.loader-text-block, .intro-text-block {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
 .quotes {

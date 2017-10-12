@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Roles extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,6 +12,7 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'website', 'facebook', 'instagram'
+        'name'
     ];
+
 }
