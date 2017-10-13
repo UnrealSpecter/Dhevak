@@ -42,9 +42,7 @@ function loaded(){
         player = initializePlayer();
 
         if(!isMobile){
-            if(player.loadVideos()){
-                introAnimation();
-            }
+            player.loadVideos();
         }else if(isMobile) {
             //show content loops only on mobile without the video's.
             introAnimation();
@@ -66,6 +64,7 @@ function loaded(){
         clipboard.on('success', function(e) {
             var toastrText = e.text;
             var clickedElement = $(e.trigger);
+            toastr.remove();
             if(clickedElement.hasClass('email-button')){
                 toastr.info('Dhevak email gekopieerd. Mail ons! Geef ons een reden om weer even een kopje thee te drinken. : ' + toastrText);
             }
@@ -98,8 +97,8 @@ function loaded(){
 
         //menu navigation
         $('.overlay-content > a').on('click', function(){
-            var videoToPlay = $(this).data('order');
-            navigateThroughMenu(videoToPlay);
+            var video = $(this);
+            navigateThroughMenu(video);
         });
 
         // project details on frame click
@@ -186,10 +185,19 @@ function loaded(){
         //     }, 2000);
         // });
 
+        //close project details on escape button press.
+        $(document).keydown(function(e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                closeNav();
+            }
+        });
+
 }
 
 
 function introAnimation(){
+
+    console.log('playing introAnimation');
 
     //at this point the videos are loaded and we can start the intro animation
     $('.loader-text-block').removeClass('fadeInUp').addClass('fadeOutDown');
@@ -199,13 +207,13 @@ function introAnimation(){
         setTimeout(function(){
             $('.loader-wrapper').addClass('animated fadeOut');
             $('.explanation-container').removeClass('d-none');
-        }, 2000, player.play(player.currentVideo.name, player.currentVideoPiece));
+        }, 3000, player.play(player.currentVideo.name, player.currentVideoPiece));
     }
     else if(isMobile){
         setTimeout(function(){
             $('.loader-wrapper').addClass('animated fadeOut');
             $('.explanation-container').removeClass('d-none');
-        }, 2000, player.showLoop());
+        }, 3000, player.showLoop());
     }
 }
 
@@ -227,7 +235,9 @@ function showProjectDetails(project){
             projectToHide = projectToShow;
         }
     });
+    //show the close button in a fixed position its used from the nav.
     projectContentActive = true;
+    openNav();
 }
 
 // hide the project details
@@ -374,8 +384,10 @@ function Player(videos){
                             $(videoSelector).get(0).load();
                             loadedVideos++;
 
+                            console.log(loadedVideos);
+
                             if(loadedVideos >= 19){
-                                return true;
+                                introAnimation();
                             }
 
                         }
@@ -406,6 +418,7 @@ function Player(videos){
         this.switchPlayer($(playerElement));
         playerElement.load();
         playerElement.play();
+        isVideoPlaying = true;
 
     }
 
@@ -743,8 +756,6 @@ function playPreviousOrNext(direction){
             }
         }
         if(!isMobile){
-            //set video playing attribute
-            isVideoPlaying = true;
             //pause the video if its playing
             explanationVideo.pause();
         }
@@ -755,8 +766,12 @@ function playPreviousOrNext(direction){
 }
 
 //navigate by using the menu items
-function navigateThroughMenu(order){
+function navigateThroughMenu(video){
+    var order = video.data('order');
     //if there's not a video playing
+    if(order !== player.currentVideo.order){
+        closeNav();
+    }
     if(!isVideoPlaying && !isMobile){
         //go left or right
         var currentVideo = player.currentVideo;
@@ -765,19 +780,19 @@ function navigateThroughMenu(order){
             player.setCurrentVideo(order);
             //pause the video if its playing
             explanationVideo.pause();
-            closeNav();
         }
         else if(currentVideo.order < order){
             player.play(player.currentVideo.name, 'outroRight');
             player.setCurrentVideo(order);
             //pause the video if its playing
             explanationVideo.pause();
-            closeNav();
         }
     }
     else if(isMobile){
-
+        player.setCurrentVideo(order);
+        player.showLoop();
     }
+    
 }
 
 function setActiveMenuItem(name){
@@ -820,24 +835,34 @@ function setNextPrevious(currentVideo){
 
 /* Open */
 function openNav() {
-
-    $('.overlay').css('height', '100%');
-    setTimeout(function(){
-        $(".overlay-content > a").each(function(index) {
-            var $this = $(this);
-            var t = setTimeout(function() {
-                $this.addClass('animated slideInLeft').removeClass('invisible');
-            }, 250 * index++);
-        });
-    }, 250);
+    $('.closebtn').removeClass('animated fadeOut').addClass('animated fadeIn');
+    if(!projectContentActive){
+        $('.overlay').css('height', '100%');
+        setTimeout(function(){
+            $(".overlay-content > a").each(function(index) {
+                var $this = $(this);
+                var t = setTimeout(function() {
+                    $this.addClass('animated slideInLeft').removeClass('invisible');
+                }, 250 * index++);
+            });
+        }, 250);
+    }
 
 }
 
 /* Close */
 function closeNav() {
-    $('.overlay').css('height', '0%');
-    $(".overlay-content > a").each(function(index) {
-        var $this = $(this);
-        $this.removeClass('animated slideInLeft').addClass('invisible');
-    });
+    $('.closebtn').removeClass('animated fadeIn').addClass('animated fadeOut');
+    if(!projectContentActive){
+        $('.overlay').css('height', '0%');
+        $('.overlay-content > a').each(function(index) {
+            var $this = $(this);
+            $this.removeClass('animated slideInLeft').addClass('invisible');
+        });
+    }
+    else {
+        hideProjectDetails();
+    }
+
+
 }

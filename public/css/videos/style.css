@@ -323,7 +323,14 @@ a {
 }
 
 /* Position the close button (top right corner) */
-.overlay .closebtn, .project-overlay .closebtn {
+/*.overlay .closebtn, .project-overlay .closebtn {
+    position: absolute;
+    top: 0px;
+    right: 45px;
+    font-size: 60px;
+}*/
+
+.closebtn {
     position: absolute;
     top: 0px;
     right: 45px;

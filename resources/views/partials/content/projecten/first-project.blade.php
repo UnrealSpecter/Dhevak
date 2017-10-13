@@ -1,6 +1,4 @@
 <div class="project-content d-none" data-project="1">
-    <!-- Button to close the overlay navigation -->
-    <a href="javascript:void(0)" class="closebtn" style="z-index: 100000000;" onclick="hideProjectDetails()">&times;</a>
 
     <div class="col-lg-12 project-bg-title center">Jouw Project?</div>
 
