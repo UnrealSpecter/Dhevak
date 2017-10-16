@@ -14,6 +14,8 @@ class CreateProjectsTable extends Migration
     public function up()
     {
         Schema::create('projects', function (Blueprint $table) {
+
+            $table->engine = 'InnoDB';
             $table->increments('id');
 
             $table->string('title');
@@ -24,14 +26,11 @@ class CreateProjectsTable extends Migration
             $table->integer('image_id')->unsigned();
             $table->integer('social_media_id')->unsigned();
 
-
-            $table->timestamps();
-        });
-
-        Schema::table('projects', function($table) {
             $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
-            $table->foreign('social_media_id')->references('id')->on('social_medias');
+            $table->foreign('social_media_id')->references('id')->on('social_media');
+
+            $table->timestamps();
         });
 
     }
@@ -43,9 +42,6 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
-        Schema::dropIfExists('images');
-        Schema::dropIfExists('social_media');
         Schema::dropIfExists('projects');
     }
 }

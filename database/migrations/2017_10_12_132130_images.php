@@ -27,5 +27,6 @@ class Images extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('images');
     }
 }

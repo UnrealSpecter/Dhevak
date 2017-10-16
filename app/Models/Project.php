@@ -12,19 +12,19 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'website', 'facebook', 'instagram'
+        'title', 'description', 'project_url'
     ];
 
-    public function(){
-         return $this->hasMany('App\Models\Roles');
+    public function roles() {
+         return $this->belongsToMany('App\Models\Roles');
     }
 
-    public function(){
-         return $this->hasMany('App\Models\Images');
-    }
-    
-    public function(){
-         return $this->hasMany('App\Models\SocialMedia');
-    }
+    // public function images() {
+    //      return $this->hasMany('App\Models\Images');
+    // }
+    //
+    // public function socialmedia() {
+    //      return $this->hasMany('App\Models\SocialMedia');
+    // }
 
 }

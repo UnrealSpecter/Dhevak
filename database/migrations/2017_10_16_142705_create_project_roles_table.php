@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SocialMedia extends Migration
+class CreateProjectRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class SocialMedia extends Migration
      */
     public function up()
     {
-        Schema::create('social_media', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('project_role', function (Blueprint $table) {
 
-            $table->string('name');
-            $table->string('social_media_url');
-            $table->string('image_url');
+            $table->integer('project_id');
+            $table->integer('role_id');
+            $table->primary(['project_id', 'role_id']);
 
-            $table->timestamps();
         });
     }
 
@@ -31,6 +29,6 @@ class SocialMedia extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('social_media');
+        Schema::dropIfExists('project_role');
     }
 }
