@@ -20,6 +20,7 @@ Route::get('/', function () {
 Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('', 'DashboardController', ['only' => ['index']]);
     Route::resource('roles', 'RolesController');
+    Route::resource('social-media', 'SocialMediaController');
     Route::resource('projects', 'ProjectsController');
 });
 

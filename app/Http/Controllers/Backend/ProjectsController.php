@@ -42,8 +42,15 @@ class ProjectsController extends Controller
         $project->description = $request->description;
         $project->project_url = $request->project_url;
 
-        $project->roles()->attach(2);
-        $project->roles()->attach(4);
+        foreach($request['role'] as $role){
+            //you can attach with just the id or the entire model.
+            $project->roles()->attach($role);
+        }
+
+        if($project->save()){
+            return redirect()->route('backend.projects.index');
+        }
+
     }
 
     public function edit($id)
@@ -58,7 +65,7 @@ class ProjectsController extends Controller
 
     public function destroy($id)
     {
-        $project = Project::find($id);
+        $project = Project::findOrFail($id);
         if($project->delete()){
             return redirect()->route('projects.index');
         }

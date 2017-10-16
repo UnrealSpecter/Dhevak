@@ -12,7 +12,7 @@ class SocialMedia extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'social_media_url', 'image_url'
+        'name', 'image_url'
     ];
 
 }

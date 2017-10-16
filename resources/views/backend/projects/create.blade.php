@@ -29,7 +29,7 @@
         @foreach($roles as $role)
         <div class="form-group">
             {!! Form::label('role', $role->name) !!}
-            {!! Form::checkbox('role-' . $role->id, true, false, ['class' => 'form-control']) !!}
+            {!! Form::checkbox('role[]', $role->id, false, ['class' => 'form-control']) !!}
         </div>
         @endforeach
         {!! Form::submit('Create', ['class' => 'btn btn-info']) !!}

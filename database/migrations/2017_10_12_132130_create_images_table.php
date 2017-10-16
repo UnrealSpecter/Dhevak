@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectRolesTable extends Migration
+class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateProjectRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_role', function (Blueprint $table) {
-
-            $table->integer('project_id');
-            $table->integer('role_id');
-
-            $table->primary(['project_id', 'role_id']);
-
+        Schema::create('images', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('image_url');
+            $table->timestamps();
         });
     }
 
@@ -30,6 +27,6 @@ class CreateProjectRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_role');
+        Schema::dropIfExists('images');
     }
 }

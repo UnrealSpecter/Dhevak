@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Images extends Migration
+class CreateProjectSocialMediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,15 @@ class Images extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('image_url');
+        Schema::create('project_social_media', function (Blueprint $table) {
+
+            $table->string('social_media_url');
+
+            $table->integer('project_id');
+            $table->integer('social_media_id');
+
+            $table->primary(['project_id', 'social_media_id']);
+
             $table->timestamps();
         });
     }
@@ -27,6 +33,6 @@ class Images extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('project_social_media');
     }
 }

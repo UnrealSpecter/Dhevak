@@ -19,12 +19,12 @@ class Project extends Model
          return $this->belongsToMany('App\Models\Roles');
     }
 
-    // public function images() {
-    //      return $this->hasMany('App\Models\Images');
-    // }
-    //
-    // public function socialmedia() {
-    //      return $this->hasMany('App\Models\SocialMedia');
-    // }
+    public function social_media() {
+        return $this->belongsToMany('App\Models\SocialMedia');
+    }
+
+    public function images() {
+        return $this->hasMany('App\Models\Images');
+    }
 
 }
