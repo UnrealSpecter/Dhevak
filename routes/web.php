@@ -21,6 +21,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['a
     Route::resource('', 'DashboardController', ['only' => ['index']]);
     Route::resource('roles', 'RolesController');
     Route::resource('social-media', 'SocialMediaController');
+    Route::resource('images', 'ImagesController');
     Route::resource('projects', 'ProjectsController');
 });
 
