@@ -43,38 +43,33 @@ class ProjectsController extends Controller
         $project->description = $request->description;
         $project->project_url = $request->project_url;
 
-        $project->roles()->attach(1);
-
         foreach($request['role'] as $role){
             //you can attach with just the id or the entire model.
-            // $roleModel = findOrFail($role);
-
+            $roleModel = Role::findOrFail($role);
+            $project->roles()->attach($roleModel);
         }
 
-        // $path = public_path('uploads/images');
-        //
-        // if(!File::isDirectory($path))
-        // {
-        //     File::makeDirectory($path, 0777, true, true);
-        // }
-        //
-        // foreach($request['image_url'] as $uploadedImage){
-        //     $image = SocialMedia::create();
-        //
-        //
-        //     $fileName = $image->id . "." . $uploadedImage->getClientOriginalExtension();
-        //
-        //     $path = public_path('uploads/images/' . $fileName);
-        //
-        //     Image::make($uploadedImage->save($path));
-        //
-        //     $image->image_url = $fileName;
-        //
-        //     $image->save();
-        // }
+        $path = public_path('uploads/images');
+
+        if(!File::isDirectory($path))
+        {
+            File::makeDirectory($path, 0777, true, true);
+        }
+
+        foreach($request['image_url'] as $uploadedImage){
+
+            $image = SocialMedia::create();
+
+            $fileName = $image->id . "." . $uploadedImage->getClientOriginalExtension();
+            $path = public_path('uploads/images/' . $fileName);
+            Image::make($uploadedImage)->save($path);
+            $image->image_url = $fileName;
+
+            $image->save();
+        }
 
         if($project->save()){
-            return redirect()->route('backend.projects.index');
+            return redirect()->route('projects.index');
         }
 
     }

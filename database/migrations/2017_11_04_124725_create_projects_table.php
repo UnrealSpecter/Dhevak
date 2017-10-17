@@ -26,9 +26,9 @@ class CreateProjectsTable extends Migration
             $table->integer('image_id')->unsigned();
             $table->integer('social_media_id')->unsigned();
 
-            $table->foreign('role_id')->references('id')->on('roles');
-            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
-            $table->foreign('social_media_id')->references('id')->on('social_media');
+            // $table->foreign('role_id')->references('id')->on('roles');
+            // $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
+            // $table->foreign('social_media_id')->references('id')->on('social_media');
 
             $table->timestamps();
         });
