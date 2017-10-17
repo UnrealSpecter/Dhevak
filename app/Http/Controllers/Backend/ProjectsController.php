@@ -25,14 +25,17 @@ class ProjectsController extends Controller
 
     public function show($id)
     {
-
+        $project = Project::findOrFail($id);
+        
+        return view('backend.projects.show', compact('project'));
     }
 
     public function create()
     {
         $roles = Role::all();
+        $socialMedia = SocialMedia::all();
 
-        return view('backend.projects.create', compact('roles'));
+        return view('backend.projects.create')->with(compact('roles', 'socialMedia'));
     }
 
     public function store(Request $request)
@@ -43,7 +46,13 @@ class ProjectsController extends Controller
         $project->description = $request->description;
         $project->project_url = $request->project_url;
 
-        foreach($request['role'] as $role){
+        foreach($request['socialMedia'] as $mediumIndex => $mediumId) {
+            // foreach($request['socialMediaUrl'] as $url){
+                $project->social_media()->attach($mediumId, ['social_media_url' => $request['socialMediaUrl'][$mediumIndex]]);
+            // }
+        }
+
+        foreach($request['role'] as $role) {
             //you can attach with just the id or the entire model.
             $roleModel = Role::findOrFail($role);
             $project->roles()->attach($roleModel);
