@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
+// use database\seeds\UserTableSeeder;
+// use database\seeds\SocialMediaTableSeeder;
+use Illuminate\Support\Facades\DB;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -11,6 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(SocialMediaTableSeeder::class);
+        $this->call(UserTableSeeder::class);
     }
 }

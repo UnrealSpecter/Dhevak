@@ -16,10 +16,6 @@
         </li>
         <div class="divider"></div>
         <li>
-            <a href="/admin/images">Images</a>
-        </li>
-        <div class="divider"></div>
-        <li>
             <a href="/admin/social-media">Social Media</a>
         </li>
         <div class="divider"></div>

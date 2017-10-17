@@ -1,5 +1,9 @@
 @extends('backend.layout')
 
+@section('js')
+    <script type="text/javascript" src="{{ URL::asset('js/backend/projects/script.js') }}"></script>
+@endsection
+
 @section('content')
 
     @if(count($errors) > 0)
@@ -34,40 +38,9 @@
         @endforeach
         <div class="form-group image-upload">
             {!! Form::label('image_url', 'Image_url') !!}
-            {!! Form::file('image_url', null, ['accept' => 'image/*']) !!}
+            {!! Form::file('image_url[]', ['id' => 'image_url', 'accept' => 'image/*']) !!}
         </div>
         {!! Form::submit('Create', ['class' => 'btn btn-info']) !!}
     {!! Form::close() !!}
 
-    <script>
-        // $('#image_url').get(0).onload = function(){
-        //     alert('hallo');
-        // }
-        // if(document.getElementById("uploadBox").value != "") {
-        // // you have a file
-        // }
-
-        var fileInput = $('#image_url').get(0);
-        var formGroup = $('.image-upload');
-        var clone = formGroup.clone();
-
-        window.onload = function () {
-            //attach first change handler to first input
-            attachOnChangeHandler(fileInput);
-        };
-
-        function attachOnChangeHandler(element){
-            element.onchange = function () {
-                console.log('onchange fired');
-                appendNewFileInput(this);
-            };
-        }
-
-        function appendNewFileInput(element){
-            var lastElement = $('.image-upload').last();
-            clone.insertAfter(lastElement);
-            attachOnChangeHandler(element);
-        }
-
-    </script>
 @endsection

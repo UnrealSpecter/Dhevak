@@ -93,7 +93,10 @@ class SocialMediaController extends Controller
     public function destroy($id)
     {
         $socialMedia = SocialMedia::findOrFail($id);
-        if($socialMedia->delete()){
+        
+        $path = public_path('uploads/social-media/') . $socialMedia->image_url;
+
+        if($socialMedia->delete() && File::delete($path)){
             return redirect()->route('social-media.index');
         }
     }

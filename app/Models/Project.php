@@ -16,7 +16,7 @@ class Project extends Model
     ];
 
     public function roles() {
-         return $this->belongsToMany('App\Models\Roles');
+         return $this->belongsToMany('App\Models\Role');
     }
 
     public function social_media() {
@@ -24,7 +24,7 @@ class Project extends Model
     }
 
     public function images() {
-        return $this->hasMany('App\Models\Images');
+        return $this->hasMany('App\Models\Image');
     }
 
 }
