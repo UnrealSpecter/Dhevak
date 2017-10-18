@@ -11,12 +11,10 @@
 |
 */
 
-//start default
-Route::get('/', function () {
-    return view('partials.video-base');
-});
+//load frontend
+Route::get('/', 'Frontend\ProjectsController@index');
 
-
+//backend routes
 Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource('', 'DashboardController', ['only' => ['index']]);
     Route::resource('roles', 'RolesController');

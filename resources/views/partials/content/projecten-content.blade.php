@@ -18,10 +18,6 @@
     <div class="arrow-down previous-projects" data-direction="next-projects"></div>
 
     <div class="project-overlay invisible col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        @include('partials.content.projecten.first-project')
-        @include('partials.content.projecten.second-project')
-        @include('partials.content.projecten.third-project')
-        @include('partials.content.projecten.fourth-project')
-        @include('partials.content.projecten.fifth-project')
+        @include('partials.content.projecten.index')
     </div>
 </div>

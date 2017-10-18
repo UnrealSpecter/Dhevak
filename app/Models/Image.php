@@ -12,7 +12,12 @@ class Image extends Model
      * @var array
      */
     protected $fillable = [
-        'image_url'
+        'project_id', 'image_url'
     ];
+
+    public function project()
+    {
+        return $this->belongsTo('App\Models\Project');
+    }
 
 }

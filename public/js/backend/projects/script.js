@@ -2,6 +2,7 @@
 var fileInput;
 var checkBox;
 var inputHtml = '<input class="form-control" placeholder="social-media-url" name="socialMediaUrl[] type="text">';
+var descriptionElement = '<textarea class="form-control" name="project_description[]" cols="50" rows="10"></textarea>';
 
 //onload attach onchange handler to the input
 window.onload = function () {
@@ -12,6 +13,11 @@ window.onload = function () {
     attachOnChangeHandler(fileInput);
     $.each(checkBox, function(index, checkbox){
         attachOnChangeHandler(checkbox)
+    });
+
+    $('.add-project-description').on('click', function(){
+        var lastElement = $('textarea').last();
+        lastElement.after(descriptionElement);
     });
 };
 

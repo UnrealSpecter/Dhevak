@@ -33,6 +33,12 @@
             {!! Form::label('project_url', 'Project_url') !!}
             {!! Form::text('project_url', null, ['class' => 'form-control']) !!}
         </div>
+        <h1>Project Description</h1>
+        <div class="form-group project_description">
+            {!! Form::label('project_description', 'Project_description') !!}
+            {!! Form::textarea('project_description[]', null, ['class' => 'form-control']) !!}
+            <button type="button" class="btn btn-primary add-project-description">Add Another Description</button>
+        </div>
         <div class="form-group">
             <h1>Roles:</h1>
         </div>
