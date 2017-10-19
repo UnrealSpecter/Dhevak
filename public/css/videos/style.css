@@ -181,12 +181,12 @@ h1 {
 
 .loader-title {
     pointer-events: none;
-    /*position: fixed;
+    position: absolute;
     display: flex;
     height: 100vh;
     width: 100vw;
     align-items: center;
-    justify-content: center;*/
+    justify-content: center;
 }
 
 .loader-text, .intro-text {
@@ -203,10 +203,14 @@ h1 {
     position: relative;
 }
 
-.loader-text-block, .intro-text-block {
-    position: absolute;
-    height: 100%;
-    width: 100%;
+.intro-quote-block, .loader-text-block {
+    pointer-events: none;
+    position: fixed;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    align-items: flex-end;
+    justify-content: center;
     top: 0;
     left: 0;
 }

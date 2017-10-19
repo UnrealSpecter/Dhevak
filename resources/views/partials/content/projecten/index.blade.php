@@ -18,7 +18,6 @@
     </div>
 
     <div class="sub-title col-lg-12 center">Het Project</div>
-
     <!-- custom text carousel -->
     <section class="projects">
         <div>
@@ -38,7 +37,7 @@
     </section>
 
     <!-- bootstrap image carousel carousel -->
-    <div id="carouselExampleControls" class="carousel slide col-lg-8 offset-lg-2" data-ride="carousel">
+    <div id="carousel{{ $project->id }}" class="carousel slide col-lg-8 offset-lg-2">
         <div class="carousel-inner" role="listbox">
             @foreach($project->images as $image)
                 @if($loop->first)
@@ -50,11 +49,11 @@
                     </div>
             @endforeach
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <a class="carousel-control-prev" href="#carousel{{ $project->id }}" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <a class="carousel-control-next" href="#carousel{{ $project->id }}" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>

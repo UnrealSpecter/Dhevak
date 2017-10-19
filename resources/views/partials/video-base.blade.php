@@ -15,6 +15,7 @@
     @include('partials.videos.contact-videos')
 
     <!-- misc/helpers -->
+    @include('partials.content.skip-button-content')
     @include('partials.content.landscape-indicator-content')
     @include('partials.content.loader-content')
     @include('partials.content.explanation-content')

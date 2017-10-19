@@ -12,6 +12,7 @@ var explanationVideo;
 var projectContentActive = false;
 var projectNavigation = [];
 var projectCount;
+var explanationConfirmed = false;
 
 window.onload = function(){
       window.document.body.onload = loaded(); // note removed parentheses
@@ -197,23 +198,24 @@ function loaded(){
 
 function introAnimation(){
 
-    console.log('playing introAnimation');
-
     //at this point the videos are loaded and we can start the intro animation
-    $('.loader-text-block').removeClass('fadeInUp').addClass('fadeOutDown');
+    $('.loader-text-block').removeClass('fadeInUp').addClass('fadeOut');
     $('.intro-quote-block').removeClass('d-none').addClass('animated fadeInUp');
 
     if(!isMobile){
         setTimeout(function(){
-            $('.loader-wrapper').addClass('animated fadeOut');
-            $('.explanation-container').removeClass('d-none');
-        }, 3000, player.play(player.currentVideo.name, player.currentVideoPiece));
+            $('.loader-wrapper').fadeOut('500', function(){
+                player.play(player.currentVideo.name, player.currentVideoPiece);
+            });
+        }, 2000);
     }
     else if(isMobile){
+        $('.loader-text-block').addClass('d-none');
         setTimeout(function(){
-            $('.loader-wrapper').addClass('animated fadeOut');
-            $('.explanation-container').removeClass('d-none');
-        }, 3000, player.showLoop());
+            $('.loader-wrapper').fadeOut('500', function(){
+                 player.showLoop();
+            });
+        }, 2000);
     }
 }
 
@@ -423,7 +425,6 @@ function Player(videos){
     }
 
     this.showLoop = function(){
-        console.log('loop');
         var loop = $('#loop');
         var videoName = player.currentVideo.name;
 
@@ -432,6 +433,12 @@ function Player(videos){
         if(!isMobile){
             this.switchPlayer(loop);
         }
+
+        if(!explanationConfirmed){
+            $('.explanation-container').removeClass('d-none');
+            explanationConfirmed = true;
+        }
+
         this.makeContentActive(videoName);
 
         loop.attr('src', '/images/posters/' + videoName + '/' + videoName + '-loop-poster.jpg');
