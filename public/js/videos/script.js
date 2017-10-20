@@ -105,11 +105,13 @@ function loaded(){
         //give the user the ability to use the simple version of the site.
         $('.explanation-skip-transitions').on('click', function(){
             if(isMobile){
+                console.log('ismobile');
                 $('.checked').addClass('d-none');
                 $('.unchecked').removeClass('d-none');
-                ismobile = false;
+                isMobile = false;
             }
             else if(!isMobile){
+                console.log('!ismobile');
                 $('.checked').removeClass('d-none');
                 $('.unchecked').addClass('d-none');
                 isMobile = true;
