@@ -7,12 +7,13 @@ var previousVideo;
 var playNext = false;
 var playPrevious = false;
 var isVideoPlaying = true;
-var isMobile = true; //initiate as false
+var isMobile = false; //initiate as false
 var explanationVideo;
 var projectContentActive = false;
 var projectNavigation = [];
 var projectCount;
 var explanationConfirmed = false;
+var skipTransitions = false;
 
 window.onload = function(){
       window.document.body.onload = loaded(); // note removed parentheses
@@ -94,6 +95,25 @@ function loaded(){
         //remove explanation when the confirm is clicked. / ++ this needs functionality so that it doesnt pop every time. ++ /
         $('.explanation-confirm').on('click', function(){
             $('.explanation-container').removeClass('fadeInUp').addClass('fadeOutDown');
+        });
+
+        //explanation functions -> if ismobile dont show the explanation at all.
+        if(isMobile){
+            $('.explanation-skip-transitions').addClass('d-none');
+        }
+
+        //give the user the ability to use the simple version of the site.
+        $('.explanation-skip-transitions').on('click', function(){
+            if(isMobile){
+                $('.checked').addClass('d-none');
+                $('.unchecked').removeClass('d-none');
+                ismobile = false;
+            }
+            else if(!isMobile){
+                $('.checked').removeClass('d-none');
+                $('.unchecked').addClass('d-none');
+                isMobile = true;
+            }
         });
 
         //menu navigation
@@ -180,11 +200,11 @@ function loaded(){
         }
 
         // scroll to certain element
-        // $("#button").click(function() {
-        //     $('html, body').animate({
-        //         scrollTop: $("#elementtoScrollToID").offset().top
-        //     }, 2000);
-        // });
+        $("").click(function() {
+            $('html, body').animate({
+                scrollTop: $("#elementtoScrollToID").offset().top
+            }, 2000);
+        });
 
         //close project details on escape button press.
         $(document).keydown(function(e) {

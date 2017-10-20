@@ -121,7 +121,11 @@ h1 {
     white-space: nowrap;
 }
 
-.explanation-confirm, .explanation-help {
+.explanation-icon {
+    margin-left: 10%;
+}
+
+.explanation-confirm, .explanation-help, .explanation-skip-transitions {
     border: solid 5px black;
     padding: 5px 15px 5px 15px;
     font-weight: bold;
