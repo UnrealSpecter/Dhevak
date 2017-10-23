@@ -7,7 +7,7 @@ var previousVideo;
 var playNext = false;
 var playPrevious = false;
 var isVideoPlaying = true;
-var isMobile = false; //initiate as false
+var isMobile = true; //initiate as false
 var explanationVideo;
 var projectContentActive = false;
 var projectNavigation = [];
@@ -68,10 +68,10 @@ function loaded(){
             var clickedElement = $(e.trigger);
             toastr.remove();
             if(clickedElement.hasClass('email-button')){
-                toastr.info('Dhevak email gekopieerd. Mail ons! Geef ons een reden om weer even een kopje thee te drinken. : ' + toastrText);
+                toastr.info('Mail ons! Voed onze netwerk verslaving: <span style="font-weight: bold;">' + toastrText + '</span> gekopieerd.');
             }
             else if(clickedElement.hasClass('phone-number-button')){
-                toastr.info('Dhevak 06 gekopieerd. Bel ons & we babbelen graag! : ' + toastrText);
+                toastr.info('Dit is de voicemail van dhevak, spreek uw boodschap in na de <span style="font-style: italic;"> piep ' + toastrText + '</span> nummer gekopieerd.');
             }
             e.clearSelection();
         });
@@ -99,21 +99,28 @@ function loaded(){
 
         //explanation functions -> if ismobile dont show the explanation at all.
         if(isMobile){
-            $('.explanation-skip-transitions').addClass('d-none');
+            $('.mobile-explanation').removeClass('d-none');
+        }
+        else if(!isMobile){
+            $('.non-mobile-explanation').removeClass('d-none');
         }
 
         //give the user the ability to use the simple version of the site.
         $('.explanation-skip-transitions').on('click', function(){
+            var border = $(this);
+            var text = border.children('span');
             if(isMobile){
-                console.log('ismobile');
-                $('.checked').addClass('d-none');
-                $('.unchecked').removeClass('d-none');
+                border.removeClass('dont-skip').addClass('skip');
+                text.removeClass('dont-skip').addClass('skip');
+                // $('.checked').addClass('d-none');
+                // $('.unchecked').removeClass('d-none');
                 isMobile = false;
             }
             else if(!isMobile){
-                console.log('!ismobile');
-                $('.checked').removeClass('d-none');
-                $('.unchecked').addClass('d-none');
+                // $('.checked').removeClass('d-none');
+                // $('.unchecked').addClass('d-none');
+                border.removeClass('skip').addClass('dont-skip');
+                text.removeClass('skip').addClass('dont-skip');
                 isMobile = true;
             }
         });
@@ -202,10 +209,11 @@ function loaded(){
         }
 
         // scroll to certain element
-        $("").click(function() {
-            $('html, body').animate({
-                scrollTop: $("#elementtoScrollToID").offset().top
-            }, 2000);
+        $('.scroll-down-button').on('click', function() {
+             var projectOverlay = $(this).parent().parent().parent();
+             projectOverlay.animate({
+                scrollTop: projectOverlay.find('.subtitle-role').offset().top
+            }, 1500);
         });
 
         //close project details on escape button press.
@@ -247,10 +255,9 @@ function showProjectDetails(project){
     $('.project-content').each(function(index, element){
         projectToShow = $(element);
         if(projectToShow.attr('data-project') == project){
-            $('.project-overlay').removeClass('invisible animated slideOutUp').addClass('animated slideInDown');
+            $('.project-overlay').removeClass('d-none animated slideOutUp').addClass('animated slideInDown');
             if(!projectToHide){
                 projectToShow.removeClass('d-none');
-
             }
             else if(projectToHide && $(projectToHide).attr('data-project') !== $(projectToShow).attr('data-project')){
                 projectToShow.removeClass('d-none');
@@ -268,6 +275,9 @@ function showProjectDetails(project){
 function hideProjectDetails(){
     $('.myCarousel').carousel('pause');
     $('.project-overlay').removeClass('animated slideInDown').addClass('animated slideOutUp');
+    setTimeout(function(){
+        $('.project-overlay').addClass('d-none')
+    }, 1000);
     projectContentActive = false;
 }
 

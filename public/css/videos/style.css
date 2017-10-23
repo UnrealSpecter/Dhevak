@@ -1,4 +1,12 @@
 /* large desktops and up ----------- */
+@media screen and (min-width: 1400px) {
+
+    .explanation-container, .video-controls {
+        height: 15%;
+    }
+
+}
+
 @media screen and (min-width: 1200px) {
 
     .loader-title {
@@ -7,6 +15,27 @@
 
     .loader-text, .intro-text {
         font-size: 4em;
+        bottom: 22.5%;
+    }
+
+    .overlay a {
+        font-size: 4em;
+    }
+
+    .toast-message {
+        font-size: 2em;
+    }
+
+    .toast-top-full-width > div {
+        padding: 1.5% !important;
+    }
+
+    .explanation-container, .video-controls {
+        height: 11%;
+    }
+
+    .scroll-indicator {
+        font-size: 2em;
     }
 
 }
@@ -20,7 +49,29 @@
 
     .loader-text, .intro-text {
         font-size: 3.5em;
+        bottom: 22.5%;
     }
+
+    .overlay a {
+        font-size: 3em;
+    }
+
+    .toast-message {
+        font-size: 1.75em;
+    }
+
+    .toast-top-full-width > div {
+        padding: 2% !important;
+    }
+
+    .explanation-container, .video-controls {
+        height: 15%;
+    }
+
+    .scroll-indicator {
+        font-size: 1.5em;
+    }
+
 }
 
 /* Small devices (tablets, 768px and up) */
@@ -30,8 +81,29 @@
         font-size: 10em;
     }
 
-    .loader-text {
+    .loader-text, .intro-text {
         font-size: 3em;
+        bottom: 22.5%;
+    }
+
+    .overlay a {
+        font-size: 2em;
+    }
+
+    .toast-message {
+        font-size: 1.5em;
+    }
+
+    .toast-top-full-width > div {
+        padding: 3% !important;
+    }
+
+    .explanation-container, .video-controls {
+        height: 15%;
+    }
+
+    .scroll-indicator {
+        font-size: 1.25em;
     }
 
 }
@@ -44,7 +116,28 @@
     }
 
     .loader-text, .intro-text {
-        font-size: 2em;
+        font-size: 1.5em;
+        bottom: 22.5%;
+    }
+
+    .overlay a {
+        font-size: 1em;
+    }
+
+    .toast-message {
+        font-size: 1em;
+    }
+
+    .toast-top-full-width > div {
+        padding: 3% !important;
+    }
+
+    .explanation-container, .video-controls {
+        height: 20%;
+    }
+
+    .scroll-indicator {
+        font-size: 1em;
     }
 
 }
@@ -91,7 +184,6 @@ h1 {
 
 .explanation-container, .video-controls {
     box-shadow: -1px -1px 50px -15px #000000;
-    height: 10%;
     width: 100vw;
     position: fixed;
     left: 0;
@@ -107,7 +199,6 @@ h1 {
     height: 100%;
     font-family: Raleway;
     color: black;
-    font-size: 2em;
     text-transform: uppercase;
     position: absolute;
     bottom: 0;
@@ -121,6 +212,14 @@ h1 {
     white-space: nowrap;
 }
 
+.mobile-explanation, .non-mobile-explanation {
+    height: 100%;
+}
+
+.mobile-explanation > .explanation-icon {
+    height: 75%;
+}
+
 .explanation-icon {
     margin-left: 10%;
 }
@@ -131,6 +230,17 @@ h1 {
     font-weight: bold;
     margin: 0 0 0 1%;
     cursor:pointer;
+}
+
+/* overgangen overslaan indicator kleuren */
+.skip {
+    border-color: #f96868;
+    color: #f96868;
+}
+
+.dont-skip {
+    border-color: #a1e6ae;
+    color: #a1e6ae;
 }
 
 .explanation-help > a {
@@ -197,7 +307,7 @@ h1 {
     color: white;
     text-align: center;
     white-space: nowrap;
-    height: 25%;
+    position: absolute;
     pointer-events: none;
 }
 
@@ -319,7 +429,6 @@ a {
     text-decoration: none;
     color: #818181;
     font-family: Times New Roman;
-    font-size: 4em;
     display: block; /* Display block instead of inline */
     transition: 0.3s; /* Transition effects on hover (color) */
 }
@@ -459,6 +568,8 @@ a {
     cursor: pointer;
 }
 
+/* PROJECTEN CONTENT */
+
 .project-overlay > * {
     margin-bottom: 5%;
 }
@@ -515,13 +626,19 @@ a {
 }
 
 .scroll-down-indicator {
-    pointer-events: none;
     height: 100vh;
     width: 100vw;
     position: absolute;
     top: 0;
     left: 0;
     align-items: flex-end;
+}
+
+.scroll-down-button {
+    height: 20%;
+    margin-bottom: 20px;
+    z-index: 100;
+    cursor: pointer;
 }
 
 .project-description {
@@ -816,6 +933,20 @@ a {
     background-color: white;
 }
 
+.toast-top-full-width > div {
+    width: 100% !important;
+    background-image: none !important;
+    opacity: 1;
+    background-color: white !important;
+    border-radius: 0 !important;
+    text-align: center;
+}
+
+#toast-container > .toast-info {
+    background-image: none !important;
+}
+
 .toast-message {
+    font-family: Raleway;
     color: black;
 }

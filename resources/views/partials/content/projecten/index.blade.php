@@ -5,12 +5,12 @@
     <div class="col-lg-12 project-bg-title center">{{ $project->title }}</div>
 
     <div class="scroll-down-indicator flex col-lg-12">
-        <img class="img-responsive" style="height: 20%; margin-bottom: 20px;" src="{{ URL::asset('/images/arrow-down.jpg') }}">
+        <img class="img-responsive scroll-down-button" src="{{ URL::asset('/images/arrow-down.jpg') }}">
     </div>
 
     <div class="col-lg-12 project-title center">{{ $project->title }}</div>
 
-    <div class="sub-title col-lg-12 center">onze rol</div>
+    <div class="sub-title subtitle-role col-lg-12 center">onze rol</div>
     <div class="col-lg-12 project-roles-wrapper">
         @foreach($project->roles as $role)
             <div class="col-lg-2 project-role flex">{{ $role->name }}</div>
