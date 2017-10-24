@@ -9,6 +9,29 @@
 
 @media screen and (min-width: 1200px) {
 
+    /* PROJECTEN */
+    .project-bg-title {
+        font-size: 30em;
+    }
+
+    .project-title {
+        font-size: 10em;
+    }
+
+    .sub-title {
+        font-size: 3em;
+    }
+
+    .project-social-media-link, .project-role {
+        font-size: 1.25em;
+    }
+
+    .project-social-media-wrapper, .project-roles-wrapper {
+        flex-flow: row nowrap;
+    }
+
+    /* LOADER TITLE*/
+
     .loader-title {
         font-size: 20em;
     }
@@ -43,6 +66,28 @@
 /* tablets/desktops and up ----------- */
 @media (min-width: 992px) and (max-width: 1199px) {
 
+    /* PROJECTEN */
+    .project-bg-title {
+        font-size: 20em;
+    }
+
+    .project-title {
+        font-size: 7.5em;
+    }
+
+    .sub-title {
+        font-size: 2em;
+    }
+
+    .project-social-media-link, .project-role {
+        font-size: 1em;
+    }
+
+    .project-social-media-wrapper, .project-roles-wrapper {
+        flex-flow: row nowrap;
+    }
+
+    /* LOADER */
     .loader-title {
         font-size: 15em;
     }
@@ -77,6 +122,28 @@
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991px) {
 
+    /* PROJECTEN */
+    .project-bg-title {
+        font-size: 15em;
+    }
+
+    .project-title {
+        font-size: 5em;
+    }
+
+    .sub-title {
+        font-size: 1.5em;
+    }
+
+    .project-social-media-link, .project-role {
+        font-size: 1em;
+    }
+
+    .project-social-media-wrapper, .project-roles-wrapper {
+        flex-flow: row wrap;
+    }
+
+    /* LOADER */
     .loader-title {
         font-size: 10em;
     }
@@ -111,6 +178,28 @@
 /* Extra small devices (phones, up to 480px) */
 @media screen and (max-width: 767px) {
 
+    /* PROJECTEN */
+    .project-bg-title {
+        font-size: 10em;
+    }
+
+    .project-title {
+        font-size: 2.5em;
+    }
+
+    .sub-title {
+        font-size: 1em;
+    }
+
+    .project-social-media-link, .project-role {
+        font-size: 0.75em;
+    }
+
+    .project-social-media-wrapper, .project-roles-wrapper {
+        flex-flow: row wrap;
+    }
+
+    /* LOADER */
     .loader-title {
         font-size: 5em;
     }
@@ -606,7 +695,6 @@ a {
     width: 100vw;
     position: fixed;
     font-family: Raleway;
-    font-size: 30em;
     opacity: 0.1;
     white-space: nowrap;
     color: green;
@@ -615,7 +703,6 @@ a {
 .project-title {
     pointer-events: none;
     height: 100vh;
-    font-size: 10em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -722,9 +809,8 @@ a {
 }
 
 .project-social-media-wrapper, .project-roles-wrapper {
-    height: 30%;
+    height: 50%;
     display: flex;
-    flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
 }
@@ -747,7 +833,6 @@ a {
     margin: 15px;
     background-color: transparent;
     color: black;
-    font-size: 1.25em;
     font-family: Raleway;
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -825,7 +910,6 @@ a {
 .sub-title {
     font-family: Raleway;
     font-weight: bold;
-    font-size: 3em;
     text-transform: uppercase;
     margin: 1% 0 1% 0;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);

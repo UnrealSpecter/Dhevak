@@ -35,7 +35,6 @@ $(window).ready(function(){
 
 });
 
-
 function loaded(){
 
         //check if we're on a mobile device
@@ -112,13 +111,9 @@ function loaded(){
             if(isMobile){
                 border.removeClass('dont-skip').addClass('skip');
                 text.removeClass('dont-skip').addClass('skip');
-                // $('.checked').addClass('d-none');
-                // $('.unchecked').removeClass('d-none');
                 isMobile = false;
             }
             else if(!isMobile){
-                // $('.checked').removeClass('d-none');
-                // $('.unchecked').addClass('d-none');
                 border.removeClass('skip').addClass('dont-skip');
                 text.removeClass('skip').addClass('dont-skip');
                 isMobile = true;
@@ -225,29 +220,35 @@ function loaded(){
 
 }
 
+//closure function that runs the introduction only once
+var introAnimation = (function() {
+    var executed = false;
+    return function() {
+        if (!executed) {
+            //set executed to true so the fuction only runs once.
+            executed = true;
+            //at this point the videos are loaded and we can start the intro animation
+            $('.loader-text-block').removeClass('fadeInUp').addClass('fadeOut');
+            $('.intro-quote-block').removeClass('d-none').addClass('animated fadeInUp');
 
-function introAnimation(){
-
-    //at this point the videos are loaded and we can start the intro animation
-    $('.loader-text-block').removeClass('fadeInUp').addClass('fadeOut');
-    $('.intro-quote-block').removeClass('d-none').addClass('animated fadeInUp');
-
-    if(!isMobile){
-        setTimeout(function(){
-            $('.loader-wrapper').fadeOut('500', function(){
-                player.play(player.currentVideo.name, player.currentVideoPiece);
-            });
-        }, 2000);
-    }
-    else if(isMobile){
-        $('.loader-text-block').addClass('d-none');
-        setTimeout(function(){
-            $('.loader-wrapper').fadeOut('500', function(){
-                 player.showLoop();
-            });
-        }, 2000);
-    }
-}
+            if(!isMobile){
+                setTimeout(function(){
+                    $('.loader-wrapper').fadeOut('500', function(){
+                        player.play(player.currentVideo.name, player.currentVideoPiece);
+                    });
+                }, 2000);
+            }
+            else if(isMobile){
+                $('.loader-text-block').addClass('d-none');
+                setTimeout(function(){
+                    $('.loader-wrapper').fadeOut('500', function(){
+                         player.showLoop();
+                    });
+                }, 2000);
+            }
+        }
+    };
+})();
 
 var projectToShow;
 var projectToHide;
@@ -283,6 +284,7 @@ function hideProjectDetails(){
 
 // switch projects that are visible on the project page. Up or Down based on direction.
 function navigateUpOrDownThroughProjects(direction){
+
     var modifier;
     if(direction === 'previous-projects'){
         modifier = 3;
@@ -353,7 +355,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[1];
+    this.currentVideo                   = videos[2];
     this.currentVideoPiece              = 'main';
 
     //players
@@ -397,7 +399,6 @@ function Player(videos){
         var loadedVideos = 0;
         $.each(this.videos, function(videoIndex, video){
             $.each(video.pieces, function(pieceIndex, piece){
-                // if(video.name !== player.currentVideo.name){
 
                     var req = new XMLHttpRequest();
                     req.open('GET', '/videos/' + video.name + '/' + video.name + '-' + piece + '.mp4', true);
@@ -406,21 +407,26 @@ function Player(videos){
                     req.onload = function() {
                         // Onload is triggered even on 404 // so we need to check the status code
                         if (this.status === 200) {
+
                             var videoSelector = '.' + video.name + '.' + piece;
                             var videoBlob = this.response;
                             var vid = URL.createObjectURL(videoBlob); // IE10+
 
                             // Video is now downloaded // and we can set it as source on the video element and the poster
                             $(videoSelector + '> source').attr('src', vid);
+
+                            //set the video poster maybe this should be dynamic aswell?
                             $(videoSelector).attr('poster', '/images/posters/' + video.name + '/' + video.name + '-' + piece + '-poster.jpg');
 
                             //increment loadedVideos so we can start the intro animation once they are all loaded
                             $(videoSelector).get(0).load();
-                            loadedVideos++;
 
-                            console.log(loadedVideos);
+                            //increment the amount of loaded pieces so we can track them
+                            player.videos[videoIndex - 1].loadedPieces += 1;
 
-                            if(loadedVideos >= 19){
+                            //store the amount of loaded home video pieces so we can start the intro animation when three of them have loaded.
+                            // var homeVideos = player.videos[0].loadedPieces;
+                            if(player.currentVideo.loadedPieces == player.currentVideo.pieces.length){
                                 introAnimation();
                             }
 
@@ -432,7 +438,7 @@ function Player(videos){
                     }
 
                     req.send();
-                // }
+
             });
         });
     }
@@ -616,6 +622,9 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
 
     //set introPlayed to false so that after the first play we dont ever play the intro again.
     this.introPlayed = introPlayed;
+
+    //stores the amount of loaded pieces for the video
+    this.loadedPieces = 0;
 
     this.returnSource = function(video){
         var source = this.src + '/' + video + '.mp4';
