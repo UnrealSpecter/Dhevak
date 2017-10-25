@@ -14,6 +14,7 @@ var projectNavigation = [];
 var projectCount;
 var explanationConfirmed = false;
 var skipTransitions = false;
+var scrollAllowed = true;
 
 window.onload = function(){
       window.document.body.onload = loaded(); // note removed parentheses
@@ -67,10 +68,10 @@ function loaded(){
             var clickedElement = $(e.trigger);
             toastr.remove();
             if(clickedElement.hasClass('email-button')){
-                toastr.info('Mail ons! Voed onze netwerk verslaving: <span style="font-weight: bold;">' + toastrText + '</span> gekopieerd.');
+                toastr.info('Mail ons! Voed onze netwerk verslaving: ' + toastrText + ' (Email gekopieerd)');
             }
             else if(clickedElement.hasClass('phone-number-button')){
-                toastr.info('Dit is de voicemail van dhevak, spreek uw boodschap in na de <span style="font-style: italic;"> piep ' + toastrText + '</span> nummer gekopieerd.');
+                toastr.info('Dit is de voicemail van dhevak, spreek uw boodschap in na de <span style="font-style: italic;"> piep </span> (' + toastrText + ' nummer gekopieerd)');
             }
             e.clearSelection();
         });
@@ -81,13 +82,17 @@ function loaded(){
         });
 
         //activate swipe only on mobile devices.
-        if(isMobile){ //test this thing on a tablet aswell. I dont know if that's considered mobile.
+        if(isMobile){
             var swipeManager = new Hammer(window);
             swipeManager.on('swipeleft', function(ev) {
-                playPreviousOrNext('previous');
+                if(!projectContentActive){
+                    playPreviousOrNext('next');
+                }
             });
             swipeManager.on('swiperight', function(ev){
-                playPreviousOrNext('next');
+                if(!projectContentActive){
+                    playPreviousOrNext('previous');
+                }
             });
         }
 
@@ -134,8 +139,12 @@ function loaded(){
 
         //scroll events
         $(window).bind(mousewheelevt, function(e){
-            if(!projectContentActive){
+            if(!projectContentActive && scrollAllowed){
+                scrollAllowed = false;
                 scroll(e);
+                setTimeout(function(){
+                    scrollAllowed = true;
+                }, 750);
             }
         });
 
@@ -147,61 +156,61 @@ function loaded(){
 
         // custom carousel
         // Get carousel elements
-        var tLeftButton = $("#projects-l");
-        var tRightButton = $("#projects-r");
+        // var tLeftButton = $("#projects-l");
+        // var tRightButton = $("#projects-r");
 
         // Get number of <li> elements in carousel
-        var tItemCount = document.getElementById('projects-ul').querySelectorAll('li').length;
+        // var tItemCount = document.getElementById('projects-ul').querySelectorAll('li').length;
 
         // Set length based on that
-        var tWidth = tItemCount * 100 + "vw";
-        $(".projects ul").css("width", tWidth);
+        // var tWidth = tItemCount * 100 + "vw";
+        // $(".projects ul").css("width", tWidth);
 
         // Button functionality
-        var tPosition = 0;
-        tRightButton.click(function() {
-          if (tPosition < (tItemCount - 1)) {
-            tPosition++;
-            var m = "-" + (100 * tPosition) + "vw";
-            $(".projects ul").animate({
-              "left": m
-            }, 500);
-            greyButton();
-          }
-        });
+        // var tPosition = 0;
+        // tRightButton.click(function() {
+        //   if (tPosition < (tItemCount - 1)) {
+        //     tPosition++;
+        //     var m = "-" + (100 * tPosition) + "vw";
+        //     $(".projects ul").animate({
+        //       "left": m
+        //     }, 500);
+        //     greyButton();
+        //   }
+        // });
 
-        tLeftButton.click(function() {
-          if (tPosition > 0) {
-            tPosition--;
-            var m = "-" + (100 * tPosition) + "vw";
-            $(".projects ul").animate({
-              "left": m
-            }, 500);
-            greyButton();
-          }
-        });
+        // tLeftButton.click(function() {
+        //   if (tPosition > 0) {
+        //     tPosition--;
+        //     var m = "-" + (100 * tPosition) + "vw";
+        //     $(".projects ul").animate({
+        //       "left": m
+        //     }, 500);
+        //     greyButton();
+        //   }
+        // });
 
         // Grey out buttons if not useable
-        var greyButton = function() {
-          if (tPosition == 0) {
-            tLeftButton.css("opacity", "0.3");
-            tLeftButton.css("cursor", "default");
-          } else if (tPosition == (tItemCount - 1)) {
-            tRightButton.css("opacity", "0.3");
-            tRightButton.css("cursor", "default");
-          } else {
-            tRightButton.css("opacity", "1");
-            tRightButton.css("cursor", "pointer");
-            tLeftButton.css("opacity", "1");
-            tLeftButton.css("cursor", "pointer");
-          }
-        }
+        // var greyButton = function() {
+        //   if (tPosition == 0) {
+        //     tLeftButton.css("opacity", "0.3");
+        //     tLeftButton.css("cursor", "default");
+        //   } else if (tPosition == (tItemCount - 1)) {
+        //     tRightButton.css("opacity", "0.3");
+        //     tRightButton.css("cursor", "default");
+        //   } else {
+        //     tRightButton.css("opacity", "1");
+        //     tRightButton.css("cursor", "pointer");
+        //     tLeftButton.css("opacity", "1");
+        //     tLeftButton.css("cursor", "pointer");
+        //   }
+        // }
 
-        greyButton();
+        // greyButton();
         // And finally, if there's only one quote, kill the buttons altogether
-        if ( tItemCount == 1 ) {
-          $('.projects-control').css('display','none');
-        }
+        // if ( tItemCount == 1 ) {
+        //   $('.projects-control').css('display','none');
+        // }
 
         // scroll to certain element
         $('.scroll-down-button').on('click', function() {

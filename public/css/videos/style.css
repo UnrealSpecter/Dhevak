@@ -12,22 +12,36 @@
     /* PROJECTEN */
     .project-bg-title {
         font-size: 30em;
+        opacity: 0.2;
     }
 
     .project-title {
         font-size: 10em;
+        text-shadow: 2.5px 5px 25px rgba(0, 0, 0, 0.55);
     }
 
     .sub-title {
+        height: 12.5%;
+        border-top: rgba(70, 70, 70, 0.2) solid 1px;
+        border-bottom: rgba(70, 70, 70, 0.2) solid 1px;
         font-size: 3em;
     }
 
     .project-social-media-link, .project-role {
+        height: 75%;
+        letter-spacing: 5px;
         font-size: 1.25em;
+        border: solid black 5px;
+        box-shadow: 0 6px 30px 0 rgba(0, 0, 0, 0.5);
     }
 
     .project-social-media-wrapper, .project-roles-wrapper {
+        height: 30%;
         flex-flow: row nowrap;
+    }
+
+    .carousel-item {
+        font-size: 1.5em;
     }
 
     /* LOADER TITLE*/
@@ -69,22 +83,40 @@
     /* PROJECTEN */
     .project-bg-title {
         font-size: 20em;
+        opacity: 0.2;
     }
 
     .project-title {
         font-size: 7.5em;
+        text-shadow: 2.5px 5px 25px rgba(0, 0, 0, 0.55);
     }
 
     .sub-title {
+        height: 10%;
+        border-top: rgba(70, 70, 70, 0.2) solid 1px;
+        border-bottom: rgba(70, 70, 70, 0.2) solid 1px;
         font-size: 2em;
     }
 
     .project-social-media-link, .project-role {
+        height: 60%;
+        letter-spacing: 4px;
         font-size: 1em;
+        border: solid black 4px;
+        box-shadow: 0px 5px 12.5px 0 rgba(0, 0, 0, 0.25);
     }
 
     .project-social-media-wrapper, .project-roles-wrapper {
+        height: 30%;
         flex-flow: row nowrap;
+    }
+
+    .carousel-item {
+        font-size: 1em;
+    }
+
+    .carousel-indicators > li.active {
+        background-color: gray;
     }
 
     /* LOADER */
@@ -125,22 +157,36 @@
     /* PROJECTEN */
     .project-bg-title {
         font-size: 15em;
+        opacity: 0.2;
     }
 
     .project-title {
         font-size: 5em;
+        text-shadow: 2.5px 2.5px 15px rgba(0, 0, 0, 0.55);
     }
 
     .sub-title {
+        height: 10%;
+        border-top: rgba(70, 70, 70, 0.2) solid 1px;
+        border-bottom: rgba(70, 70, 70, 0.2) solid 1px;
         font-size: 1.5em;
     }
 
     .project-social-media-link, .project-role {
-        font-size: 1em;
+        height: 60%;
+        letter-spacing: 3px;
+        border: solid black 3px;
+        box-shadow: 0px 5px 12.5px 0 rgba(0, 0, 0, 0.25);
+        font-size: 1.25em;
     }
 
     .project-social-media-wrapper, .project-roles-wrapper {
+        height: 50%;
         flex-flow: row wrap;
+    }
+
+    .carousel-item {
+        font-size: 1em;
     }
 
     /* LOADER */
@@ -181,22 +227,36 @@
     /* PROJECTEN */
     .project-bg-title {
         font-size: 10em;
+        opacity: 0.2;
     }
 
     .project-title {
-        font-size: 2.5em;
+        font-size: 3.5em;
+        text-shadow: 1.5px 1.5px 7.5px rgba(0, 0, 0, 0.55);
     }
 
     .sub-title {
-        font-size: 1em;
+        height: 15%;
+        border-top: rgba(70, 70, 70, 0.2) solid 1px;
+        border-bottom: rgba(70, 70, 70, 0.2) solid 1px;
+        font-size: 1.5em;
     }
 
     .project-social-media-link, .project-role {
-        font-size: 0.75em;
+        height: 60%;
+        letter-spacing: 3px;
+        border: solid black 4px;
+        box-shadow: 0px 5px 15px 0 rgba(0, 0, 0, 0.35);
+        font-size: 0.9em;
     }
 
     .project-social-media-wrapper, .project-roles-wrapper {
+        height: 50%;
         flex-flow: row wrap;
+    }
+
+    .carousel-item {
+        font-size: 1em;
     }
 
     /* LOADER */
@@ -310,7 +370,7 @@ h1 {
 }
 
 .explanation-icon {
-    margin-left: 10%;
+    margin: 0 10% 0 10%;
 }
 
 .explanation-confirm, .explanation-help, .explanation-skip-transitions {
@@ -695,7 +755,6 @@ a {
     width: 100vw;
     position: fixed;
     font-family: Raleway;
-    opacity: 0.1;
     white-space: nowrap;
     color: green;
 }
@@ -709,7 +768,6 @@ a {
     text-transform: uppercase;
     font-family: Raleway;
     font-weight: bold;
-    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .scroll-down-indicator {
@@ -809,7 +867,7 @@ a {
 }
 
 .project-social-media-wrapper, .project-roles-wrapper {
-    height: 50%;
+    margin: 2.5% 0 2.5% 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -828,23 +886,18 @@ a {
 }
 
 .project-social-media-link, .project-role {
-    height: 75%;
     text-align: center;
     margin: 15px;
     background-color: transparent;
     color: black;
     font-family: Raleway;
-    letter-spacing: 3px;
     text-transform: uppercase;
-    letter-spacing: 5px;
     font-weight: bold;
     flex-flow: column;
 }
 
 .project-role {
     pointer-events: none;
-    border: solid black 5px;
-    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.3);
 }
 
 .project-social-media-link > a {
@@ -870,6 +923,14 @@ a {
     margin: 5px;
 }
 
+.carousel-item {
+    height: 100%;
+    font-family: Raleway;
+    font-weight: bold;
+    letter-spacing: 2px;
+    /*text-align: center;*/
+}
+
 #carouselExampleIndicators {
     padding: 0;
 }
@@ -879,7 +940,7 @@ a {
 }
 
 .carousel-indicators > li.active {
-    background-color: gray;
+    background-color: #a1e6ae;
 }
 
 .carousel-control-prev-icon, .carousel-control-prev-icon:hover, .carousel-control-prev-icon:focus {

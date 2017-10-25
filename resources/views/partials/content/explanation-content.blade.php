@@ -7,16 +7,13 @@
         <div class="mobile-explanation flex flow-r d-none">
             <div class="animated fadeInDown"> Navigeer door te swipen </div>
             <img class="explanation-icon" src="{{ asset('/images/explanation-images/horizontal-swipe-icon.png') }}">
+            <div class="animated fadeInUp explanation-confirm">Ok, Weg hiermee</div>
         </div>
 
         <div class="non-mobile-explanation flex flow-r d-none">
             <div class="animated fadeInDown"> Navigeer door te scrollen </div>
             <div class="animated fadeInUp explanation-skip-transitions skip flex flow-r">
                 <span class="skip">Sla Over</span>
-                <!-- <div class="flex">
-                    <img class="explanation-icon checked img-fluid d-none" src="{{ asset('/images/explanation-images/explanation-checked-icon-black.png') }}">
-                    <img class="explanation-icon unchecked img-fluid" src="{{ asset('/images/explanation-images/explanation-unchecked-icon-black.png') }}">
-                </div> -->
                 <span class="glyphicon glyphicon-ok"></span>
             </div>
             <div class="animated fadeInUp explanation-confirm">Ok, Ik snap het</div>
