@@ -6,7 +6,7 @@
 
         <div class="mobile-explanation flex flow-r d-none">
             <div class="animated fadeInDown"> Navigeer door te swipen </div>
-            <img class="explanation-icon" src="{{ asset('/images/explanation-images/horizontal-swipe-icon.png') }}">
+            <img class="explanation-icon" src="{{ asset('/images/explanation-images/swipe-icon.jpg') }}">
             <div class="animated fadeInUp explanation-confirm">Ok, Weg hiermee</div>
         </div>
 

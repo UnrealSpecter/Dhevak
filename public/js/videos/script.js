@@ -364,7 +364,7 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[2];
+    this.currentVideo                   = videos[1];
     this.currentVideoPiece              = 'main';
 
     //players
@@ -405,7 +405,7 @@ function Player(videos){
 
         //cross browser
         window.URL = window.URL || window.webkitURL;
-        var loadedVideos = 0;
+
         $.each(this.videos, function(videoIndex, video){
             $.each(video.pieces, function(pieceIndex, piece){
 

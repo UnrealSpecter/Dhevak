@@ -2,7 +2,7 @@
 var fileInput;
 var checkBox;
 var inputHtml = '<input class="form-control" placeholder="social-media-url" name="socialMediaUrl[] type="text">';
-var descriptionElement = '<textarea class="form-control" name="project_description[]" cols="50" rows="10"></textarea>';
+var descriptionElement = '<textarea class="form-control" maxlength="450" name="project_description[]" cols="50" rows="10"></textarea>';
 
 //onload attach onchange handler to the input
 window.onload = function () {

@@ -58,14 +58,14 @@
                     </div>
             @endforeach
         </div>
-        <a class="carousel-control-prev" href="#carousel-{{ $project->id }}-{{ $project->id }}" role="button" data-slide="prev">
+        <!-- <a class="carousel-control-prev" href="#carousel-{{ $project->id }}-{{ $project->id }}" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
         <a class="carousel-control-next" href="#carousel-{{ $project->id }}-{{ $project->id }}" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
-        </a>
+        </a> -->
     </div>
 
     <!-- bootstrap image carousel carousel -->
@@ -90,25 +90,25 @@
                     </div>
             @endforeach
         </div>
-        <!-- <a class="carousel-control-prev" href="#carousel{{ $project->id }}" role="button" data-slide="prev">
+        <a class="carousel-control-prev" href="#carousel{{ $project->id }}" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
         <a class="carousel-control-next" href="#carousel{{ $project->id }}" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
-        </a> -->
+        </a>
     </div>
 
-    <div class="sub-title col-lg-12 center flex">het eindresultaat</div>
-    <div class="col-lg-12 flex project-website center">
+    <div class="col-12 sub-title center flex">het eindresultaat</div>
+    <div class="col-12 flex project-website center">
         <a href="" target="_blank">{{ $project->project_url }}</a>
     </div>
 
-    <div class="sub-title col-lg-12 center">Social Media</div>
-    <div class="col-lg-12 project-social-media-wrapper">
+    <div class="col-12 sub-title flex center">Social Media</div>
+    <div class="col-12 project-social-media-wrapper">
         @foreach($project->social_media as $medium)
-        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 project-social-media-link flex">
+        <div class="col-4 col-sm-4 col-md-5 col-lg-2 project-social-media-link flex">
             <a class="flex" href="{{ $medium->pivot->social_media_url }}" target="_blank">
                 <img class="img-fluid" src="{{ asset('/uploads/social-media/' . $medium->image_url) }}" alt="facebook-icon">
                 <div class="social-media-text">{{ $medium->name }}</div>

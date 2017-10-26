@@ -26,10 +26,6 @@
             {!! Form::text('title', null, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
-            {!! Form::label('description', 'Description') !!}
-            {!! Form::text('description', null, ['class' => 'form-control']) !!}
-        </div>
-        <div class="form-group">
             {!! Form::label('project_url', 'Project_url') !!}
             {!! Form::text('project_url', null, ['class' => 'form-control']) !!}
         </div>
@@ -65,9 +61,6 @@
                 {!! Form::checkbox('socialMedia[]', $medium->id, false, ['class' => 'form-control no-margin checkbox']) !!}
                 </div>
             </div>
-
-
-
         @endforeach
         {!! Form::submit('Create', ['class' => 'btn btn-info']) !!}
     {!! Form::close() !!}
