@@ -19,7 +19,7 @@ class CreateProjectsTable extends Migration
             $table->increments('id');
 
             $table->string('title');
-            $table->longText('description');
+            $table->string('thumbnail_image_url');
             $table->string('project_url');
 
             $table->integer('role_id')->unsigned();

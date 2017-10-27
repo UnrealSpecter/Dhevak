@@ -22,6 +22,17 @@
     {!! Form::open(['url' => '/admin/projects', 'enctype' => 'multipart/form-data']) !!}
         <h1> Create Project </h1>
         <div class="form-group">
+            @if($verticalProject)
+                <h1>Please upload a VERTICAL Thumbnail: </h1>
+            @else
+                <h1>Please upload a HORIZONTAL Thumbnail: </h1>
+            @endif
+        </div>
+        <div class="form-group">
+            {!! Form::label('thumbnail_image_url', 'Thumbnail_image_url') !!}
+            {!! Form::file('thumbnail_image_url', ['accept' => 'image/*']) !!}
+        </div>
+        <div class="form-group">
             {!! Form::label('title', 'Title') !!}
             {!! Form::text('title', null, ['class' => 'form-control']) !!}
         </div>

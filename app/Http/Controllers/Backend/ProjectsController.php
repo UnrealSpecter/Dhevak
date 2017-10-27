@@ -36,8 +36,23 @@ class ProjectsController extends Controller
     {
         $roles = Role::all();
         $socialMedia = SocialMedia::all();
+        $projects = Project::all();
 
-        return view('backend.projects.create')->with(compact('roles', 'socialMedia'));
+        if(count($projects) > 0){
+            $lastProject = collect($projects)->last();
+            if($lastProject->id % 3 === 2) {
+                $verticalProject = true;
+            }
+            else {
+                $verticalProject = false;
+            }
+        }
+        else {
+            $verticalProject = false;
+        }
+
+
+        return view('backend.projects.create')->with(compact('roles', 'socialMedia', 'verticalProject'));
     }
 
     public function store(Request $request)
@@ -45,7 +60,6 @@ class ProjectsController extends Controller
         $project = Project::create();
 
         $project->title = $request->title;
-        $project->description = $request->description;
         $project->project_url = $request->project_url;
 
         //attach the correct social media to their respective pivot tables. additional attributes are passed through an array.
@@ -95,6 +109,45 @@ class ProjectsController extends Controller
             }
 
         }
+
+        //thumbnail path
+        $thumbnailPath = public_path('/uploads/thumbnails');
+        if(!File::isDirectory($thumbnailPath))
+        {
+            File::makeDirectory($thumbnailPath, 0777, true, true);
+        }
+
+        //thumbnail file name
+        $fileName = $project->id . "." . $request->thumbnail_image_url->getClientOriginalExtension();
+        $path = public_path('uploads/thumbnails/' . $fileName);
+        $thumbnail = InterventionImage::make($request->thumbnail_image_url);
+
+        if($project->id % 2 === 2){
+            //resizing width
+            $thumbnail->resize(345, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            // resize the image to a height of 200 and constrain aspect ratio (auto width)
+            $thumbnail->resize(null, 440, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+        else {
+            //resizing width
+            $thumbnail->resize(350, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            // resize the image to a height of 200 and constrain aspect ratio (auto width)
+            $thumbnail->resize(null, 250, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+
+        $thumbnail->save($path);
+
+        $project->thumbnail_image_url = $fileName;
 
         if($project->save()){
             return redirect()->route('projects.index');

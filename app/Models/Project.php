@@ -12,7 +12,7 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'project_url'
+        'title', 'description', 'project_url', 'thumbnail_image_url'
     ];
 
     public function descriptions() {

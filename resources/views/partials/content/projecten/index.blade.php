@@ -18,24 +18,6 @@
     </div>
 
     <div class="sub-title flex col-12 center">Het Project</div>
-    <!-- custom text carousel -->
-    <!-- <section class="projects">
-        <div>
-            <ul id="projects-ul">
-                @foreach($project->descriptions as $description)
-                <li>
-                    <p> {{ $description->content }}</p>
-                    <small>Some dude</small>
-                </li>
-                @endforeach
-            </ul>
-        </div>
-        <div class="projects-control">
-            <i class="fa fa-angle-left fa-2x" id="projects-l"></i>
-            <i class="fa fa-angle-right fa-2x" id="projects-r"></i>
-        </div>
-    </section> -->
-
     <!-- bootstrap text carousel carousel -->
     <div id="carousel-{{ $project->id }}-{{ $project->id }}" class="carousel slide col-lg-8 offset-lg-2">
         <ol class="carousel-indicators">

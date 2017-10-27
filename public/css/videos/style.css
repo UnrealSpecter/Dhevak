@@ -52,8 +52,17 @@
         font-size: 3.5em;
     }
 
-    /* LOADER TITLE*/
+    /* FLIP ICON INDICATOR */
+    .flip-icon {
+        height: 30%;
+        width: 25%;
+    }
 
+    .landscape-indicator > p {
+        font-size: 2em;
+    }
+
+    /* LOADER TITLE*/
     .loader-title {
         font-size: 20em;
     }
@@ -79,8 +88,18 @@
         height: 11%;
     }
 
+    .explanation-icon {
+        max-height: 75%;
+        width: 15%;
+    }
+
     .scroll-indicator {
         font-size: 2em;
+    }
+
+    .explanation-confirm {
+        font-size: 0.9em;
+        border: solid black 4px;
     }
 
 }
@@ -135,6 +154,16 @@
         font-size: 2.75em;
     }
 
+    /* FLIP ICON INDICATOR */
+    .flip-icon {
+        height: 30%;
+        width: 25%;
+    }
+
+    .landscape-indicator > p {
+        font-size: 1.75em;
+    }
+
     /* LOADER */
     .loader-title {
         font-size: 15em;
@@ -159,6 +188,16 @@
 
     .explanation-container, .video-controls {
         height: 15%;
+    }
+
+    .explanation-confirm {
+        font-size: 0.9em;
+        border: solid black 4px;
+    }
+
+    .explanation-icon {
+        max-height: 75%;
+        width: 20%;
     }
 
     .scroll-indicator {
@@ -213,6 +252,16 @@
         font-size: 2.25em;
     }
 
+    /* FLIP ICON INDICATOR */
+    .flip-icon {
+        height: 30%;
+        width: 25%;
+    }
+
+    .landscape-indicator > p {
+        font-size: 1.25em;
+    }
+
     /* LOADER */
     .loader-title {
         font-size: 10em;
@@ -237,6 +286,14 @@
 
     .explanation-container, .video-controls {
         height: 15%;
+    }
+
+    .explanation-confirm {
+        border: solid black 3px;
+    }
+
+    .explanation-icon {
+        width: 20%;
     }
 
     .scroll-indicator {
@@ -291,6 +348,16 @@
         font-size: 1.5em;
     }
 
+    /* FLIP ICON INDICATOR */
+    .flip-icon {
+        height: 25%;
+        width: 25%;
+    }
+
+    .landscape-indicator > p {
+        font-size: 0.75em;
+    }
+
     /* LOADER */
     .loader-title {
         font-size: 5em;
@@ -317,8 +384,15 @@
         height: 20%;
     }
 
+    .explanation-confirm {
+        border: solid black 3px;
+    }
+    .explanation-icon {
+        width: 20%;
+    }
+
     .scroll-indicator {
-        font-size: 1em;
+        font-size: 0.75em;
     }
 
 }
@@ -341,6 +415,56 @@
     left: 0;
     background-color: black;
     color: white;
+}
+
+
+@keyframes flipIconAnimation {
+    0% {
+        -ms-transform: rotate(0deg); /* IE 9 */
+        -webkit-transform: rotate(0deg); /* Chrome, Safari, Opera */
+        transform: rotate(0deg);
+    }
+    10% {
+        -ms-transform: rotate(0deg); /* IE 9 */
+        -webkit-transform: rotate(0deg); /* Chrome, Safari, Opera */
+        transform: rotate(0deg);
+    }
+    40% {
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg);
+    }
+    60% {
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg);
+    }
+    100% {
+        -ms-transform: rotate(0deg); /* IE 9 */
+        -webkit-transform: rotate(0deg); /* Chrome, Safari, Opera */
+        transform: rotate(0deg);
+    }
+}
+
+.flip-icon {
+    -webkit-animation-name: flipIconAnimation; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
+    animation-name: flipIconAnimation;
+    animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+    animation-iteration-count: infinite;
+}
+
+.landscape-indicator > p {
+    color: black;
+    font-family: Raleway;
+    letter-spacing: 3px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 5%;
+    width: 80%;
+    height: 30%;
+    text-align: center;
 }
 
 body {
@@ -370,7 +494,7 @@ h1 {
     left: 0;
     bottom: 0;
     background-color: white;
-    z-index: 1000;
+    z-index: 1500;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
@@ -397,16 +521,11 @@ h1 {
     height: 100%;
 }
 
-.mobile-explanation > .explanation-icon {
-    height: 75%;
-}
-
 .explanation-icon {
     margin: 0 2% 0 3%;
 }
 
 .explanation-confirm, .explanation-help, .explanation-skip-transitions {
-    border: solid 5px black;
     padding: 5px 15px 5px 15px;
     font-weight: bold;
     margin: 0 0 0 1%;
@@ -670,7 +789,7 @@ a {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 900;
 }
 
 .hidden {
@@ -702,6 +821,11 @@ a {
     width: 12%;
     height: 17%;
     cursor: pointer;
+}
+
+.project > img {
+    height: 100%;
+    width: 100%;
 }
 
 .projecten-left {

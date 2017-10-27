@@ -45,6 +45,10 @@
                 <th><img style="height: 200px;" class="img-fluid" src="{{ URL::asset('/uploads/images/' . $image->image_url) }}"</th>
             </tr>
             @endforeach
+            <tr>
+                <th>Thumbnail Image</th>
+                <th><img style="height: 200px;" class="img-fluid" src="{{ URL::asset('/uploads/thumbnails/' . $project->thumbnail_image_url) }}"</th>
+            </tr>
         </table>
         <a href="/admin/projects/{{$project->id}}/edit" class="btn btn-info">Edit</a>
         {{ Form::open(['method' => 'DELETE', 'route' => ['projects.destroy', $project->id]]) }}
