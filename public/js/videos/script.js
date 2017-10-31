@@ -397,11 +397,12 @@ function Player(videos){
                             $(videoSelector).get(0).load();
 
                             //increment the amount of loaded pieces so we can track them
-                            player.videos[videoIndex - 1].loadedPieces += 1;
+                            player.videos[videoIndex].loadedPieces += 1;
 
                             //store the amount of loaded home video pieces so we can start the intro animation when three of them have loaded.
                             // var homeVideos = player.videos[0].loadedPieces;
-                            if(player.currentVideo.loadedPieces == player.currentVideo.pieces.length){
+                            if(player.currentVideo.loadedPieces === player.currentVideo.pieces.length){
+                                console.log('start intro');
                                 introAnimation();
                             }
 
