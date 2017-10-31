@@ -149,9 +149,9 @@ function loaded(){
         });
 
         // project navigation
-        $('.arrow-up, .arrow-down').on('click', function(e){
+        $('.cycle-projects').on('click', function(e){
             var direction = $(e.target).attr('data-direction');
-            navigateUpOrDownThroughProjects(direction);
+            initializeOrSetProjectNavigation(direction);
         });
 
         // scroll to certain element
@@ -200,6 +200,30 @@ var introAnimation = (function() {
         }
     };
 })();
+
+var projectNavigationIndex = 0;
+function initializeOrSetProjectNavigation(direction) {
+
+    var projects = document.getElementsByClassName('project');
+    for(counter = 3; counter >= 1; counter--){
+        var project = projects[projectNavigationIndex];
+        if(direction === 'next'){
+            if((projectNavigationIndex + 1) <= projects.length){
+                $(project).removeClass('d-none');
+                $(projects[projectNavigationIndex-3]).addClass('d-none');
+                projectNavigationIndex++;
+            }
+        }
+        else if(direction === 'previous'){
+            if(projectNavigationIndex - 3 > 0){
+                projectNavigationIndex--;
+                $(projects[projectNavigationIndex]).addClass('d-none');
+                $(projects[projectNavigationIndex-3]).removeClass('d-none');
+            }
+        }
+    }
+
+}
 
 var projectToShow;
 var projectToHide;
@@ -416,6 +440,10 @@ function Player(videos){
     this.showLoop = function(){
         var loop = $('#loop');
         var videoName = player.currentVideo.name;
+
+        if(videoName === 'projecten'){
+            initializeOrSetProjectNavigation('next');
+        }
 
         isVideoPlaying = false;
 
