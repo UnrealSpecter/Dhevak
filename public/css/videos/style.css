@@ -438,11 +438,11 @@
 .landscape-indicator-background {
     background-color: white;
     z-index: 9999;
-    position: absolute;
+    position: fixed;
     height: 400vh;
     width: 400vw;
-    bottom: 50%;
-    right: 50%;
+    top: -50%;
+    right: -50%;
 }
 
 
