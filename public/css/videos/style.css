@@ -97,7 +97,7 @@
         font-size: 2em;
     }
 
-    .explanation-confirm {
+    .explanation-confirm, .explanation-help, .explanation-skip-transitions {
         font-size: 0.9em;
         border: solid black 4px;
     }
@@ -190,7 +190,7 @@
         height: 15%;
     }
 
-    .explanation-confirm {
+    .explanation-confirm, .explanation-help, .explanation-skip-transitions {
         font-size: 0.9em;
         border: solid black 4px;
     }
@@ -288,7 +288,7 @@
         height: 15%;
     }
 
-    .explanation-confirm {
+    .explanation-confirm, .explanation-help, .explanation-skip-transitions {
         border: solid black 3px;
     }
 
@@ -384,9 +384,10 @@
         height: 20%;
     }
 
-    .explanation-confirm {
+    .explanation-confirm, .explanation-help, .explanation-skip-transitions {
         border: solid black 3px;
     }
+
     .explanation-icon {
         width: 20%;
     }
