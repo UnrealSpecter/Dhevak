@@ -83,14 +83,15 @@ function loaded(){
 
         //activate swipe only on mobile devices.
         if(isMobile){
-            alert('swipe');
             var swipeManager = new Hammer(window);
             swipeManager.on('swipeleft', function(ev) {
+                alert('swipeleft');
                 if(!projectContentActive){
                     playPreviousOrNext('next');
                 }
             });
             swipeManager.on('swiperight', function(ev){
+                alert('swiperight');
                 if(!projectContentActive){
                     playPreviousOrNext('previous');
                 }
