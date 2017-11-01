@@ -88,22 +88,18 @@ function loaded(){
             };
 
             var swipeManager = new Hammer(window, options);
-            swipeManager.on("dragleft dragright swipeleft swiperight", function(ev){
-                alert('aiosjfgqoegj');
+            swipeManager.on('dragleft swipeleft', function(ev) {
+                alert('swipeleft');
+                if(!projectContentActive){
+                    playPreviousOrNext('next');
+                }
             });
-
-            // swipeManager.on('swipeleft', function(ev) {
-            //     alert('swipeleft');
-            //     if(!projectContentActive){
-            //         playPreviousOrNext('next');
-            //     }
-            // });
-            // swipeManager.on('swiperight', function(ev){
-            //     alert('swiperight');
-            //     if(!projectContentActive){
-            //         playPreviousOrNext('previous');
-            //     }
-            // });
+            swipeManager.on('dragright swiperight', function(ev){
+                alert('swiperight');
+                if(!projectContentActive){
+                    playPreviousOrNext('previous');
+                }
+            });
         }
 
         //remove explanation when the confirm is clicked. / ++ this needs functionality so that it doesnt pop every time. ++ /
