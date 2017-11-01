@@ -12,6 +12,7 @@ var explanationVideo;
 var projectContentActive = false;
 var projectNavigation = [];
 var projectCount;
+var explanationShown = false;
 var explanationConfirmed = false;
 var skipTransitions = false;
 var scrollAllowed = true;
@@ -113,6 +114,7 @@ function loaded(){
         //remove explanation when the confirm is clicked. / ++ this needs functionality so that it doesnt pop every time. ++ /
         $('.explanation-confirm').on('click', function(){
             $('.explanation-container').removeClass('fadeInUp').addClass('fadeOutDown');
+            explanationConfirmed = true;
         });
 
         //explanation functions -> if ismobile dont show the explanation at all.
@@ -436,51 +438,6 @@ function Player(videos){
             req.send();
         });
 
-        // $.each(this.videos, function(videoIndex, video){
-        //     $.each(video.pieces, function(pieceIndex, piece){
-        //
-        //             var req = new XMLHttpRequest();
-        //             req.open('GET', '/videos/' + video.name + '/' + video.name + '-' + piece + '.mp4', true);
-        //             req.responseType = 'blob';
-        //
-        //             req.onload = function() {
-        //                 // Onload is triggered even on 404 // so we need to check the status code
-        //                 if (this.status === 200) {
-        //
-        //                     var videoSelector = '.' + video.name + '.' + piece;
-        //                     var videoBlob = this.response;
-        //                     var vid = URL.createObjectURL(videoBlob); // IE10+
-        //
-        //                     // Video is now downloaded // and we can set it as source on the video element and the poster
-        //                     $(videoSelector + '> source').attr('src', vid);
-        //
-        //                     //set the video poster maybe this should be dynamic aswell?
-        //                     $(videoSelector).attr('poster', '/images/posters/' + video.name + '/' + video.name + '-' + piece + '-poster.jpg');
-        //
-        //                     //increment loadedVideos so we can start the intro animation once they are all loaded
-        //                     $(videoSelector).get(0).load();
-        //
-        //                     //increment the amount of loaded pieces so we can track them
-        //                     player.videos[videoIndex].loadedPieces += 1;
-        //
-        //                     //store the amount of loaded home video pieces so we can start the intro animation when three of them have loaded.
-        //                     // var homeVideos = player.videos[0].loadedPieces;
-        //                     if(player.currentVideo.loadedPieces === player.currentVideo.pieces.length){
-        //                         console.log('start intro');
-        //                         introAnimation();
-        //                     }
-        //
-        //                 }
-        //             }
-        //
-        //             req.onerror = function() {
-        //                 console.log('video loading error');
-        //             }
-        //
-        //             req.send();
-        //
-        //     });
-        // });
     }
 
     this.play = function(videoName, pieceName, direction){
@@ -516,9 +473,13 @@ function Player(videos){
             this.switchPlayer(loop);
         }
 
-        if(!explanationConfirmed){
+        if(!explanationShown){
             $('.explanation-container').removeClass('d-none');
-            explanationConfirmed = true;
+            explanationShown = true;
+        }
+
+        if(!explanationConfirmed){
+            $('.explanation-container').removeClass('fadeOutDown').addClass('fadeInUp');
         }
 
         this.makeContentActive(videoName);
@@ -536,7 +497,7 @@ function Player(videos){
             contentToReveal.removeClass('hidden');
         }
         else if(contentToHide) {
-            $('.explanation-container').addClass('d-none');
+            // $('.explanation-container').addClass('d-none');
             contentToHide.addClass('hidden');
             contentToReveal.removeClass('hidden');
         }
@@ -805,6 +766,9 @@ function scroll(e){
     evt = evt.originalEvent ? evt.originalEvent : evt; //convert to originalEvent if possible
     var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta //check for detail first, because it is used by Opera and FF
     var direction = delta;
+    if(!explanationConfirmed){
+        $('.explanation-container').removeClass('fadeInUp').addClass('fadeOutDown');
+    }
     if(direction > 0){
         closeNav();
         playPreviousOrNext('previous');
