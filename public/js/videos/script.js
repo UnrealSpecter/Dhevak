@@ -83,19 +83,27 @@ function loaded(){
 
         //activate swipe only on mobile devices.
         if(isMobile){
-            var swipeManager = new Hammer(window);
-            swipeManager.on('swipeleft', function(ev) {
-                alert('swipeleft');
-                if(!projectContentActive){
-                    playPreviousOrNext('next');
-                }
+            var options = {
+                preventDefault: true
+            };
+
+            var swipeManager = new Hammer(window, options);
+            swipeManager.on("dragleft dragright swipeleft swiperight", function(ev){
+                alert('aiosjfgqoegj');
             });
-            swipeManager.on('swiperight', function(ev){
-                alert('swiperight');
-                if(!projectContentActive){
-                    playPreviousOrNext('previous');
-                }
-            });
+
+            // swipeManager.on('swipeleft', function(ev) {
+            //     alert('swipeleft');
+            //     if(!projectContentActive){
+            //         playPreviousOrNext('next');
+            //     }
+            // });
+            // swipeManager.on('swiperight', function(ev){
+            //     alert('swiperight');
+            //     if(!projectContentActive){
+            //         playPreviousOrNext('previous');
+            //     }
+            // });
         }
 
         //remove explanation when the confirm is clicked. / ++ this needs functionality so that it doesnt pop every time. ++ /
@@ -389,8 +397,8 @@ function Player(videos){
 
             req.onload = function() {
                 // Onload is triggered even on 404 // so we need to check the status code
-                if (this.status === 200) {
-
+                if (this.status === 200 || this.status === 206) {
+                    console.log('intro starting');
                     var videoSelector = '.' + video.name + '.' + piece;
                     var videoBlob = this.response;
                     var vid = URL.createObjectURL(videoBlob); // IE10+
@@ -410,6 +418,7 @@ function Player(videos){
                     //store the amount of loaded home video pieces so we can start the intro animation when three of them have loaded.
                     // var homeVideos = player.videos[0].loadedPieces;
                     if(player.currentVideo.loadedPieces === player.currentVideo.pieces.length){
+                        console.log('intro starting');
                         introAnimation();
                     }
 
