@@ -183,6 +183,7 @@ function loaded(){
 
 //closure function that runs the introduction only once
 var introAnimation = (function() {
+    console.log('intro starting');
     var executed = false;
     return function() {
         if (!executed) {
@@ -398,7 +399,7 @@ function Player(videos){
             req.onload = function() {
                 // Onload is triggered even on 404 // so we need to check the status code
                 if (this.status === 200 || this.status === 206) {
-                    console.log('intro starting');
+
                     var videoSelector = '.' + video.name + '.' + piece;
                     var videoBlob = this.response;
                     var vid = URL.createObjectURL(videoBlob); // IE10+
@@ -418,7 +419,6 @@ function Player(videos){
                     //store the amount of loaded home video pieces so we can start the intro animation when three of them have loaded.
                     // var homeVideos = player.videos[0].loadedPieces;
                     if(player.currentVideo.loadedPieces === player.currentVideo.pieces.length){
-                        console.log('intro starting');
                         introAnimation();
                     }
 
