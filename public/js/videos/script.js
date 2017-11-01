@@ -83,20 +83,28 @@ function loaded(){
 
         //activate swipe only on mobile devices.
         if(isMobile){
-            var options = {
-                preventDefault: true
-            };
 
-            var swipeManager = new Hammer(window, options);
-            swipeManager.on('dragleft swipeleft', function(ev) {
-                alert('swipeleft');
-                if(!projectContentActive){
+            //initiate hammer.js this way otherwise chrome touch events dont work.
+            var swipeManager = new Hammer.Manager(window, {
+                touchAction: 'auto',
+                inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput,
+                recognizers: [
+                    [
+                        Hammer.Swipe, {
+                            direction: Hammer.DIRECTION_HORIZONTAL
+                        }
+                    ]
+                ]
+            });
+
+            swipeManager.on('swiperight', function(ev) {
+                if(!projectContentActive && !navOpen){
                     playPreviousOrNext('next');
                 }
             });
-            swipeManager.on('dragright swiperight', function(ev){
-                alert('swiperight');
-                if(!projectContentActive){
+
+            swipeManager.on('swipeleft', function(ev){
+                if(!projectContentActive && !navOpen){
                     playPreviousOrNext('previous');
                 }
             });
@@ -918,8 +926,10 @@ function setNextPrevious(currentVideo){
 }
 
 /* Open */
+var navOpen = false;
 function openNav() {
-    $('.closebtn').removeClass('animated fadeOut').addClass('animated fadeIn');
+    navOpen = true;
+    $('.closebtn').removeClass('animated fadeOut d-none').addClass('animated fadeIn');
     if(!projectContentActive){
         $('.overlay').css('height', '100%');
         setTimeout(function(){
@@ -936,7 +946,8 @@ function openNav() {
 
 /* Close */
 function closeNav() {
-    $('.closebtn').removeClass('animated fadeIn').addClass('animated fadeOut');
+    navOpen = false;
+    $('.closebtn').removeClass('animated fadeIn').addClass('animated fadeOut d-none');
     if(!projectContentActive){
         $('.overlay').css('height', '0%');
         $('.overlay-content > a').each(function(index) {

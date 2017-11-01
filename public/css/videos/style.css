@@ -806,7 +806,7 @@ h1 {
     height: 0%;
     width: 100%;
     position: fixed; /* Stay in place */
-    z-index: 10000; /* Sit on top */
+    z-index: 9999; /* Sit on top */
     left: 0;
     top: 0;
     background-color: white; /* Black w/opacity */

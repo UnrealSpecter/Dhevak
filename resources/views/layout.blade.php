@@ -17,8 +17,11 @@
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/bootstrap/css/bootstrap.css')}}" />
         <script type="text/javascript" src="{{ URL::asset('plugins/bootstrap/js/bootstrap.js')}}"></script>
 
-        <!-- superlightweight clipboard copy library -->
+        <!-- swipe even libraries -->
+        <!-- <script type="text/javascript" src="{{ URL::asset('plugins/jquery-migrate/js/jquery-migrate.js') }}"></script>
+        <script type="text/javascript" src="{{ URL::asset('plugins/jquery-mobile-touch/js/jquery.mobile.custom.min.js') }}"></script> -->
         <script type="text/javascript" src="{{ URL::asset('plugins/hammer/js/hammer.js') }}"></script>
+        <!-- superlightweight clipboard copy library -->
         <script type="text/javascript" src="{{ URL::asset('plugins/clipboard/js/clipboard.min.js') }}"></script>
 
         <!-- include toasts -->
