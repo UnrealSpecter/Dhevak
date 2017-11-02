@@ -9,7 +9,7 @@
 
         <link rel="icon" href="{{ URL::asset('/images/dhevak-logo.png')}}">
 
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <!-- <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css"> -->
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/normalize/css/normalize.css')}}" />
         <script type="text/javascript" src="{{ URL::asset('plugins/jquery/js/jquery-3.2.1.min.js') }}"></script>
 
@@ -34,8 +34,9 @@
         <script src="{{ URL::asset('plugins/viewportchecker/js/viewportchecker.js') }}"></script>
 
         <!-- modernizr -->
-        <script src="cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-        <script src="{{ URL::asset('plugins/modernizr/js/modernizr.js') }}"></script>
+        <!-- <script src="cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+        <script src="{{ URL::asset('plugins/modernizr/js/modernizr.js') }}"></script> -->
+        <script src="{{ URL::asset('plugins/object-fit-polyfill/js/object-fit-videos.min.js') }}"></script>
         @yield('css')
 
         @yield('js')

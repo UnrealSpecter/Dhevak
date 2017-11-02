@@ -2,13 +2,13 @@
 
 <div class="project-content d-none" data-project="{{ $project->id }}">
 
-    <div class="col-12 project-bg-title center">{{ $project->title }}</div>
+    <div class="col-12 project-bg-title flex">{{ $project->title }}</div>
 
     <div class="scroll-down-indicator flex col-12">
         <img class="img-responsive scroll-down-button" src="{{ URL::asset('/images/arrow-down.jpg') }}">
     </div>
 
-    <div class="col-12 project-title center">{{ $project->title }}</div>
+    <div class="col-12 flex project-title center">{{ $project->title }}</div>
 
     <div class="sub-title subtitle-role col-12 center flex">onze rol</div>
     <div class="project-roles-wrapper col-12">

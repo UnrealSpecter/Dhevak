@@ -3,10 +3,10 @@
 
 <!-- loader-wrapper -->
 <div class="loader-wrapper flex col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="loader-content flex flow-c col-lg-11 col-md-11 col-sm-11 col-xs-11">
+    <div class="loader-content flex flow-c col-12">
         <h1 class="loader-title flex">Dhèvak</h1>
         <div class="quote-wrapper">
-            <div class="loader-text-block animated">
+            <div class="loader-text-block flex animated">
                 <div class="loader-text quotes">Loading Artificial Intelligence Core</div>
                 <div class="loader-text quotes">Inserting Personality modules</div>
                 <div class="loader-text quotes">A moment...</div>
@@ -31,7 +31,7 @@
                 <div class="loader-text quotes">Neem even contact op</div>
                 <div class="loader-text quotes">Op dit punt begin ik me toch af te vragen of er niets mis is</div>
             </div>
-            <div class="intro-quote-block d-none">
+            <div class="intro-quote-block flex d-none">
                 <div class="intro-text">This is our story...</div>
             </div>
         </div>

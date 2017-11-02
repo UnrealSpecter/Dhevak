@@ -185,6 +185,9 @@ function loaded(){
             }
         });
 
+        //initialize object fit polyfill.
+        objectFitVideos();
+
 }
 
 //closure function that runs the introduction only once
@@ -425,7 +428,7 @@ function Player(videos){
                     //store the amount of loaded home video pieces so we can start the intro animation when three of them have loaded.
                     // var homeVideos = player.videos[0].loadedPieces;
                     if(player.currentVideo.loadedPieces === player.currentVideo.pieces.length){
-                        introAnimation();
+                        // introAnimation();
                     }
 
                 }
