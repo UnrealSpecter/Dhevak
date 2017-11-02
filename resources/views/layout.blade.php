@@ -32,6 +32,10 @@
         <!-- viewport checker -->
         <script src="{{ URL::asset('plugins/viewportchecker/js/viewport.js') }}"></script>
         <script src="{{ URL::asset('plugins/viewportchecker/js/viewportchecker.js') }}"></script>
+
+        <!-- modernizr -->
+        <script src="cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+        <script src="{{ URL::asset('plugins/modernizr/js/modernizr.js') }}"></script>
         @yield('css')
 
         @yield('js')

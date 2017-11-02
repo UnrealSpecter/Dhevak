@@ -1,4 +1,16 @@
 /* large desktops and up ----------- */
+
+/*this css is nessary*/
+.object-fit___fill {
+    object-fit: fill;
+}
+
+img, video, svg{
+  height: 100%;
+  width:  100%;
+  opacity: 0.6;
+}
+
 @media screen and (min-width: 1400px) {
 
     .explanation-container, .video-controls {
