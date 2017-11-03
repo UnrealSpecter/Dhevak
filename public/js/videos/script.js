@@ -150,7 +150,10 @@ function loaded(){
         // project details on frame click
         $('.projecten-left, .projecten-middle, .projecten-right').on('click', function(e){
             var project = $(e.target).parent().attr('data-project');
-            showProjectDetails(project);
+            console.log(canShowNextProject);
+            if(canShowNextProject){
+                showProjectDetails(project);
+            }
         });
 
         //scroll events
@@ -192,7 +195,6 @@ function loaded(){
 
 //closure function that runs the introduction only once
 var introAnimation = (function() {
-    console.log('intro starting');
     var executed = false;
     return function() {
         if (!executed) {
@@ -252,6 +254,7 @@ function initializeOrSetProjectNavigation(direction) {
 
 }
 
+var canShowNextProject = true;
 var projectToShow;
 var projectToHide;
 function showProjectDetails(project){
@@ -269,9 +272,12 @@ function showProjectDetails(project){
             projectToHide = projectToShow;
         }
     });
+
     //show the close button in a fixed position its used from the nav.
     projectContentActive = true;
+    canShowNextProject = false;
     openNav();
+
 }
 
 // hide the project details
@@ -279,7 +285,8 @@ function hideProjectDetails(){
     $('.myCarousel').carousel('pause');
     $('.project-overlay').removeClass('animated slideInDown').addClass('animated slideOutUp');
     setTimeout(function(){
-        $('.project-overlay').addClass('d-none')
+        $('.project-overlay').addClass('d-none');
+        canShowNextProject = true;
     }, 1000);
     projectContentActive = false;
 }
@@ -428,7 +435,7 @@ function Player(videos){
                     //store the amount of loaded home video pieces so we can start the intro animation when three of them have loaded.
                     // var homeVideos = player.videos[0].loadedPieces;
                     if(player.currentVideo.loadedPieces === player.currentVideo.pieces.length){
-                        // introAnimation();
+                        introAnimation();
                     }
 
                 }
@@ -520,8 +527,6 @@ function Player(videos){
         }
         //if there is a player and its not the same player as the previous one then swap them out.
         else if(playerToHide){
-            console.log(playerToReveal);
-            console.log(playerToHide);
             playerToReveal.css({
                 'opacity' : '1',
                 'z-index': '1'

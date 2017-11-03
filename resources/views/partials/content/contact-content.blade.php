@@ -2,7 +2,7 @@
 <div id="content-wrapper" class="contact-content hidden">
 
     <!-- contact menu -->
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 contact-menu" onclick="openNav()">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 contact-menu flex" onclick="openNav()">
       <span class="open-menu-button"></span>
     </div>
 
@@ -17,7 +17,7 @@
     </div>
 
     <!-- social media container  -->
-    <div class="social-media">
+    <div class="social-media flex">
         <a href="https://twitter.com/DhevakArt/media" class="facebook"      target="_blank"></a>
         <a href="https://www.facebook.com/dhevakart/" class="twitter"       target="_blank"></a>
         <a href="https://www.instagram.com/dhevakart/" class="instagram"    target="_blank"></a>

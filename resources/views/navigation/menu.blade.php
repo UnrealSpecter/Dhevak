@@ -1,5 +1,5 @@
 <!-- Button to close the overlay navigation -->
-<a href="javascript:void(0)" class="closebtn d-none" style="opacity: 0; z-index: 10000; position: fixed; top: 0; right: 45px;" onclick="closeNav()">&times;</a>
+<a href="javascript:void(0)" class="closebtn d-none" onclick="closeNav()">&times;</a>
 
 <!-- The overlay -->
 <div class="overlay flex">

@@ -4,8 +4,8 @@
 }
 
 video {
-  object-fit: fill;
-  font-family: 'object-fit: fill;';
+  object-fit: cover;
+  font-family: 'object-fit: cover;';
 }
 
 /* large desktops and up ----------- */
@@ -681,11 +681,6 @@ h1 {
 
 .intro-quote-block, .loader-text-block {
     pointer-events: none;
-    /*position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;*/
 }
 
 .quotes {
@@ -822,18 +817,13 @@ a {
 }
 
 /* Position the close button (top right corner) */
-/*.overlay .closebtn, .project-overlay .closebtn {
-    position: absolute;
-    top: 0px;
-    right: 45px;
-    font-size: 60px;
-}*/
-
 .closebtn {
-    position: absolute;
-    top: 0px;
-    right: 45px;
     font-size: 60px;
+    opacity: 0;
+    z-index: 10000;
+    position: fixed;
+    top: 0;
+    right: 45px;
 }
 
 
@@ -988,7 +978,7 @@ a {
     overflow: hidden;
     height: 100vh;
     width: 100vw;
-    position: fixed;
+    position: absolute;
     font-family: Raleway;
     white-space: nowrap;
     color: green;
@@ -1030,74 +1020,6 @@ a {
     padding: 20px;
 }
 
-/* carousel custom */
-.projects {
-  background-color: white;
-  overflow: hidden;
-  width: 100%;
-}
-
-.projects ul {
-  list-style: none;
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  overflow: hidden;
-  padding: 0;
-}
-
-.projects ul li {
-  display: inline-block;
-  padding: 1rem;
-  position: relative;
-  text-align: center;
-  width: 100vw;
-}
-
-.projects ul li p {
-    font-size: 1.5em;
-    font-family: Raleway;
-    color: black;
-    line-height: 175%;
-    letter-spacing: 1px;
-}
-
-.projects-control {
-  background-color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.projects-control i {
-  cursor: pointer;
-  padding: 1.3rem;
-  margin-bottom: 1%;
-}
-
-#projects-l {
-    background-image: url('/images/arrow-prev.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
-    padding: 2%;
-}
-
-#projects-r {
-    background-image: url('/images/arrow-next.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
-    padding: 2%;
-}
-
 .project-website > a {
     color: green;
     font-family: Raleway;
@@ -1109,15 +1031,6 @@ a {
 
 .project-social-media-wrapper, .project-roles-wrapper {
     margin: 2.5% 0 2.5% 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
 }
 
 .project-social-media-wrapper {
@@ -1263,16 +1176,14 @@ a {
     height: 100%;
     width: 20%;
     color: black;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack:center;
-        -ms-flex-pack:center;
-            justify-content:center;
     cursor: pointer;
+}
+
+.theater-ambiance {
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0.4;
+    height: 100vh;
+    width: 100vw;
 }
 
 /* CONTACT STYLING*/
@@ -1283,30 +1194,10 @@ a {
     top: 7%;
     width: 11%;
     height: 8%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: row;
-            flex-flow: row;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
     cursor: pointer;
 }
 
 .contact-information {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: column;
-            flex-flow: column;
     z-index: 200;
     position: absolute;
     top: 17.5%;
@@ -1342,9 +1233,6 @@ a {
     height: 62%;
     width: 32%;
     top: 16%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-flow: row wrap;
