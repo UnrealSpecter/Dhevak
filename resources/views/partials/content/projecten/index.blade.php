@@ -90,7 +90,7 @@
 
     <div class="col-12 sub-title center flex">het eindresultaat</div>
     <div class="col-12 flex project-website center">
-        <a href="{{ $project->project_url }}" target="_blank">{{ $project->project_url }}</a>
+        <a href="https://{{ $project->project_url }}" target="_blank">{{ $project->project_url }}</a>
     </div>
 
     <div class="col-12 sub-title flex center">Social Media</div>
