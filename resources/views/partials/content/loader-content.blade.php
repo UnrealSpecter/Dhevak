@@ -31,7 +31,7 @@
                 <div class="loader-text quotes">Neem even contact op</div>
                 <div class="loader-text quotes">Op dit punt begin ik me toch af te vragen of er niets mis is</div>
             </div>
-            <div class="intro-quote-block flex d-none">
+            <div class="intro-quote-block d-none flex">
                 <div class="intro-text">This is our story...</div>
             </div>
         </div>

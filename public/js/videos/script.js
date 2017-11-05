@@ -176,8 +176,9 @@ function loaded(){
         // scroll to certain element
         $('.scroll-down-button').on('click', function() {
              var projectOverlay = $(this).parent().parent().parent();
-             projectOverlay.animate({
-                scrollTop: projectOverlay.find('.subtitle-role').offset().top
+             var scrollToSubtitle = projectOverlay.scrollTop() + projectOverlay.find('.subtitle-role').offset().top;
+             $('.project-overlay').animate({
+                scrollTop: scrollToSubtitle
             }, 1500);
         });
 
@@ -407,6 +408,8 @@ function Player(videos){
         window.URL = window.URL || window.webkitURL;
 
         $.each(video.pieces, function(index, piece){
+            // if(piece === 'main') {
+
 
             var req = new XMLHttpRequest();
             req.open('GET', '/videos/' + video.name + '/' + video.name + '-' + piece + '.mp4', true);
@@ -434,10 +437,10 @@ function Player(videos){
 
                     //store the amount of loaded home video pieces so we can start the intro animation when three of them have loaded.
                     // var homeVideos = player.videos[0].loadedPieces;
-                    if(player.currentVideo.loadedPieces === player.currentVideo.pieces.length){
+                    // if(player.currentVideo.loadedPieces === player.currentVideo.pieces.length){
+                    //     introAnimation();
+                    // }
                         introAnimation();
-                    }
-
                 }
             }
 
@@ -446,6 +449,7 @@ function Player(videos){
             }
 
             req.send();
+            // }
         });
 
     }

@@ -4,8 +4,8 @@
 }
 
 video {
-  object-fit: cover;
-  font-family: 'object-fit: cover;';
+  object-fit: fill;
+  font-family: 'object-fit: fill;';
 }
 
 /* large desktops and up ----------- */
@@ -572,6 +572,8 @@ h1 {
     text-transform: uppercase;
     position: absolute;
     bottom: 0;
+    left: 0;
+    width: 100vw;
 }
 
 .scroll-indicator > div {
@@ -675,12 +677,16 @@ h1 {
     min-height: 10%;
     width: 100vw;
     position: absolute;
-    bottom: 20%;
+    bottom: 25%;
     left: 0px;
 }
 
 .intro-quote-block, .loader-text-block {
     pointer-events: none;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100vw;
 }
 
 .quotes {
