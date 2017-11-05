@@ -97,7 +97,7 @@
     <div class="col-12 project-social-media-wrapper flex">
         @foreach($project->social_media as $medium)
         <div class="col-4 col-sm-4 col-md-5 col-lg-2 project-social-media-link flex">
-            <a class="flex" href="https://{{ $medium->pivot->social_media_url }}" target="_blank">
+            <a class="flex" href="http://  {{ $medium->pivot->social_media_url }}" target="_blank">
                 <img class="img-fluid" src="{{ asset('/uploads/social-media/' . $medium->image_url) }}" alt="facebook-icon">
                 <div class="social-media-text">{{ $medium->name }}</div>
             </a>
