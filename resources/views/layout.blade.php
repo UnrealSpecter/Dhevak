@@ -33,17 +33,27 @@
         <script src="{{ URL::asset('plugins/viewportchecker/js/viewport.js') }}"></script>
         <script src="{{ URL::asset('plugins/viewportchecker/js/viewportchecker.js') }}"></script>
 
-        <!-- modernizr -->
-        <!-- <script src="cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-        <script src="{{ URL::asset('plugins/modernizr/js/modernizr.js') }}"></script> -->
-        <script src="{{ URL::asset('plugins/object-fit-polyfill/js/object-fit-videos.min.js') }}"></script>
+        <!-- IE polyfill -->
+        <script src="{{ URL::asset('plugins/object-fit-polyfill/js/objectFitPolyfill.min.js') }}"></script>
         @yield('css')
 
         @yield('js')
 
+        <!-- Minimum CSS -->
+        <style>
+        .container {
+          width: 100vw; /* Or whatever you want it to be */
+          height: 100vh; /* Or whatever you want it to be */
+        }
+        .media {
+          width: 100%;
+          height: 100%;
+          object-fit: fill; /* Or whatever object-fit you want */
+        }
+        </style>
     </head>
     <body>
-        <div class="container container-fluid" style="width: 100vw;" data-enhance="false" data-role="page">
+        <div class="container" style="width: 100vw;" data-enhance="false" data-role="page">
             <div class="row">
                 @yield('content')
             </div>

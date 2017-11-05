@@ -189,13 +189,11 @@ function loaded(){
             }
         });
 
-        //initialize object fit polyfill.
-        objectFitVideos();
-
 }
 
 //closure function that runs the introduction only once
 var introAnimation = (function() {
+
     var executed = false;
     return function() {
         if (!executed) {

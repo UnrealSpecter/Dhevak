@@ -3,11 +3,6 @@
     src: url('/css/fonts/Raleway-Regular.ttf');
 }
 
-video {
-  object-fit: fill;
-  font-family: 'object-fit: fill;';
-}
-
 /* large desktops and up ----------- */
 @media screen and (min-width: 1400px) {
 
@@ -1012,7 +1007,7 @@ a {
 .scroll-down-button {
     height: 20%;
     margin-bottom: 20px;
-    z-index: 100;
+    z-index: -1;
     cursor: pointer;
 }
 

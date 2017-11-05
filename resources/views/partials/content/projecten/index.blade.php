@@ -10,6 +10,7 @@
 
     <div class="col-12 flex project-title center">{{ $project->title }}</div>
 
+    @if(count($project->roles) > 0)
     <div class=" col-12  sub-title subtitle-role center flex">onze rol</div>
     <div class="col-12 project-roles-wrapper flex ">
         @foreach($project->roles as $role)
@@ -18,6 +19,7 @@
             </div>
         @endforeach
     </div>
+    @endif
 
     <div class="col-12 sub-title flex center">Het Project</div>
     <!-- bootstrap text carousel carousel -->
@@ -90,20 +92,22 @@
 
     <div class="col-12 sub-title center flex">het eindresultaat</div>
     <div class="col-12 flex project-website center">
-        <a href="https://{{ $project->project_url }}" target="_blank">{{ $project->project_url }}</a>
+        <a href="http://{{ $project->project_url }}" target="_blank">www.{{ $project->project_url }}</a>
     </div>
 
+    @if(count($project->social_media) > 0)
     <div class="col-12 sub-title flex center">Social Media</div>
     <div class="col-12 project-social-media-wrapper flex">
         @foreach($project->social_media as $medium)
         <div class="col-4 col-sm-4 col-md-5 col-lg-2 project-social-media-link flex">
-            <a class="flex" href="http://  {{ $medium->pivot->social_media_url }}" target="_blank">
+            <a class="flex" href="{{ $medium->pivot->social_media_url }}" target="_blank">
                 <img class="img-fluid" src="{{ asset('/uploads/social-media/' . $medium->image_url) }}" alt="facebook-icon">
                 <div class="social-media-text">{{ $medium->name }}</div>
             </a>
         </div>
         @endforeach
      </div>
+     @endif
 
 </div>
 

@@ -63,15 +63,19 @@ class ProjectsController extends Controller
         $project->project_url = $request->project_url;
 
         //attach the correct social media to their respective pivot tables. additional attributes are passed through an array.
-        foreach($request['socialMedia'] as $mediumIndex => $mediumId) {
-            $project->social_media()->attach($mediumId, ['social_media_url' => $request['socialMediaUrl'][$mediumIndex]]);
+        if($request['socialMedia']){
+            foreach($request['socialMedia'] as $mediumIndex => $mediumId) {
+                $project->social_media()->attach($mediumId, ['social_media_url' => $request['socialMediaUrl'][$mediumIndex]]);
+            }
         }
 
         //attach all roles that are supplied to the project model
-        foreach($request['role'] as $role) {
-            //you can attach with just the id or the entire model.
-            $roleModel = Role::findOrFail($role);
-            $project->roles()->attach($roleModel);
+        if($request['role']){
+            foreach($request['role'] as $role) {
+                //you can attach with just the id or the entire model.
+                $roleModel = Role::findOrFail($role);
+                $project->roles()->attach($roleModel);
+            }
         }
 
         //add project description
