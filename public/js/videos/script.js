@@ -408,7 +408,7 @@ function Player(videos){
         window.URL = window.URL || window.webkitURL;
 
         $.each(video.pieces, function(index, piece){
-            if(piece === 'main') {
+            // if(piece === 'main') {
 
 
             var req = new XMLHttpRequest();
@@ -437,10 +437,10 @@ function Player(videos){
 
                     //store the amount of loaded home video pieces so we can start the intro animation when three of them have loaded.
                     // var homeVideos = player.videos[0].loadedPieces;
-                    // if(player.currentVideo.loadedPieces === player.currentVideo.pieces.length){
-                    //     introAnimation();
-                    // }
+                    if(player.currentVideo.loadedPieces === player.currentVideo.pieces.length){
                         introAnimation();
+                    }
+                        // introAnimation();
                 }
             }
 
@@ -449,7 +449,7 @@ function Player(videos){
             }
 
             req.send();
-            }
+            // }
         });
 
     }
