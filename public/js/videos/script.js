@@ -408,7 +408,7 @@ function Player(videos){
         window.URL = window.URL || window.webkitURL;
 
         $.each(video.pieces, function(index, piece){
-            // if(piece === 'main') {
+            if(piece === 'main') {
 
 
             var req = new XMLHttpRequest();
@@ -449,7 +449,7 @@ function Player(videos){
             }
 
             req.send();
-            // }
+            }
         });
 
     }
