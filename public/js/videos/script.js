@@ -430,7 +430,7 @@ function Player(videos){
                     $(videoSelector).attr('poster', '/images/posters/' + video.name + '/' + video.name + '-' + piece + '-poster.jpg');
 
                     //increment loadedVideos so we can start the intro animation once they are all loaded
-                    $(videoSelector).get(0).load();
+                    // $(videoSelector).get(0).load();
 
                     //increment the amount of loaded pieces so we can track them
                     player.videos[video.order].loadedPieces += 1;
