@@ -634,8 +634,12 @@ h1 {
 
 .loader-wrapper {
     height: 100vh;
-    z-index: 1;
+    z-index: 1000;
     background: url('/images/posters/home/home-main-poster.jpg');
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .loader-background {
@@ -1152,10 +1156,6 @@ a {
 
 /* WAT DOEN WIJ ANDERS STYLING */
 .explanation-video {
-    -o-object-fit: cover;
-       object-fit: cover;
-    background:transparent no-repeat;
-    background-size: cover;
     z-index: 1000000;
     position: absolute;
     top: 0;

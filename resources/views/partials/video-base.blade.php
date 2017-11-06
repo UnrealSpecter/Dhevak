@@ -9,11 +9,12 @@
 @include('navigation.menu')
 
     <!-- video elements -->
-    @include('partials.videos.home-videos')
-    @include('partials.videos.projecten-videos')
-    @include('partials.videos.wat-doen-wij-anders-videos')
-    @include('partials.videos.contact-videos')
-
+    <div class="container">
+        @include('partials.videos.home-videos')
+        @include('partials.videos.projecten-videos')
+        @include('partials.videos.wat-doen-wij-anders-videos')
+        @include('partials.videos.contact-videos')
+    </div>
     <!-- misc/helpers -->
     @include('partials.content.landscape-indicator-content')
     @include('partials.content.loader-content')

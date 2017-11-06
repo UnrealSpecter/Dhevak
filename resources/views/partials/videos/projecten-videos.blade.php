@@ -1,10 +1,10 @@
-<video preload="none" muted class="player projecten pre-intro-left">
+<video preload="none" muted class="player media projecten pre-intro-left" data-object-fit="fill">
     <source id="pre-intro-left-source" type='video/mp4' src="">
 </video>
-<video preload="none" muted class="player projecten post-intro-left">
+<video preload="none" muted class="player media projecten post-intro-left" data-object-fit="fill">
     <source id="post-intro-left-source" type='video/mp4' src="">
 </video>
-<video preload="none" muted class="player projecten post-intro-right">
+<video preload="none" muted class="player media projecten post-intro-right" data-object-fit="fill">
     <source id="post-intro-right-source" type='video/mp4' src="">
 </video>
 <div class="container">
@@ -12,9 +12,9 @@
         <source id="main-source" type='video/mp4' src="">
     </video>
 </div>
-<video preload="none" muted class="player projecten outro-left">
-    <source id="outro-left-source type='video/mp4'" src="">
+<video preload="none" muted class="player media projecten outro-left" data-object-fit="fill">
+    <source id="outro-left-source" type='video/mp4' src="">
 </video>
-<video preload="none" muted class="player projecten outro-right">
-    <source id="outro-right-source type='video/mp4'" src="">
+<video preload="none" muted class="player media projecten outro-right" data-object-fit="fill">
+    <source id="outro-right-source" type='video/mp4' src="">
 </video>

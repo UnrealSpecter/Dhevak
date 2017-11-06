@@ -53,7 +53,7 @@
         </style>
     </head>
     <body>
-        <div class="container" style="width: 100vw;" data-enhance="false" data-role="page">
+        <div class="" style="height: 100vh; width: 100vw;" data-enhance="false" data-role="page">
             <div class="row">
                 @yield('content')
             </div>

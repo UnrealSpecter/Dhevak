@@ -405,8 +405,6 @@ function Player(videos){
         window.URL = window.URL || window.webkitURL;
 
         $.each(video.pieces, function(index, piece){
-            // if(piece === 'main') {
-
 
             var req = new XMLHttpRequest();
             req.open('GET', '/videos/' + video.name + '/' + video.name + '-' + piece + '.mp4', true);
@@ -446,7 +444,7 @@ function Player(videos){
             }
 
             req.send();
-            // }
+
         });
 
     }
