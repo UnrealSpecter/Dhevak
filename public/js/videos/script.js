@@ -495,7 +495,7 @@ function Player(videos){
 
         this.makeContentActive(videoName);
 
-        loop.attr('src', '/images/posters/' + videoName + '/' + videoName + '-loop-poster.png');
+        loop.attr('src', '/images/posters/' + videoName + '/' + videoName + '-loop-poster.jpg');
     }
 
     this.makeContentActive = function(videoName){
