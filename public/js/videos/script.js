@@ -193,7 +193,6 @@ function loaded(){
 
 //closure function that runs the introduction only once
 var introAnimation = (function() {
-
     var executed = false;
     return function() {
         if (!executed) {
@@ -496,7 +495,7 @@ function Player(videos){
 
         this.makeContentActive(videoName);
 
-        loop.attr('src', '/images/posters/' + videoName + '/' + videoName + '-loop-poster.jpg');
+        loop.attr('src', '/images/posters/' + videoName + '/' + videoName + '-loop-poster.png');
     }
 
     this.makeContentActive = function(videoName){
