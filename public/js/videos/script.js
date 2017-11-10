@@ -260,6 +260,7 @@ function showProjectDetails(project){
         projectToShow = $(element);
         if(projectToShow.attr('data-project') == project){
             $('.project-overlay').removeClass('d-none animated slideOutUp').addClass('animated slideInDown');
+            $('.project-overlay').scrollTop(0);
             if(!projectToHide){
                 projectToShow.removeClass('d-none');
             }
@@ -362,8 +363,9 @@ function Player(videos){
 
     //array of videos [loader, home, projecten, watDoenWijAnders, contact]
     this.videos                         = videos;
-    this.currentVideo                   = videos[1];
+    this.currentVideo                   = videos[0];
     this.currentVideoPiece              = 'main';
+    this.loadedVideos                   = 0;
 
     //players
     this.preIntroLeftPlayerElement      = document.getElementsByClassName('pre-intro-left');
@@ -400,53 +402,15 @@ function Player(videos){
 
     //keep track of loaded videos
     this.loadVideos = function(video){
+        //keep loading the videos unless they are all loaded
+        if(player.loadedVideos < player.videos.length) {
+            video.loadPieces(video.loadedPieces);
+        }
 
-        //cross browser
-        window.URL = window.URL || window.webkitURL;
-
-        $.each(video.pieces, function(index, piece){
-
-            var req = new XMLHttpRequest();
-            req.open('GET', '/videos/' + video.name + '/' + video.name + '-' + piece + '.mp4', true);
-            req.responseType = 'blob';
-
-            req.onload = function() {
-                // Onload is triggered even on 404 // so we need to check the status code
-                if (this.status === 200 || this.status === 206) {
-
-                    var videoSelector = '.' + video.name + '.' + piece;
-                    var videoBlob = this.response;
-                    var vid = URL.createObjectURL(videoBlob); // IE10+
-
-                    // Video is now downloaded // and we can set it as source on the video element and the poster
-                    $(videoSelector + '> source').attr('src', vid);
-
-                    //set the video poster maybe this should be dynamic aswell?
-                    $(videoSelector).attr('poster', '/images/posters/' + video.name + '/' + video.name + '-' + piece + '-poster.jpg');
-
-                    //increment loadedVideos so we can start the intro animation once they are all loaded
-                    // $(videoSelector).get(0).load();
-
-                    //increment the amount of loaded pieces so we can track them
-                    player.videos[video.order].loadedPieces += 1;
-
-                    //store the amount of loaded home video pieces so we can start the intro animation when three of them have loaded.
-                    // var homeVideos = player.videos[0].loadedPieces;
-                    if(player.currentVideo.loadedPieces === player.currentVideo.pieces.length){
-                        introAnimation();
-                    }
-                        // introAnimation();
-                }
-            }
-
-            req.onerror = function() {
-                console.log('video loading error');
-            }
-
-            req.send();
-
-        });
-
+        //if one of them is loaded entirely start the introaniomation
+        if(player.loadedVideos > 0){
+            introAnimation();
+        }
     }
 
     this.play = function(videoName, pieceName, direction){
@@ -462,7 +426,7 @@ function Player(videos){
         }
 
         this.switchPlayer($(playerElement));
-        playerElement.load();
+        // playerElement.load();
         playerElement.play();
         isVideoPlaying = true;
 
@@ -638,6 +602,64 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
     //stores the amount of loaded pieces for the video
     this.loadedPieces = 0;
 
+    this.loadPieces = function(pieceIndex){
+
+            //cross browser
+            window.URL = window.URL || window.webkitURL;
+
+            var piece = this.pieces[pieceIndex];
+            var video = this;
+
+            var req = new XMLHttpRequest();
+            req.open('GET', '/videos/' + video.name + '/' + video.name + '-' + piece + '.mp4', true);
+            req.responseType = 'blob';
+
+            req.onload = function() {
+                // Onload is triggered even on 404 // so we need to check the status code
+                if (this.status === 200 || this.status === 206) {
+
+                    var videoSelector = '.' + video.name + '.' + piece;
+                    var videoBlob = this.response;
+                    var vid = URL.createObjectURL(videoBlob); // IE10+
+
+                    // Video is now downloaded // and we can set it as source on the video element and the poster
+                    $(videoSelector + '> source').attr('src', vid);
+
+                    //set the video poster maybe this should be dynamic aswell?
+                    $(videoSelector).attr('poster', '/images/posters/' + video.name + '/' + video.name + '-' + piece + '-poster.jpg');
+
+                    //increment loadedVideos so we can start the intro animation once they are all loaded
+                    $(videoSelector).get(0).load();
+
+                    //increment the amount of loaded pieces so we can track them
+                    video.loadedPieces += 1;
+
+                    console.log('loaded piece: ', piece);
+                    // console.log(video.loadedPieces, video.pieces.length);
+                    if(video.loadedPieces < video.pieces.length){
+                        video.loadPieces(video.loadedPieces);
+                    }
+                    else if(video.loadedPieces === video.pieces.length) {
+                        console.log('finished loading video: ', video.name);
+                        player.loadedVideos++;
+                        var videoToLoad = player.videos[player.loadedVideos];
+
+                        //check if not all the video's are loaded already.
+                        player.loadVideos(videoToLoad);
+
+                    }
+
+                }
+            }
+
+            req.onerror = function() {
+                console.log('video loading error');
+            }
+
+            req.send();
+
+    }
+
     this.returnSource = function(video){
         var source = this.src + '/' + video + '.mp4';
         return source;
@@ -672,8 +694,6 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
 
 //initializes the different video objects and the main player object that will handle them all.
 function initializePlayer() {
-
-    var loader = new Video('loader', 0, null, null, null, null, null, null, null, 'loader-loop', null);
 
     var home = new Video('home',
         1,
@@ -732,7 +752,6 @@ function initializePlayer() {
 
     var videos = [];
 
-    videos.push(loader);
     videos.push(home);
     videos.push(projecten);
     videos.push(watDoenWijAnders);
