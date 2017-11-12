@@ -150,7 +150,6 @@ function loaded(){
         // project details on frame click
         $('.projecten-left, .projecten-middle, .projecten-right').on('click', function(e){
             var project = $(e.target).parent().attr('data-project');
-            console.log(canShowNextProject);
             if(canShowNextProject){
                 showProjectDetails(project);
             }
@@ -327,6 +326,8 @@ function isFinished(e) {
 
     var video = $(e.target);
 
+    console.log(video);
+
     if(video.hasClass('pre-intro-left')) {
         player.play(player.currentVideo.name, 'main');
     }
@@ -372,7 +373,6 @@ function Player(videos){
     this.postIntroLeftPlayerElement     = document.getElementsByClassName('post-intro-left');
     this.postIntroRightPlayerElement    = document.getElementsByClassName('post-intro-right');
     this.mainPlayerElement              = document.getElementsByClassName('main');
-    this.loopPlayerElement              = document.getElementsByClassName('loop');
     this.outroLeftPlayerElement         = document.getElementsByClassName('outro-left');
     this.outroRightPlayerElement        = document.getElementsByClassName('outro-right');
 
@@ -390,7 +390,8 @@ function Player(videos){
         for (var key in this) {
             if (Object.prototype.hasOwnProperty.call(this, key)) {
                 var val = this[key];
-                if(propertyCount >= 3 && propertyCount < 10){
+                //whenever an extra property is added to the player class check this.
+                if(propertyCount >= 4 && propertyCount < 10){
                     $.each(val, function(index, playerElement){
                         playerElement.addEventListener('ended', isFinished, false);
                     });
@@ -433,6 +434,7 @@ function Player(videos){
     }
 
     this.showLoop = function(){
+
         var loop = $('#loop');
         var videoName = player.currentVideo.name;
 
@@ -561,7 +563,7 @@ function Player(videos){
     };
 
     this.setCurrentVideo = function(orderToPlay){
-        this.currentVideo = this.videos[orderToPlay];
+        this.currentVideo = this.videos[orderToPlay - 1];
     }
 
     //add eventlistener to players
@@ -635,12 +637,13 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
                     video.loadedPieces += 1;
 
                     console.log('loaded piece: ', piece);
-                    // console.log(video.loadedPieces, video.pieces.length);
+
                     if(video.loadedPieces < video.pieces.length){
                         video.loadPieces(video.loadedPieces);
                     }
                     else if(video.loadedPieces === video.pieces.length) {
                         console.log('finished loading video: ', video.name);
+
                         player.loadedVideos++;
                         var videoToLoad = player.videos[player.loadedVideos];
 
@@ -841,6 +844,7 @@ function playPreviousOrNext(direction){
             //pause the video if its playing
             explanationVideo.pause();
         }
+
         if(isMobile){
             player.showLoop();
         }
