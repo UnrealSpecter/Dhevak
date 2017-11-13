@@ -636,7 +636,7 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
                     // console.log('loaded piece: ', piece);
 
                     if(video.loadedPieces < video.pieces.length){
-                        video.loadPieces(video.loadedPieces);
+                        // video.loadPieces(video.loadedPieces);
                     }
                     else if(video.loadedPieces === video.pieces.length) {
                         // console.log('finished loading video: ', video.name);
