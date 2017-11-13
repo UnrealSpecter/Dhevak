@@ -7,7 +7,7 @@ var previousVideo;
 var playNext = false;
 var playPrevious = false;
 var isVideoPlaying = true;
-var isMobile = true; //initiate as false
+var isMobile = false; //initiate as false
 var explanationVideo;
 var projectContentActive = false;
 var projectNavigation = [];
