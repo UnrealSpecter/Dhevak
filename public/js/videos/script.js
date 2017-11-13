@@ -413,7 +413,7 @@ function Player(videos){
     this.loadVideos = function(video){
 
         //keep loading the videos unless they are all loaded
-        if(player.loadedVideos < player.videos.length && player.loadedVideos < 1) {
+        if(player.loadedVideos < player.videos.length && player.loadedVideos < 2) {
             video.loadPieces(video.loadedPieces);
         }
 
@@ -615,6 +615,7 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
             req.responseType = 'blob';
 
             req.onload = function() {
+
                 // Onload is triggered even on 404 // so we need to check the status code
                 if (this.status === 200 || this.status === 206) {
 
@@ -640,9 +641,10 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
                         video.loadPieces(video.loadedPieces);
                     }
                     else if(video.loadedPieces === video.pieces.length) {
-                        // console.log('finished loading video: ', video.name);
 
+                        // console.log('finished loading video: ', video.name);
                         player.loadedVideos++;
+
                         var videoToLoad = player.videos[player.loadedVideos];
 
                         //check if not all the video's are loaded already.
