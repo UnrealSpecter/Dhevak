@@ -12,7 +12,6 @@
 
         <div class="non-mobile-explanation flex flow-r d-none">
             <div class="animated fadeInDown"> Navigeer door te scrollen </div>
-            <div class="animated fadeInUp explanation-skip-transitions skip">Sla Over</div>
             <div class="animated fadeInUp explanation-confirm">Ok, Ik snap het</div>
             <div class="animated fadeInUp explanation-help">
                 <a href="https://www.google.nl/search?q=hoe+moet+ik+scrollen+op+een+website%3F" target="_blank">Ik snap het niet help</a>

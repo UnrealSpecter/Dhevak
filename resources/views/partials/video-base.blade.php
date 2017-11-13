@@ -17,6 +17,7 @@
     </div>
     <!-- misc/helpers -->
     @include('partials.content.landscape-indicator-content')
+    @include('partials.content.pre-loader-choice-content')
     @include('partials.content.loader-content')
     @include('partials.content.explanation-content')
 

@@ -6,15 +6,15 @@
     <!-- projecten-image -->
     @foreach($projects as $index => $project)
         @if(($index + 1) % 3 === 1)
-        <div class="project projecten-left d-none" data-project="{{ $index + 1 }}">
+        <div class="project projecten-left d-none" data-project-thumbnail="{{ $index + 1 }}">
             <img src="/uploads/thumbnails/{{ $project->thumbnail_image_url }}" alt="{{ $project->title }}">
         </div>
         @elseif(($index + 1) % 3 === 2)
-        <div class="project projecten-middle d-none" data-project="{{ $index + 1 }}">
+        <div class="project projecten-middle d-none" data-project-thumbnail="{{ $index + 1 }}">
             <img src="/uploads/thumbnails/{{ $project->thumbnail_image_url }}" alt="{{ $project->title }}">
         </div>
         @elseif(($index + 1) % 3 === 0)
-        <div class="project projecten-right d-none" data-project="{{ $index + 1 }}">
+        <div class="project projecten-right d-none" data-project-thumbnail="{{ $index + 1 }}">
             <img src="/uploads/thumbnails/{{ $project->thumbnail_image_url }}" alt="{{ $project->title }}">
         </div>
         @endif

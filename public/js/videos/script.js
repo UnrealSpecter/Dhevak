@@ -45,7 +45,7 @@ function loaded(){
         player = initializePlayer();
 
         if(!isMobile){
-            player.loadVideos(player.currentVideo);
+            $('.pre-loader-wrapper').removeClass('d-none');
         }else if(isMobile) {
             //show content loops only on mobile without the video's.
             introAnimation();
@@ -125,6 +125,22 @@ function loaded(){
             $('.non-mobile-explanation').removeClass('d-none');
         }
 
+        //simpel version of the website or the complete version
+        $('.dhevak-experience, .simple-experience').on('click', function(){
+            var choice = $(this).attr('data-choice');
+            $('.pre-loader-wrapper').addClass('d-none');
+            if(choice === 'dhevak-experience'){
+                player.loadVideos(player.currentVideo);
+            }
+            if(choice === 'simple-experience'){
+                setTimeout(function(){
+                    isMobile = true;
+                    introAnimation();
+                }, 1000);
+            }
+
+        });
+
         //give the user the ability to use the simple version of the site.
         $('.explanation-skip-transitions').on('click', function(){
             var border = $(this);
@@ -149,7 +165,7 @@ function loaded(){
 
         // project details on frame click
         $('.projecten-left, .projecten-middle, .projecten-right').on('click', function(e){
-            var project = $(e.target).parent().attr('data-project');
+            var project = $(e.target).parent().attr('data-project-thumbnail');
             if(canShowNextProject){
                 showProjectDetails(project);
             }
@@ -191,57 +207,57 @@ function loaded(){
 }
 
 //closure function that runs the introduction only once
-var introAnimation = (function() {
-    var executed = false;
-    return function() {
-        if (!executed) {
-            //set executed to true so the fuction only runs once.
-            executed = true;
-            //at this point the videos are loaded and we can start the intro animation
-            $('.loader-text-block').removeClass('fadeInUp').addClass('fadeOut');
-            $('.intro-quote-block').removeClass('d-none').addClass('animated fadeIn');
+var executed = false;
+function introAnimation() {
 
-            if(!isMobile){
-                setTimeout(function(){
-                    $('.loader-wrapper').fadeOut('500', function(){
-                        player.play(player.currentVideo.name, player.currentVideoPiece);
-                        //load the rest of the videos
-                        $.each(player.videos, function(index, video){
-                            //dont load the loader video again or the currently playing one.
-                            if(video.name !== 'loader' && video.name !== player.currentVideo.name){
-                                player.loadVideos(video);
-                            }
-                        });
+    if (!executed) {
+        console.log('ismobile');
+        //set executed to true so the fuction only runs once.
+        executed = true;
+        //at this point the videos are loaded and we can start the intro animation
+        $('.loader-text-block').removeClass('fadeInUp').addClass('fadeOut');
+        $('.intro-quote-block').removeClass('d-none').addClass('animated fadeIn');
+
+        if(!isMobile){
+
+            setTimeout(function(){
+                $('.loader-wrapper').fadeOut('500', function(){
+                    player.play(player.currentVideo.name, player.currentVideoPiece);
+                    //load the rest of the videos
+                    $.each(player.videos, function(index, video){
+                        //dont load the loader video again or the currently playing one.
+                        if(video.name !== 'loader' && video.name !== player.currentVideo.name){
+                            player.loadVideos(video);
+                        }
                     });
-                }, 2000);
-            }
-            else if(isMobile){
-                $('.loader-text-block').addClass('d-none');
-                setTimeout(function(){
-                    $('.loader-wrapper').fadeOut('500', function(){
-                         player.showLoop();
-                    });
-                }, 2000);
-            }
+                });
+            }, 2000);
         }
-    };
-})();
+        else if(isMobile){
+            $('.loader-text-block').addClass('d-none');
+            setTimeout(function(){
+                $('.loader-wrapper').fadeOut('500', function(){
+                     player.showLoop();
+                });
+            }, 2000);
+        }
+    }
+};
 
 var projectNavigationIndex = 0;
 function initializeOrSetProjectNavigation(direction) {
-
     //store projects for further use
     var projects = document.getElementsByClassName('project');
     if(direction === 'next' && projectNavigationIndex <= projects.length){
         for(counter = 3; counter >= 1; counter--){
             var project = projects[projectNavigationIndex];
             //unhide the projectthumbnail if it exists
-            if($('[data-project='+ (projectNavigationIndex + 1) +']')){
-                $('[data-project='+ (projectNavigationIndex + 1) +']').removeClass('d-none');
+            if($('[data-project-thumbnail='+ (projectNavigationIndex + 1) +']')){
+                $('[data-project-thumbnail='+ (projectNavigationIndex + 1) +']').removeClass('d-none');
             }
             //hide the previous project if it exists.
-            if($('[data-project='+ (projectNavigationIndex - 2) +']')){
-                $('[data-project='+ (projectNavigationIndex - 2) +']').addClass('d-none');
+            if($('[data-project-thumbnail='+ (projectNavigationIndex - 2) +']')){
+                $('[data-project-thumbnail='+ (projectNavigationIndex - 2) +']').addClass('d-none');
             }
             //increment index so we can use it to count
             projectNavigationIndex++;
@@ -250,11 +266,11 @@ function initializeOrSetProjectNavigation(direction) {
     else if(direction === 'previous' && projectNavigationIndex > 3){
         var project = projects[projectNavigationIndex];
         for(counter = 3; counter >= 1; counter--){
-            if($('[data-project='+ (projectNavigationIndex - 3) +']')){
-                $('[data-project='+ (projectNavigationIndex - 3) +']').removeClass('d-none');
+            if($('[data-project-thumbnail='+ (projectNavigationIndex - 3) +']')){
+                $('[data-project-thumbnail='+ (projectNavigationIndex - 3) +']').removeClass('d-none');
             }
-            if($('[data-project='+ (projectNavigationIndex) +']')){
-                $('[data-project='+ (projectNavigationIndex) +']').addClass('d-none');
+            if($('[data-project-thumbnail='+ (projectNavigationIndex) +']')){
+                $('[data-project-thumbnail='+ (projectNavigationIndex) +']').addClass('d-none');
             }
             projectNavigationIndex--;
         }
@@ -413,7 +429,7 @@ function Player(videos){
     this.loadVideos = function(video){
 
         //keep loading the videos unless they are all loaded
-        if(player.loadedVideos < player.videos.length && player.loadedVideos < 2) {
+        if(player.loadedVideos < player.videos.length) {
             video.loadPieces(video.loadedPieces);
         }
 
@@ -481,7 +497,6 @@ function Player(videos){
             contentToReveal.removeClass('hidden');
         }
         else if(contentToHide) {
-            // $('.explanation-container').addClass('d-none');
             contentToHide.addClass('hidden');
             contentToReveal.removeClass('hidden');
         }
