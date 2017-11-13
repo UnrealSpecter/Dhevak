@@ -7,7 +7,7 @@ var previousVideo;
 var playNext = false;
 var playPrevious = false;
 var isVideoPlaying = true;
-var isMobile = false; //initiate as false
+var isMobile = true; //initiate as false
 var explanationVideo;
 var projectContentActive = false;
 var projectNavigation = [];
@@ -98,13 +98,13 @@ function loaded(){
                 ]
             });
 
-            swipeManager.on('swiperight', function(ev) {
+            swipeManager.on('swipeleft', function(ev) {
                 if(!projectContentActive && !navOpen){
                     playPreviousOrNext('next');
                 }
             });
 
-            swipeManager.on('swipeleft', function(ev){
+            swipeManager.on('swiperight', function(ev){
                 if(!projectContentActive && !navOpen){
                     playPreviousOrNext('previous');
                 }
@@ -230,26 +230,35 @@ var introAnimation = (function() {
 var projectNavigationIndex = 0;
 function initializeOrSetProjectNavigation(direction) {
 
+    //store projects for further use
     var projects = document.getElementsByClassName('project');
-    for(counter = 3; counter >= 1; counter--){
-        var project = projects[projectNavigationIndex];
-        console.log(project);
-        if(direction === 'next'){
-            if((projectNavigationIndex + 1) <= projects.length){
-                $(project).removeClass('d-none');
-                $(projects[projectNavigationIndex-3]).addClass('d-none');
-                projectNavigationIndex++;
+    if(direction === 'next' && projectNavigationIndex <= projects.length){
+        for(counter = 3; counter >= 1; counter--){
+            var project = projects[projectNavigationIndex];
+            //unhide the projectthumbnail if it exists
+            if($('[data-project='+ (projectNavigationIndex + 1) +']')){
+                $('[data-project='+ (projectNavigationIndex + 1) +']').removeClass('d-none');
             }
-        }
-        else if(direction === 'previous'){
-            if(projectNavigationIndex - 3 > 0){
-                projectNavigationIndex--;
-                $(projects[projectNavigationIndex]).addClass('d-none');
-                $(projects[projectNavigationIndex-3]).removeClass('d-none');
+            //hide the previous project if it exists.
+            if($('[data-project='+ (projectNavigationIndex - 2) +']')){
+                $('[data-project='+ (projectNavigationIndex - 2) +']').addClass('d-none');
             }
+            //increment index so we can use it to count
+            projectNavigationIndex++;
         }
     }
-
+    else if(direction === 'previous' && projectNavigationIndex > 3){
+        var project = projects[projectNavigationIndex];
+        for(counter = 3; counter >= 1; counter--){
+            if($('[data-project='+ (projectNavigationIndex - 3) +']')){
+                $('[data-project='+ (projectNavigationIndex - 3) +']').removeClass('d-none');
+            }
+            if($('[data-project='+ (projectNavigationIndex) +']')){
+                $('[data-project='+ (projectNavigationIndex) +']').addClass('d-none');
+            }
+            projectNavigationIndex--;
+        }
+    }
 }
 
 var canShowNextProject = true;
