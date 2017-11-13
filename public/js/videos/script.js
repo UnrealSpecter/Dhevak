@@ -412,10 +412,10 @@ function Player(videos){
     //keep track of loaded videos
     this.loadVideos = function(video){
         //keep loading the videos unless they are all loaded
-        if(player.loadedVideos < player.videos.length) {
+        if(player.loadedVideos < player.videos.length && player.loadedVideos === 0) {
             video.loadPieces(video.loadedPieces);
         }
-
+        
         //if one of them is loaded entirely start the introaniomation
         if(player.loadedVideos > 0){
             introAnimation();
@@ -636,7 +636,7 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
                     // console.log('loaded piece: ', piece);
 
                     if(video.loadedPieces < video.pieces.length){
-                        // video.loadPieces(video.loadedPieces);
+                        video.loadPieces(video.loadedPieces);
                     }
                     else if(video.loadedPieces === video.pieces.length) {
                         // console.log('finished loading video: ', video.name);
@@ -645,7 +645,7 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
                         var videoToLoad = player.videos[player.loadedVideos];
 
                         //check if not all the video's are loaded already.
-                        player.loadVideos(videoToLoad);
+                        player.loadVideos();
 
                     }
 
