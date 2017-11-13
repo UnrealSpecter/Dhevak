@@ -411,9 +411,9 @@ function Player(videos){
 
     //keep track of loaded videos
     this.loadVideos = function(video){
-        
+
         //keep loading the videos unless they are all loaded
-        if(player.loadedVideos < player.videos.length && player.loadedVideos < 2) {
+        if(player.loadedVideos < player.videos.length && player.loadedVideos < 1) {
             video.loadPieces(video.loadedPieces);
         }
 
