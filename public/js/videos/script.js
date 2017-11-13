@@ -411,11 +411,12 @@ function Player(videos){
 
     //keep track of loaded videos
     this.loadVideos = function(video){
+        
         //keep loading the videos unless they are all loaded
-        if(player.loadedVideos < player.videos.length && player.loadedVideos === 0) {
+        if(player.loadedVideos < player.videos.length && player.loadedVideos < 2) {
             video.loadPieces(video.loadedPieces);
         }
-        
+
         //if one of them is loaded entirely start the introaniomation
         if(player.loadedVideos > 0){
             introAnimation();
@@ -645,7 +646,7 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
                         var videoToLoad = player.videos[player.loadedVideos];
 
                         //check if not all the video's are loaded already.
-                        player.loadVideos();
+                        player.loadVideos(videoToLoad);
 
                     }
 
