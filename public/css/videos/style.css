@@ -1011,7 +1011,7 @@ a {
 .scroll-down-button {
     height: 20%;
     margin-bottom: 20px;
-    z-index: -1;
+    z-index: 0;
     cursor: pointer;
 }
 
