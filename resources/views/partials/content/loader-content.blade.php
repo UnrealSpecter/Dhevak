@@ -4,7 +4,7 @@
 <!-- loader-wrapper -->
 <div class="loader-wrapper flex col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="loader-content flex flow-c col-12">
-        <div class="intro-quote-block flex">
+        <div class="intro-quote-block d-none flex">
             <div class="intro-text">We are</div>
         </div>
         <h1 class="loader-title flex">Dhèvak</h1>

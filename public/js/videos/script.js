@@ -7,7 +7,7 @@ var previousVideo;
 var playNext = false;
 var playPrevious = false;
 var isVideoPlaying = true;
-var isMobile = true; //initiate as false
+var isMobile = false; //initiate as false
 var explanationVideo;
 var projectContentActive = false;
 var projectNavigation = [];
@@ -48,7 +48,7 @@ function loaded(){
             player.loadVideos(player.currentVideo);
         }else if(isMobile) {
             //show content loops only on mobile without the video's.
-            // introAnimation();
+            introAnimation();
         };
 
 
@@ -199,7 +199,7 @@ var introAnimation = (function() {
             executed = true;
             //at this point the videos are loaded and we can start the intro animation
             $('.loader-text-block').removeClass('fadeInUp').addClass('fadeOut');
-            $('.intro-quote-block').removeClass('d-none').addClass('animated fadeInUp');
+            $('.intro-quote-block').removeClass('d-none').addClass('animated fadeIn');
 
             if(!isMobile){
                 setTimeout(function(){
