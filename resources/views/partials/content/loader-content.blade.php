@@ -4,6 +4,9 @@
 <!-- loader-wrapper -->
 <div class="loader-wrapper flex col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="loader-content flex flow-c col-12">
+        <div class="intro-quote-block flex">
+            <div class="intro-text">We are</div>
+        </div>
         <h1 class="loader-title flex">Dhèvak</h1>
         <div class="quote-wrapper">
             <div class="loader-text-block flex animated">
@@ -30,9 +33,6 @@
                 <div class="loader-text quotes">Mocht je nog een gouden feitje hebben</div>
                 <div class="loader-text quotes">Neem even contact op</div>
                 <div class="loader-text quotes">Op dit punt begin ik me toch af te vragen of er niets mis is</div>
-            </div>
-            <div class="intro-quote-block d-none flex">
-                <div class="intro-text">This is our story...</div>
             </div>
         </div>
 

@@ -7,7 +7,7 @@ var previousVideo;
 var playNext = false;
 var playPrevious = false;
 var isVideoPlaying = true;
-var isMobile = false; //initiate as false
+var isMobile = true; //initiate as false
 var explanationVideo;
 var projectContentActive = false;
 var projectNavigation = [];
@@ -48,7 +48,7 @@ function loaded(){
             player.loadVideos(player.currentVideo);
         }else if(isMobile) {
             //show content loops only on mobile without the video's.
-            introAnimation();
+            // introAnimation();
         };
 
 
@@ -233,6 +233,7 @@ function initializeOrSetProjectNavigation(direction) {
     var projects = document.getElementsByClassName('project');
     for(counter = 3; counter >= 1; counter--){
         var project = projects[projectNavigationIndex];
+        console.log(project);
         if(direction === 'next'){
             if((projectNavigationIndex + 1) <= projects.length){
                 $(project).removeClass('d-none');
@@ -290,29 +291,29 @@ function hideProjectDetails(){
 }
 
 // switch projects that are visible on the project page. Up or Down based on direction.
-function navigateUpOrDownThroughProjects(direction){
-
-    var modifier;
-    if(direction === 'previous-projects'){
-        modifier = 3;
-    }
-    else if(direction === 'next-projects') {
-        modifier = -3;
-    }
-
-    $.each(projectNavigation, function(index, project){
-
-        var projectId = parseInt($(project).attr('data-project'));
-        var newProjectValue = (projectId + modifier);
-
-        if(newProjectValue > projectCount || newProjectValue < 0){
-            newProjectValue = "";
-        }
-
-        $(project).attr('data-project', newProjectValue);
-
-    });
-}
+// function navigateUpOrDownThroughProjects(direction){
+//
+//     var modifier;
+//     if(direction === 'previous-projects'){
+//         modifier = 3;
+//     }
+//     else if(direction === 'next-projects') {
+//         modifier = -3;
+//     }
+//
+//     $.each(projectNavigation, function(index, project){
+//
+//         var projectId = parseInt($(project).attr('data-project'));
+//         var newProjectValue = (projectId + modifier);
+//
+//         if(newProjectValue > projectCount || newProjectValue < 0){
+//             newProjectValue = "";
+//         }
+//
+//         $(project).attr('data-project', newProjectValue);
+//
+//     });
+// }
 
 //check if we're on mobile.
 function ifMobile(){
@@ -325,8 +326,6 @@ function ifMobile(){
 function isFinished(e) {
 
     var video = $(e.target);
-
-    console.log(video);
 
     if(video.hasClass('pre-intro-left')) {
         player.play(player.currentVideo.name, 'main');
@@ -551,17 +550,6 @@ function Player(videos){
         return correctVideo;
     }
 
-    this.returnVideos = function(){
-        console.log("The added video's are: ");
-        $.each(this.videos, function(index, video) {
-            console.log(video.name);
-        });
-    };
-
-    this.returnCurrentVideo = function() {
-        console.log('The currently selected video is: ' + player.current.name);
-    };
-
     this.setCurrentVideo = function(orderToPlay){
         this.currentVideo = this.videos[orderToPlay - 1];
     }
@@ -636,13 +624,13 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
                     //increment the amount of loaded pieces so we can track them
                     video.loadedPieces += 1;
 
-                    console.log('loaded piece: ', piece);
+                    // console.log('loaded piece: ', piece);
 
                     if(video.loadedPieces < video.pieces.length){
                         video.loadPieces(video.loadedPieces);
                     }
                     else if(video.loadedPieces === video.pieces.length) {
-                        console.log('finished loading video: ', video.name);
+                        // console.log('finished loading video: ', video.name);
 
                         player.loadedVideos++;
                         var videoToLoad = player.videos[player.loadedVideos];
