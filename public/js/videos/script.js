@@ -206,20 +206,19 @@ function loaded(){
 
         // set event listener to execute on timeupdate. This gets invoked every ~250ms or so
         $('.home').on('timeupdate',function() {
+
             // use parseInt to round to whole seconds
-            var ct = parseInt(this.currentTime);
+            var currentTime = parseInt(this.currentTime);
 
             // only eval once per second inc, since timeupdate pops ~4 times per second
-            if (this.lastTime!=ct) {
-                // if current time is divisible by 10 then an inc of 10s has passed
-                console.log(ct,'seconds have passed');
-                if(ct === 5){
-                    $(this).currentTime = 1;
-                    console.log('5');
+            if (this.lastTime != currentTime) {
+                if(currentTime === player.currentVideo.loopTime){
+                    $(this).get(0).pause();
                 }
-
             }
-            this.lastTime=ct;
+
+            this.lastTime=currentTime;
+
         });
 
 }
@@ -632,6 +631,8 @@ function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntr
     //set introPlayed to false so that after the first play we dont ever play the intro again.
     this.introPlayed = introPlayed;
 
+    this.loopTime = 16;
+
     //stores the amount of loaded pieces for the video
     this.loadedPieces = 0;
 
@@ -736,9 +737,9 @@ function initializePlayer() {
         null,
         null,
         null,
-        'post-intro-right',
         null,
-        'outro-right',
+        null,
+        null,
         'main',
         null,
         true
@@ -789,9 +790,9 @@ function initializePlayer() {
     var videos = [];
 
     videos.push(home);
-    videos.push(projecten);
-    videos.push(watDoenWijAnders);
-    videos.push(contact);
+    // videos.push(projecten);
+    // videos.push(watDoenWijAnders);
+    // videos.push(contact);
 
     var player = new Player(videos);
 
