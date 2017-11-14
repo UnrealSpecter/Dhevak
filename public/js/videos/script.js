@@ -204,6 +204,24 @@ function loaded(){
             }
         });
 
+        // set event listener to execute on timeupdate. This gets invoked every ~250ms or so
+        $('.home').on('timeupdate',function() {
+            // use parseInt to round to whole seconds
+            var ct = parseInt(this.currentTime);
+
+            // only eval once per second inc, since timeupdate pops ~4 times per second
+            if (this.lastTime!=ct) {
+                // if current time is divisible by 10 then an inc of 10s has passed
+                console.log(ct,'seconds have passed');
+                if(ct === 5){
+                    $(this).currentTime = 1;
+                    console.log('5');
+                }
+
+            }
+            this.lastTime=ct;
+        });
+
 }
 
 //closure function that runs the introduction only once
