@@ -130,7 +130,7 @@ function loaded(){
             var choice = $(this).attr('data-choice');
             $('.pre-loader-wrapper').addClass('d-none');
             if(choice === 'dhevak-experience'){
-                player.loadVideos(player.currentVideo);
+                loadVideo();
             }
             if(choice === 'simple-experience'){
                 setTimeout(function(){
@@ -205,21 +205,86 @@ function loaded(){
         });
 
         // set event listener to execute on timeupdate. This gets invoked every ~250ms or so
-        $('.home').on('timeupdate',function() {
+        var lastFired;
+        $('.dhevak').on('timeupdate',function() {
+
+            var videoPlayer = $(this);
 
             // use parseInt to round to whole seconds
             var currentTime = parseInt(this.currentTime);
-
-            // only eval once per second inc, since timeupdate pops ~4 times per second
-            if (this.lastTime != currentTime) {
-                if(currentTime === player.currentVideo.loopTime){
-                    $(this).get(0).pause();
+            console.log(currentTime);
+            //perform action every second.
+            if(currentTime === player.currentVideo.pieces.mainEnd && lastFired !== player.currentVideo.pieces.mainEnd){
+                $(videoPlayer).get(0).pause();
+                player.showLoop();
+                lastFired = player.currentVideo.pieces.mainEnd;
+            }
+            if(currentTime === player.currentVideo.pieces.outroRightEnd){
+                player.setCurrentVideo(player.currentVideo.order + 1);
+                if(player.currentVideo.introPlayed){
+                    player.play(player.currentVideo.postIntroRightStart);
+                }
+                else if(!player.currentVideo.introPlayed){
+                    player.play(player.currentVideo.mainStart)
+                }
+            }
+            // console.log(player.currentVideo.pieces);
+            if(currentTime === player.currentVideo.pieces.outroLeftEnd){
+                console.log(player.currentVideo);
+                player.setCurrentVideo(player.currentVideo.order - 1);
+                console.log(player.currentVideo.introPlayed);
+                if(player.currentVideo.introPlayed === false){
+                    player.showLoop();
+                        console.log('intro not played');
+                }
+                else if(player.currentVideo.introPlayed === true){
+                    player.play(player.currentVideo.pieces.mainStart);
+                    console.log('intro not played');
                 }
             }
 
-            this.lastTime=currentTime;
-
         });
+
+}
+
+function loadVideo() {
+
+    //cross browser
+    window.URL = window.URL || window.webkitURL;
+
+    var req = new XMLHttpRequest();
+    req.open('GET', '/videos/dhevak/dhevak-video.mp4', true);
+    req.responseType = 'blob';
+
+    req.onload = function() {
+
+        // Onload is triggered even on 404 // so we need to check the status code
+        if (this.status === 200 || this.status === 206) {
+
+            var videoSelector = '.' + 'dhevak' + '.' + 'main';
+            var videoBlob = this.response;
+            var vid = URL.createObjectURL(videoBlob); // IE10+
+
+            // Video is now downloaded // and we can set it as source on the video element and the poster
+            $(videoSelector + '> source').attr('src', vid);
+
+            //set the video poster maybe this should be dynamic aswell?
+            // $(videoSelector).attr('poster', '/images/posters/' + video.name + '/' + video.name + '-' + piece + '-poster.jpg');
+
+            //increment loadedVideos so we can start the intro animation once they are all loaded
+            $(videoSelector).get(0).load();
+
+            introAnimation();
+
+        }
+    }
+
+    req.onerror = function() {
+        console.log('video loading error');
+    }
+
+    req.send();
+
 
 }
 
@@ -239,14 +304,7 @@ function introAnimation() {
 
             setTimeout(function(){
                 $('.loader-wrapper').fadeOut('500', function(){
-                    player.play(player.currentVideo.name, player.currentVideoPiece);
-                    //load the rest of the videos
-                    $.each(player.videos, function(index, video){
-                        //dont load the loader video again or the currently playing one.
-                        if(video.name !== 'loader' && video.name !== player.currentVideo.name){
-                            player.loadVideos(video);
-                        }
-                    });
+                    player.play(player.currentVideo.pieces.mainStart);
                 });
             }, 2000);
         }
@@ -261,6 +319,551 @@ function introAnimation() {
     }
 };
 
+//check if we're on mobile.
+function ifMobile(){
+    // device detection
+    if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
+        || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) isMobile = true;
+}
+
+//function that checks if the video is finished playing.
+// function isFinished(e) {
+//
+//     var video = $(e.target);
+//
+//     if(video.hasClass('pre-intro-left')) {
+//         player.play(player.currentVideo.name, 'main');
+//     }
+//
+//     if(video.hasClass('main')){
+//         player.currentVideo.introPlayed = true;
+//         player.showLoop();
+//     }
+//
+//     if(video.hasClass('outro-right')) {
+//         if(player.currentVideo.introPlayed === false){
+//             player.play(player.currentVideo.name, 'preIntroLeft');
+//         }
+//         else {
+//             player.play(player.currentVideo.name, 'postIntroLeft');
+//         }
+//     }
+//     if(video.hasClass('outro-left')) {
+//         if(player.currentVideo.introPlayed === false){
+//             player.play(player.currentVideo.name, 'preIntroLeft');
+//         }
+//         else {
+//             player.play(player.currentVideo.name, 'postIntroRight');
+//         }
+//     }
+//
+//     if(video.hasClass('post-intro-right') || video.hasClass('post-intro-left')){
+//         player.showLoop();
+//     }
+//
+// }
+
+function Player(videos){
+
+    //array of videos [loader, home, projecten, watDoenWijAnders, contact]
+    this.videos                         = videos;
+    this.currentVideo                   = videos[1];
+    // this.currentVideoPiece              = 'main';
+    // this.loadedVideos                   = 0;
+
+    //players
+    // this.preIntroLeftPlayerElement      = document.getElementsByClassName('pre-intro-left');
+    // this.postIntroLeftPlayerElement     = document.getElementsByClassName('post-intro-left');
+    // this.postIntroRightPlayerElement    = document.getElementsByClassName('post-intro-right');
+    // this.mainPlayerElement              = document.getElementsByClassName('main');
+    // this.outroLeftPlayerElement         = document.getElementsByClassName('outro-left');
+    // this.outroRightPlayerElement        = document.getElementsByClassName('outro-right');
+
+    //sources
+    // this.preIntroLeftSource             = document.getElementById('pre-intro-left-source');
+    // this.postIntroLeftSource            = document.getElementById('post-intro-left-source');
+    // this.postIntroRightSource           = document.getElementById('post-intro-right-source');
+    // this.mainSource                     = document.getElementById('main-source');
+    // this.outroLeftSource                = document.getElementById('outro-left-source');
+    // this.outroRightSource               = document.getElementById('outro-right-source');
+
+    // this.addEventListenerToPlayers = function(){
+    //
+    //     var propertyCount = 0;
+    //     for (var key in this) {
+    //         if (Object.prototype.hasOwnProperty.call(this, key)) {
+    //             var val = this[key];
+    //             //whenever an extra property is added to the player class check this.
+    //             if(propertyCount >= 4 && propertyCount < 10){
+    //                 $.each(val, function(index, playerElement){
+    //                     playerElement.addEventListener('ended', isFinished, false);
+    //                 });
+    //             }
+    //             propertyCount++;
+    //         }
+    //     }
+    // }
+
+    this.play = function(time){
+
+        var videoSelector   = '.dhevak';
+        var playerElement   = $(videoSelector).get(0);
+
+        //hide the content
+        if($('.' + this.currentVideo.name + '-content').hasClass(this.currentVideo.name + '-content')){
+            $('.' + this.currentVideo.name + '-content').addClass('hidden');
+        }
+
+        $(playerElement).css({ 'opacity': '1'});
+        // this.switchPlayer($(playerElement));
+
+        playerElement.currentTime = time;
+        console.log(playerElement.currentTime, time);
+        playerElement.play();
+
+        isVideoPlaying = true;
+
+    }
+
+    this.showLoop = function(){
+
+        var loop = $('#loop');
+        var videoName = player.currentVideo.name;
+
+        if(videoName === 'projecten'){
+            initializeOrSetProjectNavigation('next');
+        }
+
+        isVideoPlaying = false;
+
+        if(!isMobile){
+            // this.switchPlayer(loop);
+        }
+
+        if(!explanationShown){
+            $('.explanation-container').removeClass('d-none');
+            explanationShown = true;
+        }
+
+        if(!explanationConfirmed){
+            $('.explanation-container').removeClass('fadeOutDown').addClass('fadeInUp');
+        }
+
+        this.makeContentActive('home');
+
+        // loop.attr('src', '/images/posters/' + videoName + '/' + videoName + '-loop-poster.jpg');
+    }
+
+    this.makeContentActive = function(videoName){
+        var contentToReveal = $('.' + videoName + '-content');
+
+        //sets the menu item thats currently active
+        setActiveMenuItem(this.currentVideo.name);
+
+        if(!contentToHide){
+            contentToReveal.removeClass('hidden');
+        }
+        else if(contentToHide) {
+            contentToHide.addClass('hidden');
+            contentToReveal.removeClass('hidden');
+        }
+        contentToHide = contentToReveal;
+    }
+
+    this.switchPlayer = function(playerElement){
+
+        var playerToReveal = $(playerElement);
+        //set the poster before switching the player
+
+        // playerToReveal.attr('poster', '/images/posters/' + this.currentVideo.name + '/' + this.currentVideo.name + '-' + this.currentVideoPiece + '-poster.jpg' );
+
+        //if there isnt a player to hide it means its the first playthrough so just reveal the player and play.
+        if(!playerToHide) {
+            playerToReveal.animate({ opacity: 1 }, 100);
+            playerToHide = playerToReveal;
+        }
+        //if there is a player and its not the same player as the previous one then swap them out.
+        else if(playerToHide){
+            playerToReveal.css({
+                'opacity' : '1',
+                'z-index': '1'
+            });
+            playerToHide.css({
+                'z-index' : '2'
+            });
+            playerToHide.animate({
+                'opacity' : '0'
+            }, 500);
+            playerToHide = playerToReveal;
+        }
+    }
+
+    // this.getPlayerElement = function(pieceName){
+    //     var playerElement = pieceName + 'PlayerElement';
+    //     for(var name in player) {
+    //         var value = player[name];
+    //         if(name == playerElement){
+    //             return value;
+    //         }
+    //     }
+    // }
+
+    // this.getSource = function(pieceName) {
+    //     //capitalizes the first letter to
+    //     var sourceName = pieceName + 'Source';
+    //     for(var name in player) {
+    //         var value = player[name];
+    //         if(name == sourceName){
+    //             return value;
+    //         }
+    //     }
+    // }
+    //
+    // this.getPiece = function(video, pieceName){
+    //     for(var name in video) {
+    //         var value = video[name];
+    //         if(name == pieceName){
+    //             player.setCurrentVideoPiece(value);
+    //             return value;
+    //         }
+    //     }
+    // }
+    //
+    // this.setCurrentVideoPiece = function(piece){
+    //     this.currentVideoPiece = piece;
+    // }
+
+    // this.getVideo = function(videoName){
+    //     var correctVideo;
+    //     $.each(this.videos, function(index, video){
+    //         if(video.name == videoName) {
+    //             correctVideo = video;
+    //         }
+    //     });
+    //     return correctVideo;
+    // }
+
+    this.setCurrentVideo = function(orderToPlay){
+        this.currentVideo = this.videos[orderToPlay - 1];
+    }
+
+    //add eventlistener to players
+    // this.addEventListenerToPlayers();
+
+    return this;
+}
+
+function Video(name, order, introPlayed, pieces) {
+
+    // this.videoSource   = document.createElement('source');
+    // this.src = '/videos/' + name;
+
+
+    //store all the video's in the properties.
+    this.name = name;
+    this.order = order;
+
+    //inrij shots
+    // this.preIntroLeft      = preIntroLeft;
+    // this.preIntroRight     = preIntroRight;
+    //
+    // //post intro inrij shots
+    // this.postIntroLeft     = postIntroLeft;
+    // this.postIntroRight    = postIntroRight
+    //
+    // // outro's
+    // this.outroLeft         = outroLeft;
+    // this.outroRight        = outroRight;
+    //
+    // //main intro and loop
+    // this.main              = main;
+    // this.loop              = loop;
+
+    //set introPlayed to false so that after the first play we dont ever play the intro again.
+    this.introPlayed = introPlayed;
+
+    //array of all the pieces and their names
+    this.pieces = pieces;
+
+    return this;
+}
+
+//initializes the different video objects and the main player object that will handle them all.
+function initializePlayer() {
+
+    var homePieces = {
+        postIntroRightStart : 18,
+        postIntroRightEnd   : 20,
+        mainStart           : 0,
+        mainEnd             : 16,
+        outroRight          : 16,
+        outroRightEnd       : 18
+    }
+
+    var projectenPieces = {
+        preIntroLeft        : 20,
+        preIntroRight       : 0,
+        postIntroLeftStart  : 0,
+        postIntroLeftEnd    : 0,
+        postIntroRightStart : 42,
+        postIntroRightEnd   : 50,
+        mainStart           : 28,
+        mainEnd             : 32,
+        loop                : 0,
+        outroLeftStart      : 55,
+        outroLeftEnd        : 59,
+        outroRightStart     : 34,
+        outroRightEnd       : 41
+    }
+
+    var home                = new Video('home', 1, true, homePieces);
+    var projecten           = new Video('projecten', 2, false, projectenPieces);
+    // var watDoenWijAnders    = new Video('watDoenWijAnders', 3, false, watDoenWijAndersPieces);
+    // var contact             = new Video('contact', 4, false, contactPieces);
+
+
+    //projecten video object
+    // var projecten = new Video('projecten',
+    //     2,
+    //     'pre-intro-left',
+    //     null,
+    //     'post-intro-left',
+    //     'post-intro-right',
+    //     'outro-left',
+    //     'outro-right',
+    //     'main',
+    //     null,
+    //     false
+    // );
+
+    //wat-doen-wij-anders
+    // var watDoenWijAnders = new Video('wat-doen-wij-anders',
+    //     3,
+    //     'pre-intro-left',
+    //     null,
+    //     'post-intro-left',
+    //     'post-intro-right',
+    //     'outro-left',
+    //     'outro-right',
+    //     'main',
+    //     null,
+    //     false
+    // );
+
+    //contact
+    // var contact = new Video('contact',
+    //     4,
+    //     'pre-intro-left',
+    //     null,
+    //     'post-intro-left',
+    //     null,
+    //     'outro-left',
+    //     null,
+    //     'main',
+    //     null,
+    //     false
+    // );
+
+    var videos = [];
+
+    videos.push(home);
+    videos.push(projecten);
+    // videos.push(watDoenWijAnders);
+    // videos.push(contact);
+
+    var player = new Player(videos);
+
+    //set next and previous
+    prev = $('.prev').data('direction');
+    next = $('.next').data('direction');
+
+    //set up toast options
+    toastr.options.positionClass = 'toast-top-full-width';
+    toastr.options.preventDuplicates = true;
+    toastr.options.progressBar = true;
+
+    //set explanation video element
+    explanationVideo = document.getElementById("explanation-video");
+
+    // store all project elements in an array for use in navigateUpOrDownThroughProjects
+    $('.project').each(function(index, project){
+        projectNavigation.push(project);
+    });
+
+    //store the amount of projects we have.
+    projectCount = 0;
+    $('.project-content').each(function(index, project){
+        projectCount++;
+    });
+
+    return player;
+}
+
+/* helpers */
+var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel" //FF doesn't recognize mousewheel as of FF3.x
+function scroll(e){
+    var evt = window.event || e //equalize event object
+    evt = evt.originalEvent ? evt.originalEvent : evt; //convert to originalEvent if possible
+    var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta //check for detail first, because it is used by Opera and FF
+    var direction = delta;
+    if(!explanationConfirmed){
+        $('.explanation-container').removeClass('fadeInUp').addClass('fadeOutDown');
+    }
+    if(direction > 0){
+        closeNav();
+        playPreviousOrNext('previous');
+    }
+    else{
+        closeNav();
+        playPreviousOrNext('next');
+    }
+}
+
+/* NAVIGATION BY USING THE ARROWS AT THE BOTTOM OF THE SCREEN */
+function arrowNavigation(element){
+
+    var arrow = $(element);
+
+    if(arrow.hasClass('next')){
+        playPreviousOrNext('next');
+    }
+    else if (arrow.hasClass('previous')) {
+        playPreviousOrNext('previous');
+    }
+}
+
+
+function playPreviousOrNext(direction){
+    if(!isVideoPlaying){
+        if(direction === 'previous') {
+            if(setAndCheckPreviousNext('previous')){
+                if(!isMobile){
+                    player.play(player.currentVideo.pieces.outroLeftStart);
+                }
+            }
+        }
+        else if(direction === 'next'){
+            if(setAndCheckPreviousNext('next')){
+                if(!isMobile){
+                    player.play(player.currentVideo.pieces.outroRightStart);
+                }
+            }
+        }
+        if(!isMobile){
+            //pause the video if its playing
+            explanationVideo.pause();
+        }
+
+        if(isMobile){
+            player.showLoop();
+        }
+    }
+}
+
+//navigate by using the menu items
+function navigateThroughMenu(video){
+    var order = video.data('order');
+    //if there's not a video playing
+    if(order !== player.currentVideo.order){
+        closeNav();
+    }
+    if(!isVideoPlaying && !isMobile){
+        //go left or right
+        var currentVideo = player.currentVideo;
+        if(currentVideo.order > order){
+            player.play(player.currentVideo.name, 'outroLeft');
+            player.setCurrentVideo(order);
+            //pause the video if its playing
+            explanationVideo.pause();
+        }
+        else if(currentVideo.order < order){
+            player.play(player.currentVideo.name, 'outroRight');
+            player.setCurrentVideo(order);
+            //pause the video if its playing
+            explanationVideo.pause();
+        }
+    }
+    else if(isMobile){
+        player.setCurrentVideo(order);
+        player.showLoop();
+    }
+
+}
+
+function setActiveMenuItem(name){
+    var element = $('.menu-' + name);
+    $('.current-video').removeClass('current-video');
+    element.addClass('current-video');
+}
+
+//check if there's a previous video
+function setAndCheckPreviousNext(action){
+    if(action === 'previous' && player.currentVideo.order > 1 || player.currentVideo.order < 4 && action === 'next'){
+        return true;
+    }else {
+        return false;
+    }
+}
+
+// NAVIGATION FUNCTIONS
+var navOpen = false;
+function openNav() {
+    navOpen = true;
+    $('.closebtn').removeClass('animated fadeOut d-none').addClass('animated fadeIn');
+    if(!projectContentActive){
+        $('.overlay').css('height', '100%');
+        setTimeout(function(){
+            $(".overlay-content > a").each(function(index) {
+                var $this = $(this);
+                var t = setTimeout(function() {
+                    $this.addClass('animated slideInLeft').removeClass('invisible');
+                }, 250 * index++);
+            });
+        }, 250);
+    }
+
+}
+
+/* Close */
+function closeNav() {
+    navOpen = false;
+    $('.closebtn').removeClass('animated fadeIn').addClass('animated fadeOut d-none');
+    if(!projectContentActive){
+        $('.overlay').css('height', '0%');
+        $('.overlay-content > a').each(function(index) {
+            var $this = $(this);
+            $this.removeClass('animated slideInLeft').addClass('invisible');
+        });
+    }
+    else {
+        hideProjectDetails();
+    }
+}
+
+function setNextPrevious(currentVideo){
+
+    //on menu button click the correct next/prev needs to be set
+    //on scroll the correct next previous needs to be set.
+    if(currentVideo == 'home'){
+        prev = null;
+        next = 'projecten';
+    }
+    if(currentVideo == 'projecten'){
+        prev = 'home';
+        next = 'wat-doen-wij-anders';
+    }
+    if(currentVideo == 'wat-doen-wij-anders'){
+        prev = 'projecten';
+        next = 'contact';
+    }
+    if(currentVideo == 'contact'){
+        prev = 'wat-doen-wij-anders';
+        next = null;
+    }
+
+}
+
+// PROJECTEN
 var projectNavigationIndex = 0;
 function initializeOrSetProjectNavigation(direction) {
     //store projects for further use
@@ -356,636 +959,3 @@ function hideProjectDetails(){
 //
 //     });
 // }
-
-//check if we're on mobile.
-function ifMobile(){
-    // device detection
-    if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
-        || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) isMobile = true;
-}
-
-//function that checks if the video is finished playing.
-function isFinished(e) {
-
-    var video = $(e.target);
-
-    if(video.hasClass('pre-intro-left')) {
-        player.play(player.currentVideo.name, 'main');
-    }
-
-    if(video.hasClass('main')){
-        player.currentVideo.introPlayed = true;
-        player.showLoop();
-    }
-
-    if(video.hasClass('outro-right')) {
-        if(player.currentVideo.introPlayed === false){
-            player.play(player.currentVideo.name, 'preIntroLeft');
-        }
-        else {
-            player.play(player.currentVideo.name, 'postIntroLeft');
-        }
-    }
-    if(video.hasClass('outro-left')) {
-        if(player.currentVideo.introPlayed === false){
-            player.play(player.currentVideo.name, 'preIntroLeft');
-        }
-        else {
-            player.play(player.currentVideo.name, 'postIntroRight');
-        }
-    }
-
-    if(video.hasClass('post-intro-right') || video.hasClass('post-intro-left')){
-        player.showLoop();
-    }
-
-}
-
-function Player(videos){
-
-    //array of videos [loader, home, projecten, watDoenWijAnders, contact]
-    this.videos                         = videos;
-    this.currentVideo                   = videos[0];
-    this.currentVideoPiece              = 'main';
-    this.loadedVideos                   = 0;
-
-    //players
-    this.preIntroLeftPlayerElement      = document.getElementsByClassName('pre-intro-left');
-    this.postIntroLeftPlayerElement     = document.getElementsByClassName('post-intro-left');
-    this.postIntroRightPlayerElement    = document.getElementsByClassName('post-intro-right');
-    this.mainPlayerElement              = document.getElementsByClassName('main');
-    this.outroLeftPlayerElement         = document.getElementsByClassName('outro-left');
-    this.outroRightPlayerElement        = document.getElementsByClassName('outro-right');
-
-    //sources
-    this.preIntroLeftSource             = document.getElementById('pre-intro-left-source');
-    this.postIntroLeftSource            = document.getElementById('post-intro-left-source');
-    this.postIntroRightSource           = document.getElementById('post-intro-right-source');
-    this.mainSource                     = document.getElementById('main-source');
-    this.outroLeftSource                = document.getElementById('outro-left-source');
-    this.outroRightSource               = document.getElementById('outro-right-source');
-
-    this.addEventListenerToPlayers = function(){
-
-        var propertyCount = 0;
-        for (var key in this) {
-            if (Object.prototype.hasOwnProperty.call(this, key)) {
-                var val = this[key];
-                //whenever an extra property is added to the player class check this.
-                if(propertyCount >= 4 && propertyCount < 10){
-                    $.each(val, function(index, playerElement){
-                        playerElement.addEventListener('ended', isFinished, false);
-                    });
-                }
-                propertyCount++;
-            }
-        }
-    }
-
-    //keep track of loaded videos
-    this.loadVideos = function(video){
-
-        //keep loading the videos unless they are all loaded
-        if(player.loadedVideos < player.videos.length) {
-            video.loadPieces(video.loadedPieces);
-        }
-
-        //if one of them is loaded entirely start the introaniomation
-        if(player.loadedVideos > 0){
-            introAnimation();
-        }
-    }
-
-    this.play = function(videoName, pieceName, direction){
-
-        var video           = this.getVideo(videoName);
-        var piece           = this.getPiece(video, pieceName);
-        var videoSelector   = '.' + videoName + '.' + piece;
-        var playerElement   = $(videoSelector).get(0);
-
-        //hide the content
-        if($('.' + this.currentVideo.name + '-content').hasClass(this.currentVideo.name + '-content')){
-            $('.' + this.currentVideo.name + '-content').addClass('hidden');
-        }
-
-        this.switchPlayer($(playerElement));
-        // playerElement.load();
-        playerElement.play();
-        isVideoPlaying = true;
-
-    }
-
-    this.showLoop = function(){
-
-        var loop = $('#loop');
-        var videoName = player.currentVideo.name;
-
-        if(videoName === 'projecten'){
-            initializeOrSetProjectNavigation('next');
-        }
-
-        isVideoPlaying = false;
-
-        if(!isMobile){
-            this.switchPlayer(loop);
-        }
-
-        if(!explanationShown){
-            $('.explanation-container').removeClass('d-none');
-            explanationShown = true;
-        }
-
-        if(!explanationConfirmed){
-            $('.explanation-container').removeClass('fadeOutDown').addClass('fadeInUp');
-        }
-
-        this.makeContentActive(videoName);
-
-        loop.attr('src', '/images/posters/' + videoName + '/' + videoName + '-loop-poster.jpg');
-    }
-
-    this.makeContentActive = function(videoName){
-        var contentToReveal = $('.' + videoName + '-content');
-
-        //sets the menu item thats currently active
-        setActiveMenuItem(this.currentVideo.name);
-
-        if(!contentToHide){
-            contentToReveal.removeClass('hidden');
-        }
-        else if(contentToHide) {
-            contentToHide.addClass('hidden');
-            contentToReveal.removeClass('hidden');
-        }
-        contentToHide = contentToReveal;
-    }
-
-    this.switchPlayer = function(playerElement){
-
-        var playerToReveal = $(playerElement);
-        //set the poster before switching the player
-
-        playerToReveal.attr('poster', '/images/posters/' + this.currentVideo.name + '/' + this.currentVideo.name + '-' + this.currentVideoPiece + '-poster.jpg' );
-        //if there isnt a player to hide it means its the first playthrough so just reveal the player and play.
-        if(!playerToHide) {
-            playerToReveal.animate({ opacity: 1 }, 100);
-            playerToHide = playerToReveal;
-        }
-        //if there is a player and its not the same player as the previous one then swap them out.
-        else if(playerToHide){
-            playerToReveal.css({
-                'opacity' : '1',
-                'z-index': '1'
-            });
-            playerToHide.css({
-                'z-index' : '2'
-            });
-            playerToHide.animate({
-                'opacity' : '0'
-            }, 500);
-            playerToHide = playerToReveal;
-        }
-    }
-
-    this.getPlayerElement = function(pieceName){
-        var playerElement = pieceName + 'PlayerElement';
-        for(var name in player) {
-            var value = player[name];
-            if(name == playerElement){
-                return value;
-            }
-        }
-    }
-
-    this.getSource = function(pieceName) {
-        //capitalizes the first letter to
-        var sourceName = pieceName + 'Source';
-        for(var name in player) {
-            var value = player[name];
-            if(name == sourceName){
-                return value;
-            }
-        }
-    }
-
-    this.getPiece = function(video, pieceName){
-        for(var name in video) {
-            var value = video[name];
-            if(name == pieceName){
-                player.setCurrentVideoPiece(value);
-                return value;
-            }
-        }
-    }
-
-    this.setCurrentVideoPiece = function(piece){
-        this.currentVideoPiece = piece;
-    }
-
-    this.getVideo = function(videoName){
-        var correctVideo;
-        $.each(this.videos, function(index, video){
-            if(video.name == videoName) {
-                correctVideo = video;
-            }
-        });
-        return correctVideo;
-    }
-
-    this.setCurrentVideo = function(orderToPlay){
-        this.currentVideo = this.videos[orderToPlay - 1];
-    }
-
-    //add eventlistener to players
-    this.addEventListenerToPlayers();
-
-    return this;
-}
-
-function Video(name, order, preIntroLeft, preIntroRight, postIntroLeft, postIntroRight, outroLeft, outroRight, main, loop, introPlayed) {
-
-    this.videoSource   = document.createElement('source');
-    this.src = '/videos/' + name;
-    this.pieces = [];
-
-    //store all the video's in the properties.
-    this.name = name;
-    this.order = order;
-
-    //inrij shots
-    this.preIntroLeft      = preIntroLeft;
-    this.preIntroRight     = preIntroRight;
-
-    //post intro inrij shots
-    this.postIntroLeft     = postIntroLeft;
-    this.postIntroRight    = postIntroRight
-
-    // outro's
-    this.outroLeft         = outroLeft;
-    this.outroRight        = outroRight;
-
-    //main intro and loop
-    this.main              = main;
-    this.loop              = loop;
-
-    //set introPlayed to false so that after the first play we dont ever play the intro again.
-    this.introPlayed = introPlayed;
-
-    this.loopTime = 16;
-
-    //stores the amount of loaded pieces for the video
-    this.loadedPieces = 0;
-
-    this.loadPieces = function(pieceIndex){
-
-            //cross browser
-            window.URL = window.URL || window.webkitURL;
-
-            var piece = this.pieces[pieceIndex];
-            var video = this;
-
-            var req = new XMLHttpRequest();
-            req.open('GET', '/videos/' + video.name + '/' + video.name + '-' + piece + '.mp4', true);
-            req.responseType = 'blob';
-
-            req.onload = function() {
-
-                // Onload is triggered even on 404 // so we need to check the status code
-                if (this.status === 200 || this.status === 206) {
-
-                    var videoSelector = '.' + video.name + '.' + piece;
-                    var videoBlob = this.response;
-                    var vid = URL.createObjectURL(videoBlob); // IE10+
-
-                    // Video is now downloaded // and we can set it as source on the video element and the poster
-                    $(videoSelector + '> source').attr('src', vid);
-
-                    //set the video poster maybe this should be dynamic aswell?
-                    $(videoSelector).attr('poster', '/images/posters/' + video.name + '/' + video.name + '-' + piece + '-poster.jpg');
-
-                    //increment loadedVideos so we can start the intro animation once they are all loaded
-                    $(videoSelector).get(0).load();
-
-                    //increment the amount of loaded pieces so we can track them
-                    video.loadedPieces += 1;
-
-                    // console.log('loaded piece: ', piece);
-
-                    if(video.loadedPieces < video.pieces.length){
-                        video.loadPieces(video.loadedPieces);
-                    }
-                    else if(video.loadedPieces === video.pieces.length) {
-
-                        // console.log('finished loading video: ', video.name);
-                        player.loadedVideos++;
-
-                        var videoToLoad = player.videos[player.loadedVideos];
-
-                        //check if not all the video's are loaded already.
-                        player.loadVideos(videoToLoad);
-
-                    }
-
-                }
-            }
-
-            req.onerror = function() {
-                console.log('video loading error');
-            }
-
-            req.send();
-
-    }
-
-    this.returnSource = function(video){
-        var source = this.src + '/' + video + '.mp4';
-        return source;
-    }
-
-    this.collectPieces = function(preIntroLeft, postIntroLeft, postIntroRight, outroLeft, outroRight, main){
-        if(preIntroLeft !== null){
-            this.pieces.push('pre-intro-left');
-        }
-        if(postIntroLeft !== null){
-            this.pieces.push('post-intro-left');
-        }
-        if(postIntroRight !== null){
-            this.pieces.push('post-intro-right');
-        }
-        if(outroLeft !== null){
-            this.pieces.push('outro-left');
-        }
-        if(outroRight !== null){
-            this.pieces.push('outro-right');
-        }
-        if(main !== null){
-            this.pieces.push('main');
-        }
-    }
-
-    //add all the parts to the parts array
-    this.collectPieces(preIntroLeft, postIntroLeft, postIntroRight, outroLeft, outroRight, main);
-
-    return this;
-}
-
-//initializes the different video objects and the main player object that will handle them all.
-function initializePlayer() {
-
-    var home = new Video('home',
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        'main',
-        null,
-        true
-    );
-
-    //projecten video object
-    var projecten = new Video('projecten',
-        2,
-        'pre-intro-left',
-        null,
-        'post-intro-left',
-        'post-intro-right',
-        'outro-left',
-        'outro-right',
-        'main',
-        null,
-        false
-    );
-
-    //wat-doen-wij-anders
-    var watDoenWijAnders = new Video('wat-doen-wij-anders',
-        3,
-        'pre-intro-left',
-        null,
-        'post-intro-left',
-        'post-intro-right',
-        'outro-left',
-        'outro-right',
-        'main',
-        null,
-        false
-    );
-
-    //contact
-    var contact = new Video('contact',
-        4,
-        'pre-intro-left',
-        null,
-        'post-intro-left',
-        null,
-        'outro-left',
-        null,
-        'main',
-        null,
-        false
-    );
-
-    var videos = [];
-
-    videos.push(home);
-    // videos.push(projecten);
-    // videos.push(watDoenWijAnders);
-    // videos.push(contact);
-
-    var player = new Player(videos);
-
-    //set next and previous
-    prev = $('.prev').data('direction');
-    next = $('.next').data('direction');
-
-    //set up toast options
-    toastr.options.positionClass = 'toast-top-full-width';
-    toastr.options.preventDuplicates = true;
-    toastr.options.progressBar = true;
-
-    //set explanation video element
-    explanationVideo = document.getElementById("explanation-video");
-
-    // store all project elements in an array for use in navigateUpOrDownThroughProjects
-    $('.project').each(function(index, project){
-        projectNavigation.push(project);
-    });
-
-    //store the amount of projects we have.
-    projectCount = 0;
-    $('.project-content').each(function(index, project){
-        projectCount++;
-    });
-
-    return player;
-}
-
-/* helpers */
-var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel" //FF doesn't recognize mousewheel as of FF3.x
-function scroll(e){
-    var evt = window.event || e //equalize event object
-    evt = evt.originalEvent ? evt.originalEvent : evt; //convert to originalEvent if possible
-    var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta //check for detail first, because it is used by Opera and FF
-    var direction = delta;
-    if(!explanationConfirmed){
-        $('.explanation-container').removeClass('fadeInUp').addClass('fadeOutDown');
-    }
-    if(direction > 0){
-        closeNav();
-        playPreviousOrNext('previous');
-    }
-    else{
-        closeNav();
-        playPreviousOrNext('next');
-    }
-}
-
-/* NAVIGATION BY USING THE ARROWS AT THE BOTTOM OF THE SCREEN */
-function arrowNavigation(element){
-
-    var arrow = $(element);
-
-    if(arrow.hasClass('next')){
-        playPreviousOrNext('next');
-    }
-    else if (arrow.hasClass('previous')) {
-        playPreviousOrNext('previous');
-    }
-}
-
-
-function playPreviousOrNext(direction){
-    if(!isVideoPlaying){
-        if(direction === 'previous') {
-            if(setAndCheckPreviousNext('previous')){
-                if(!isMobile){
-                    player.play(player.currentVideo.name, 'outroLeft');
-                }
-                player.setCurrentVideo(player.currentVideo.order - 1);
-            }
-        }
-        else if(direction === 'next'){
-            if(setAndCheckPreviousNext('next')){
-                if(!isMobile){
-                    player.play(player.currentVideo.name, 'outroRight');
-                }
-                player.setCurrentVideo(player.currentVideo.order + 1);
-            }
-        }
-        if(!isMobile){
-            //pause the video if its playing
-            explanationVideo.pause();
-        }
-
-        if(isMobile){
-            player.showLoop();
-        }
-    }
-}
-
-//navigate by using the menu items
-function navigateThroughMenu(video){
-    var order = video.data('order');
-    //if there's not a video playing
-    if(order !== player.currentVideo.order){
-        closeNav();
-    }
-    if(!isVideoPlaying && !isMobile){
-        //go left or right
-        var currentVideo = player.currentVideo;
-        if(currentVideo.order > order){
-            player.play(player.currentVideo.name, 'outroLeft');
-            player.setCurrentVideo(order);
-            //pause the video if its playing
-            explanationVideo.pause();
-        }
-        else if(currentVideo.order < order){
-            player.play(player.currentVideo.name, 'outroRight');
-            player.setCurrentVideo(order);
-            //pause the video if its playing
-            explanationVideo.pause();
-        }
-    }
-    else if(isMobile){
-        player.setCurrentVideo(order);
-        player.showLoop();
-    }
-
-}
-
-function setActiveMenuItem(name){
-    var element = $('.menu-' + name);
-    $('.current-video').removeClass('current-video');
-    element.addClass('current-video');
-}
-
-//check if there's a previous video
-function setAndCheckPreviousNext(action){
-    if(action === 'previous' && player.currentVideo.order > 1 || player.currentVideo.order < 4 && action === 'next'){
-        return true;
-    }else {
-        return false;
-    }
-}
-
-function setNextPrevious(currentVideo){
-
-    //on menu button click the correct next/prev needs to be set
-    //on scroll the correct next previous needs to be set.
-    if(currentVideo == 'home'){
-        prev = null;
-        next = 'projecten';
-    }
-    if(currentVideo == 'projecten'){
-        prev = 'home';
-        next = 'wat-doen-wij-anders';
-    }
-    if(currentVideo == 'wat-doen-wij-anders'){
-        prev = 'projecten';
-        next = 'contact';
-    }
-    if(currentVideo == 'contact'){
-        prev = 'wat-doen-wij-anders';
-        next = null;
-    }
-
-}
-
-/* Open */
-var navOpen = false;
-function openNav() {
-    navOpen = true;
-    $('.closebtn').removeClass('animated fadeOut d-none').addClass('animated fadeIn');
-    if(!projectContentActive){
-        $('.overlay').css('height', '100%');
-        setTimeout(function(){
-            $(".overlay-content > a").each(function(index) {
-                var $this = $(this);
-                var t = setTimeout(function() {
-                    $this.addClass('animated slideInLeft').removeClass('invisible');
-                }, 250 * index++);
-            });
-        }, 250);
-    }
-
-}
-
-/* Close */
-function closeNav() {
-    navOpen = false;
-    $('.closebtn').removeClass('animated fadeIn').addClass('animated fadeOut d-none');
-    if(!projectContentActive){
-        $('.overlay').css('height', '0%');
-        $('.overlay-content > a').each(function(index) {
-            var $this = $(this);
-            $this.removeClass('animated slideInLeft').addClass('invisible');
-        });
-    }
-    else {
-        hideProjectDetails();
-    }
-
-
-}

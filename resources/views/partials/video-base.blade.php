@@ -10,10 +10,11 @@
 
     <!-- video elements -->
     <div class="container">
-        @include('partials.videos.home-videos')
+        @include('partials.videos.dhevak-video')
+        <!-- @include('partials.videos.home-videos')
         @include('partials.videos.projecten-videos')
         @include('partials.videos.wat-doen-wij-anders-videos')
-        @include('partials.videos.contact-videos')
+        @include('partials.videos.contact-videos') -->
     </div>
     <!-- misc/helpers -->
     @include('partials.content.landscape-indicator-content')
