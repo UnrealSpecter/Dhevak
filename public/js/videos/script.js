@@ -37,15 +37,29 @@ $(window).ready(function(){
 
 });
 
+<<<<<<< HEAD
 function loaded(){
 
+=======
+
+function loaded(){
+
+        //play the intro animation
+        introAnimation();
+
+>>>>>>> dd6a54399e1998ff4732e1618dd6e691fe2278fe
         //check if we're on a mobile device
         ifMobile();
 
         player = initializePlayer();
 
         if(!isMobile){
+<<<<<<< HEAD
             $('.pre-loader-wrapper').removeClass('d-none');
+=======
+            // player.play(player.currentVideo.name, 'main');
+            player.loadVideos();
+>>>>>>> dd6a54399e1998ff4732e1618dd6e691fe2278fe
         }else if(isMobile) {
             //show content loops only on mobile without the video's.
             introAnimation();
@@ -99,9 +113,13 @@ function loaded(){
             });
 
             swipeManager.on('swipeleft', function(ev) {
+<<<<<<< HEAD
                 if(!projectContentActive && !navOpen){
                     playPreviousOrNext('next');
                 }
+=======
+                playPreviousOrNext('previous');
+>>>>>>> dd6a54399e1998ff4732e1618dd6e691fe2278fe
             });
 
             swipeManager.on('swiperight', function(ev){
@@ -380,6 +398,7 @@ function Player(videos){
     // this.outroRightPlayerElement        = document.getElementsByClassName('outro-right');
 
     //sources
+<<<<<<< HEAD
     // this.preIntroLeftSource             = document.getElementById('pre-intro-left-source');
     // this.postIntroLeftSource            = document.getElementById('post-intro-left-source');
     // this.postIntroRightSource           = document.getElementById('post-intro-right-source');
@@ -408,17 +427,66 @@ function Player(videos){
 
         var videoSelector   = '.dhevak';
         var playerElement   = $(videoSelector).get(0);
+=======
+    this.preIntroLeftSource             = document.getElementById('pre-intro-left-source');
+    this.postIntroLeftSource            = document.getElementById('post-intro-left-source');
+    this.postIntroRightSource           = document.getElementById('post-intro-right-source');
+    this.mainSource                     = document.getElementById('main-source');
+    this.outroLeftSource                = document.getElementById('outro-left-source');
+    this.outroRightSource               = document.getElementById('outro-right-source');
+
+    //keep track of loaded videos
+    this.loadVideos = function(){
+        var count = 0;
+        var loadedVideos = 0;
+        console.log('loading');
+
+        $.each(this.videos, function(videoIndex, video){
+            $.each(video.pieces, function(pieceIndex, piece){
+                var videoSelector = '.' + video.name + '#' + piece;
+                //get(0) gets the native dom element.
+                $(videoSelector).get(0).load();
+            });
+        });
+
+        var players = document.getElementsByClassName('player');
+        $.each(players, function(index, player){
+            if(!$(player).hasClass('home')) {
+                console.log($(player).attr('id'));
+            }
+            player.oncanplaythrough = function() {
+                loadedVideos++;
+                console.log(loadedVideos);
+            };
+        });
+
+    }
+
+    this.play = function(videoName, pieceName, direction){
+
+        var video           = this.getVideo(videoName);
+        var piece           = this.getPiece(video, pieceName);
+        var source          = video.returnSource(piece);
+        var sourceElement   = this.getSource(pieceName);
+        var playerElement   = this.getPlayerElement(pieceName);
+>>>>>>> dd6a54399e1998ff4732e1618dd6e691fe2278fe
 
         //hide the content
         if($('.' + this.currentVideo.name + '-content').hasClass(this.currentVideo.name + '-content')){
             $('.' + this.currentVideo.name + '-content').addClass('hidden');
         }
 
+<<<<<<< HEAD
         $(playerElement).css({ 'opacity': '1'});
         // this.switchPlayer($(playerElement));
 
         playerElement.currentTime = time;
         console.log(playerElement.currentTime, time);
+=======
+        sourceElement.setAttribute('src', source);
+        this.switchPlayer(playerElement);
+        // playerElement.load();
+>>>>>>> dd6a54399e1998ff4732e1618dd6e691fe2278fe
         playerElement.play();
 
         isVideoPlaying = true;
