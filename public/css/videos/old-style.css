@@ -1,0 +1,107 @@
+.video-wrapper {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.video {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ordering of video players */
+#loader-video {
+    z-index: -100;
+}
+
+#intro-video {
+    z-index: -101;
+}
+
+#transition-video {
+    z-index: -102;
+}
+
+#contact-intro-video {
+    z-index: -103;
+}
+
+#contact-wurst-case-video {
+    z-index: -104;
+}
+
+#transition-back-video {
+    z-index: -105;
+}
+
+/* loader style */
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    z-index: 100;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* buttons */
+.home {
+    height: 12.5%;
+    position: fixed;
+    width: 27.5%;
+    bottom: 10%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid white 7px;
+    border-radius: 6px;
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+    opacity: 0.5;
+}
+
+.contact {
+    height: 12.5%;
+    position: fixed;
+    width: 27.5%;
+    bottom: 20%;
+    cursor: pointer;
+}
+
+.facebook {
+    left: 16.5%;
+    height: 22%;
+    position: fixed;
+    width: 16%;
+    cursor: pointer;
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /*border: solid white 7px;*/
+    /*border-radius: 6px;*/
+    /*font-size: 2em;*/
+    /*font-weight: bold;*/
+    /*color: white;*/
+}
+
+.mail {
+    height: 23%;
+    position: fixed;
+    width: 22.5%;
+    bottom: 17%;
+    right: 4%;
+    cursor: pointer;
+}

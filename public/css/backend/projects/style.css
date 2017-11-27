@@ -1,0 +1,9 @@
+.no-margin {
+    margin:0 !important;
+    width: 5%;
+}
+
+.flex {
+    display: flex; 
+    flex-flow: row;
+}
