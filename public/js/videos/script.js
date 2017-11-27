@@ -216,7 +216,7 @@ function loaded(){
             // use parseInt to round to whole seconds
             var currentTime = Math.round(this.currentTime*2)/2;
 
-            console.log(currentTime);
+            // console.log(currentTime);
 
             //loop situations - post intro right
             if(player.listenFor === 'postIntroRight' && currentTime === player.currentVideo.pieces.postIntroRightEnd){
@@ -276,9 +276,11 @@ function loaded(){
                 console.log('Piece: outroLeftEnd', 'time: ', currentTime, 'object: ', player.currentVideo);
 
                 if(navigatingThroughMenu === false){
-                    player.setCurrentVideo(player.currentVideo.order + 1);
+                    player.setCurrentVideo(player.currentVideo.order - 1);
+                    console.log('navigatingthroughmenu false');
                 }
                 else if(navigatingThroughMenu === true){
+                    console.log('navigatingthroughmenu true');
                     player.setCurrentVideo(order);
                 }
 
@@ -341,13 +343,36 @@ function loadVideo() {
         }
     }
 
+    req.onprogress = function(e) {
+        if (e.lengthComputable) {
+            // progressBar.max = e.total;
+            // progressBar.value = e.loaded;
+            var value = parseInt((e.loaded / e.total) * 100) + '%';
+            $('.progress-bar').css({
+                'width': value
+            });
+
+            $('.progress-bar').html(value);
+
+        }
+    };
+
+    req.onloadstart = function(e) {
+        //loader background
+        $('#sample_goal').goalProgress({
+            currentAmount: 0
+        });
+    };
+
+    req.onloadend = function(e) {
+
+    };
+
     req.onerror = function() {
         console.log('video loading error');
     }
 
     req.send();
-
-
 }
 
 //closure function that runs the introduction only once

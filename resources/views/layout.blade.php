@@ -35,6 +35,7 @@
 
         <!-- IE polyfill -->
         <script src="{{ URL::asset('plugins/object-fit-polyfill/js/objectFitPolyfill.min.js') }}"></script>
+
         @yield('css')
 
         @yield('js')

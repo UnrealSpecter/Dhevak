@@ -37,4 +37,7 @@
         </div>
 
     </div>
+    <div class="progress" style="border-radius: 0; position: absolute; top: 0; left: 0; width: 100%; z-index: 1500000;">
+        <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+    </div>
 </div>
