@@ -345,9 +345,9 @@ function loadVideo() {
 
     req.onprogress = function(e) {
         if (e.lengthComputable) {
-            // progressBar.max = e.total;
-            // progressBar.value = e.loaded;
+        
             var value = parseInt((e.loaded / e.total) * 100) + '%';
+
             $('.progress-bar').css({
                 'width': value
             });
@@ -358,14 +358,9 @@ function loadVideo() {
     };
 
     req.onloadstart = function(e) {
-        //loader background
-        $('#sample_goal').goalProgress({
-            currentAmount: 0
-        });
     };
 
     req.onloadend = function(e) {
-
     };
 
     req.onerror = function() {
