@@ -44,14 +44,6 @@
                     </div>
             @endforeach
         </div>
-        <!-- <a class="carousel-control-prev" href="#carousel-{{ $project->id }}-{{ $project->id }}" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carousel-{{ $project->id }}-{{ $project->id }}" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a> -->
     </div>
 
     <!-- bootstrap image carousel carousel -->
@@ -92,7 +84,17 @@
 
     <div class="col-12 sub-title center flex">het eindresultaat</div>
     <div class="col-12 flex project-website center">
+        @if(! $loop->first)
+            <div class="col-2 switch-project" data-project-index="{{ $index }}" style="cursor: pointer; font-size: 1.5em; color: black; text-transform: upppercase; letter-spacing: 2px;">vorige project</div>
+        @else
+            <div class="col-2"></div>
+        @endif
         <a href="http://{{ $project->project_url }}" target="_blank">www.{{ $project->project_url }}</a>
+        @if(!$loop->last)
+            <div class="col-2 switch-project" data-project-index="{{ $index + 1 }}">volgende project</div>
+        @else
+            <div class="col-2"></div>
+        @endif
     </div>
 
     @if(count($project->social_media) > 0)

@@ -136,6 +136,7 @@ function loaded(){
                 loadVideo();
             }
             if(choice === 'simple-experience'){
+                $('.progress').addClass('d-none');
                 setTimeout(function(){
                     isMobile = true;
                     introAnimation();
@@ -174,6 +175,14 @@ function loaded(){
             }
         });
 
+        $('.switch-project').on('click', function(){
+            var projectIndex = $(this).attr('data-project-index');
+            closeNav();
+            setTimeout(function(){
+                showProjectDetails(projectIndex);
+            }, 1000);
+        });
+
         //scroll events
         $(window).bind(mousewheelevt, function(e){
             if(!projectContentActive && scrollAllowed){
@@ -193,8 +202,9 @@ function loaded(){
 
         // scroll to certain element
         $('.scroll-down-button').on('click', function() {
-             var projectOverlay = $(this).parent().parent().parent();
-             var scrollToSubtitle = projectOverlay.scrollTop() + projectOverlay.find('.subtitle-role').offset().top;
+            console.log(' clicked');
+             var projectContent = $(this).parent().parent();
+             var scrollToSubtitle = projectContent.scrollTop() + projectContent.find('.subtitle-role').offset().top;
              $('.project-overlay').animate({
                 scrollTop: scrollToSubtitle
             }, 1500);
@@ -345,7 +355,7 @@ function loadVideo() {
 
     req.onprogress = function(e) {
         if (e.lengthComputable) {
-        
+
             var value = parseInt((e.loaded / e.total) * 100) + '%';
 
             $('.progress-bar').css({

@@ -155,6 +155,11 @@
         font-size: 2em;
     }
 
+    /* PRE LOADER */
+    .dhevak-experience, .simple-experience {
+        font-size: 3em;
+    }
+
     /* LOADER TITLE*/
     .loader-title {
         font-size: 17.5em;
@@ -261,6 +266,11 @@
         font-size: 2em;
     }
 
+    /* PRE LOADER */
+    .dhevak-experience, .simple-experience {
+        font-size: 2em;
+    }
+
     /* LOADER TITLE*/
     .loader-title {
         font-size: 12.5em;
@@ -360,6 +370,11 @@
     .project-website > a {
         margin: 2.5% 0 2.5% 0;
         font-size: 2.75em;
+    }
+
+    /* PRE LOADER */
+    .dhevak-experience, .simple-experience {
+        font-size: 1.5em;
     }
 
     /* FLIP ICON INDICATOR */
@@ -477,6 +492,11 @@
 
     .landscape-indicator > p {
         font-size: 1.25em;
+    }
+
+    /* PRE LOADER */
+    .dhevak-experience, .simple-experience {
+        font-size: 1.5em;
     }
 
     /* LOADER */
@@ -840,6 +860,11 @@ h1 {
     background-position: center;
 }
 
+.progress {
+    background-color: #3a3a3a;
+    height: 5px;
+}
+
 .loader-wrapper {
     height: 100vh;
     z-index: 1000;
@@ -851,6 +876,7 @@ h1 {
     padding: 0;
 }
 
+/* PRE LOADER */
 .pre-loader-wrapper {
     height: 100vh;
     z-index: 1501;
@@ -860,6 +886,20 @@ h1 {
     top: 0;
     left: 0;
     padding: 0;
+}
+
+.simple-experience, .dhevak-experience {
+    cursor: pointer;
+    height: 15%;
+    padding: 0 5% 0 5%;
+    border: solid #222222 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    white-space: nowrap
+}
+
+.dhevak-experience {
+    margin-right: 3%;
 }
 
 .loader-background {
@@ -979,7 +1019,6 @@ h1 {
         padding: 8px;
         text-decoration: none;
         font-size: 2em;
-        color: #818181;
         display: block; /* Display block instead of inline */
         -webkit-transition: 0.3s;
         -o-transition: 0.3s;
@@ -993,7 +1032,6 @@ h1 {
         padding: 8px;
         text-decoration: none;
         font-size: 1.5em;
-        color: #818181;
         display: block; /* Display block instead of inline */
         -webkit-transition: 0.3s;
         -o-transition: 0.3s;
@@ -1011,8 +1049,7 @@ h1 {
     z-index: 9999; /* Sit on top */
     left: 0;
     top: 0;
-    background-color: white; /* Black w/opacity */
-    opacity: 0.7;
+    background: rgba(255, 255, 255, 0.7);
     overflow-y: hidden; /* Disable horizontal scroll */
     -webkit-transition: 0.5s;
     -o-transition: 0.5s;
@@ -1023,7 +1060,7 @@ h1 {
 .overlay-content {
     position: relative;
     width: 100%; /* 100% width */
-    /*text-align: left; /* Centered text/links */*/
+    /*text-align: left; /* Centered text/links */
     margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
 }
 
@@ -1034,7 +1071,6 @@ a {
 .overlay a {
     padding: 8px;
     text-decoration: none;
-    color: #818181;
     font-family: Times New Roman;
     display: block; /* Display block instead of inline */
     -webkit-transition: 0.3s;
@@ -1106,6 +1142,7 @@ a {
 .current-video {
     font-weight: bold;
     opacity: 1;
+    color: #3a3a3a;
 }
 /* HOME STYLING */
 .home-menu {
@@ -1244,6 +1281,14 @@ a {
     cursor: pointer;
 }
 
+.switch-player {
+    cursor: pointer;
+    font-size: 1.5em;
+    color: black;
+    text-transform: upppercase;
+    letter-spacing: 2px;
+}
+
 .project-description {
     font-size: 1.5em;
     font-family: Raleway;
@@ -1260,7 +1305,7 @@ a {
     font-weight: bold;
     text-transform: uppercase;
     text-decoration: none;
-    opacity: 0.2;
+    opacity: 0.3;
 }
 
 .project-social-media-wrapper, .project-roles-wrapper {
@@ -1344,6 +1389,14 @@ a {
 }
 
 .carousel-indicators > li.active {
+    background-color: #a1e6ae;
+}
+
+.carousel-indicators > li.active:hover {
+    background-color: #a1e6ae;
+}
+
+.carousel-indicators > li:hover {
     background-color: #a1e6ae;
 }
 
