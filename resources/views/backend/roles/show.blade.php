@@ -20,5 +20,7 @@
             {{ Form::hidden('id', $role->id) }}
             {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
         {{ Form::close() }}
+        <!-- this is the cancel button to cancel if you misclicked returns to roles screen -->
+        <a href="/admin/roles/" class="btn btn-info"> Cancel</a>
     </div>
 @endsection

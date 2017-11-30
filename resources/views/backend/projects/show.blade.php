@@ -55,5 +55,7 @@
             {{ Form::hidden('id', $project->id) }}
             {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
         {{ Form::close() }}
+        <!-- this is the cancel button to cancel if you misclicked returns to projects screen -->
+        <a href="/admin/projects/" class="btn btn-info"> Cancel</a>
     </div>
 @endsection
