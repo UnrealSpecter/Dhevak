@@ -93,11 +93,23 @@ class SocialMediaController extends Controller
     public function destroy($id)
     {
         $socialMedia = SocialMedia::findOrFail($id);
-        
+
         $path = public_path('uploads/social-media/') . $socialMedia->image_url;
 
         if($socialMedia->delete() && File::delete($path)){
             return redirect()->route('social-media.index');
         }
     }
+    public function ValidatorAllFilled(){
+      // Validator to check if all fields are filled
+    }
+    public function ValidatorInsertDBsuccesfull(){
+      // Validator to check if the inserting of data into database didnt go wrong in any way
+    }
+    public function ValidatorHTMLchars(){
+      // Validator to check for html special chars, so they cant insert code
+    }
+    public function ValidatorHandlingError(){
+      // Validator that handles the errors that come up with faulty uploads or unsuccesfull upload
+    }    
 }

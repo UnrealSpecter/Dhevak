@@ -63,4 +63,15 @@ class ImagesController extends Controller
             return redirect()->route('images.index');
         }
     }
+    
+    public function ValidatorFileUploadSafe(){
+      // Validator to check if the file uploaded is not malicous content that could hurt us
+    }
+    public function ValidatorFileUplSucces(){
+      // Validator to check if the file that got labeled as safe actually got uploaded
+    }
+    public function ValidatorHandlingError(){
+      // Validator to handle the errors on faulty uploads or unsuccesfull uploads
+    }
+
 }

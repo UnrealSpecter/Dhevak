@@ -63,4 +63,18 @@ class RolesController extends Controller
             return redirect()->route('roles.index');
         }
     }
+    public function ValidatorAllFilled()
+    {
+      // Validator to check if all fields are filled
+    }
+    public function ValidatorHTMLchars()
+    {
+      // Validator to check and remove all html specialchars
+    }
+    public function ValidatorInsertDBsuccesfull(){
+      // Validator to check if the upload to the database went well and nothing got lost
+    }
+    public function ValidatorErrorHandling(){
+      // The errorhandling for when stuff goes wrong on validation
+    }
 }

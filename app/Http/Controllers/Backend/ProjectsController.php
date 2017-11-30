@@ -182,4 +182,16 @@ class ProjectsController extends Controller
             return redirect()->route('projects.index');
         }
     }
+    public function ValidatorAllFilled(){
+      // Validator to check if all fiels are filled in
+    }
+    public function ValidatorHTMLchars(){
+      // Validator to remove html special chars so no malicous code can be inserted
+    }
+    public function ValidatorInsertDBsuccesfull(){
+      // Validator to check if the data actually succesfully got inserted into the DB
+    }
+    public function ValidatorErrorHandling(){
+      // Error handler that handles the errors that come up when validating data
+    }
 }
