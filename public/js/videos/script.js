@@ -361,16 +361,7 @@ function loadVideo() {
             $('.progress-bar').css({
                 'width': value
             });
-
-            $('.progress-bar').html(value);
-
         }
-    };
-
-    req.onloadstart = function(e) {
-    };
-
-    req.onloadend = function(e) {
     };
 
     req.onerror = function() {

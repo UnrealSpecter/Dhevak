@@ -37,6 +37,6 @@
         </div>
     </div>
     <div class="progress" style="border-radius: 0; position: absolute; bottom: 0; left: 0; width: 100%; z-index: 1500000;">
-        <div style="background-color: white; color: black;" class="progress-bar active" role="progressbar" width="0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+        <div style="background-color: white; color: black;" class="progress-bar active" role="progressbar" width="0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
 </div>
