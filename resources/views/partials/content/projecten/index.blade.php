@@ -85,7 +85,7 @@
     <div class="col-12 sub-title center flex">het eindresultaat</div>
     <div class="col-12 flex project-website center">
         @if(! $loop->first)
-            <div class="col-2 switch-project" data-project-index="{{ $index }}">vorige project</div>
+            <div class="col-2 switch-project" data-project-index="{{ $index - 1 }}">vorige project</div>
         @else
             <div class="col-2"></div>
         @endif
