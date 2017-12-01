@@ -1281,12 +1281,13 @@ a {
     cursor: pointer;
 }
 
-.switch-player {
+.switch-project {
     cursor: pointer;
     font-size: 1.5em;
     color: black;
     text-transform: upppercase;
     letter-spacing: 2px;
+    margin: 0;
 }
 
 .project-description {
