@@ -75,5 +75,7 @@
         @endforeach
         {!! Form::submit('Create', ['class' => 'btn btn-info']) !!}
     {!! Form::close() !!}
+    <!-- this is the cancel button to cancel if you misclicked returns to projects screen -->
+    <a href="/admin/projects/" class="btn btn-info"> Cancel</a>
 
 @endsection

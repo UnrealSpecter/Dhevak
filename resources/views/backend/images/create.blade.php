@@ -19,4 +19,6 @@
         </div>
         {!! Form::submit('Create', ['class' => 'btn btn-info']) !!}
     {!! Form::close() !!}
+    <!-- this is the cancel button to cancel if you misclicked returns to images screen -->
+    <a href="/admin/images/" class="btn btn-info"> Cancel</a>
 @endsection
