@@ -41,5 +41,9 @@ Route::get('/whitegoblingames', function(){
     return view('big-promotion.white-goblin-games');
 });
 
+Route::get('/gevangenis-museum', function () {
+    return view('big-promotion.gevangenis-museum');
+});
+
 // auth
 Auth::routes();

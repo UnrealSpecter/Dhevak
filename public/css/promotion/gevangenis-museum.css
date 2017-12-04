@@ -1,0 +1,182 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.fullPage {
+
+}
+
+.Slot {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 21;
+  object-fit: cover;
+  -webkit-animation: zoom 13s;
+   animation: zoom 13s;
+   -webkit-transform: scale(0,0);
+   transform: scale(0,0);
+   pointer-events: none;
+}
+
+.Tralies {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 20;
+  object-fit: cover;
+  -webkit-animation-name: fadeOutLeft;
+  animation-name: fadeOutLeft;
+  -webkit-animation-duration: 10s;
+  animation-duration: 10s;
+  -webkit-transform: translateX(-6000px);
+  transform: translateX(-6000px);
+}
+
+.kaartje {
+  width: 200px;
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.menubalk {
+  width: 100%;
+  bottom: 0px;
+  position: absolute;
+  z-index: 1;
+  -webkit-animation-name: fadeInBottom;
+  animation-name: fadeInBottom;
+  -webkit-animation-delay: 7s; /* Safari 4.0 - 8.0 */
+  animation-delay: 7s;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -webkit-transform: translateY(1000px);
+  transform: translateY(1000px);
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.Plattegrond {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 0;
+}
+
+@media only screen and (orientation: landscape) {
+
+    .landscape-indicator {
+        display: none !important;
+    }
+}
+
+@-webkit-keyframes zoom {
+    0% {
+      -webkit-transform: scale(1,1);
+    }
+    30% {
+      -webkit-transform: scale(1,1);
+    }
+    40% {
+      opacity: 1;
+    }
+    45% {
+      opacity: 0;
+      -webkit-transform: scale(13,13);
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform: scale(15,15);
+    }
+}
+
+@keyframes zoom {
+    0% {
+      transform: scale(1,1);
+    }
+    30% {
+      transform: scale(1,1);
+    }
+    40% {
+      opacity: 1;
+    }
+    45% {
+      opacity: 0;
+      transform: scale(13,13);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(15,15);
+    }
+}
+
+@-webkit-keyframes fadeOutLeft {
+   0% {
+      -webkit-transform: translateX(0);
+   }
+   50% {
+     -webkit-transform: translatex(0);
+   }
+   70% {
+     opacity: 1;
+     -webkit-transform: translatex(-100px);
+
+   }
+   100% {
+     opacity: 0;
+      -webkit-transform: translateX(-2000px);
+   }
+}
+
+@keyframes fadeOutLeft {
+   0% {
+      transform: translateX(0);
+   }
+   50% {
+     transform: translatex(0);
+   }
+   70% {
+     opacity: 1;
+     transform: translatex(-100px);
+
+   }
+   100% {
+     opacity: 0;
+      transform: translateX(-2000px);
+   }
+}
+
+@-webkit-keyframes fadeInBottom {
+   0% {
+      -webkit-transform: translateY(-300px);
+   }
+   80% {
+     -webkit-transform: translateY(-300px);
+   }
+
+   100% {
+      -webkit-transform: translateY(0);
+   }
+}
+
+@keyframes fadeInBottom {
+   0% {
+      transform: translateY(-300);
+   }
+   80% {
+     transform: translateY(-300);
+   }
+   100% {
+      transform: translateY(0);
+   }
+}
+
+#kleur {
+  background-color: yellow;
+}
