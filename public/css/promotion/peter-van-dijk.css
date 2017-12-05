@@ -1,3 +1,126 @@
 body {
     overflow: hidden;
 }
+
+/* BACKGROUND CSS */
+.background {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    height: 101%;
+    z-index: 1;
+}
+
+/* BUILDINGS CSS */
+.buildings {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: animateBuildingsUp 2s; /* IE 10+, Fx 29+ */
+    z-index: 2;
+}
+
+@-webkit-keyframes animateBuildingsUp {
+    0%   {
+        top: 30%;
+    }
+    100% {
+        top: 0%;
+    }
+}
+
+/* BIG BUILDING CSS */
+.building {
+    position: fixed;
+    right: 15.5%;
+    width: 34.5%;
+    height: 71%;
+    z-index: 3;
+    bottom: 0;
+    animation: animateBuildingUp 5s;
+    animation-timing-function: ease-out;
+}
+
+@-webkit-keyframes animateBuildingUp {
+    0%   {
+        bottom: -65%;
+    }
+    100% {
+        bottom: 0;
+    }
+}
+
+/* CRANE AND WHEEL CSS */
+.crane-container {
+    position: fixed;
+    right: 0;
+    height: 55%;
+    top: 3.5%;
+    width: 28%;
+    z-index: 5;
+    position: fixed;
+    animation: crane-container 2.5s;
+    animation-timing-function: ease-out;
+}
+
+@-webkit-keyframes crane-container {
+    0%   {
+        right: -20%;
+    }
+    100% {
+        right: 0;
+    }
+}
+
+/* WHEEL CSS*/
+.wheel {
+    position: absolute;
+    right: 33.5%;
+    top: 6%;
+    height: 19%;
+    width: 19%;
+    animation: spin 5s;
+    animation-timing-function: ease-out;
+    animation-delay: 2.5s;
+
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(2160deg);
+        transform:rotate(2160deg);
+    }
+}
+
+/* CRANE CSS */
+.crane {
+    position: absolute;
+    right: 0;
+    height: 80%;
+    top: 7.5%;
+    width: 50%;
+}
+
+/* CABLE CSS */
+.cables {
+    position: fixed;
+    width: 99.2vw;
+    height: 100vh;
+    top: 8px;
+    left: 12px;
+    animation: fadeIn 2.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 4.5s;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

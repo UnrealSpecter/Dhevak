@@ -13,12 +13,14 @@
     </head>
     <body>
     <div style="height: 100vh; width: 100vw;" data-enhance="false" data-role="page">
-        <img class="animated fadeIn background"   style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;" src="{{ asset('/images/promotion/peter-van-dijk/background.jpg') }}" alt="peter-van-dijk-background">
-        <img class="d-none building" style="position: fixed; top: 0; left: 0; width: 50%; height: "       src="{{ asset('/images/promotion/peter-van-dijk/building.png') }}" alt="peter-van-dijk-big-building">
-        <img class="d-none buildings" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;" src="{{ asset('/images/promotion/peter-van-dijk/buildings.png') }}" alt="peter-van-dijk-buildings">
-        <!-- <img src="{{ asset('/images/promotion/peter-van-dijk/crane.png') }}" alt="peter-van-dijk-crane">
-        <img src="{{ asset('/images/promotion/peter-van-dijk/cables.png') }}" alt="peter-van-dijk-crane-cables">
-        <img src="{{ asset('/images/promotion/peter-van-dijk/wheel.png') }}" alt="peter-van-dijk-wheel"> -->
+        <img class="animated fadeIn background" src="{{ asset('/images/promotion/peter-van-dijk/background.jpg') }}" alt="peter-van-dijk-background">
+        <img class="building d-none" src="{{ asset('/images/promotion/peter-van-dijk/building.png') }}" alt="peter-van-dijk-big-building">
+        <img class="buildings" src="{{ asset('/images/promotion/peter-van-dijk/buildings.png') }}" alt="peter-van-dijk-buildings">
+        <div class="crane-container">
+            <img class="wheel" src="{{ asset('/images/promotion/peter-van-dijk/wheel.png') }}" alt="peter-van-dijk-wheel">
+            <img class="crane"  src="{{ asset('/images/promotion/peter-van-dijk/crane.png') }}" alt="peter-van-dijk-crane">
+            <img class="cables d-none" src="{{ asset('/images/promotion/peter-van-dijk/cables-2.png') }}" alt="peter-van-dijk-crane-cables">
+        </div>
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript" src="{{ URL::asset('plugins/tether/js/tether.min.js')}}"></script>

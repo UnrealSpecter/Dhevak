@@ -33,7 +33,7 @@ Route::get('/hunebedcentrum', function(){
     return view('big-promotion.hunebed');
 });
 
-Route::get('/petervandijk', function(){
+Route::get('/peter-van-dijk', function(){
     return view('big-promotion.peter-van-dijk');
 });
 
