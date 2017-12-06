@@ -18,11 +18,21 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    animation: animateBuildingsUp 2s; /* IE 10+, Fx 29+ */
+    -webkit-animation: animateBuildingsUp 2s;
+            animation: animateBuildingsUp 2s; /* IE 10+, Fx 29+ */
     z-index: 2;
 }
 
 @-webkit-keyframes animateBuildingsUp {
+    0%   {
+        top: 30%;
+    }
+    100% {
+        top: 0%;
+    }
+}
+
+@keyframes animateBuildingsUp {
     0%   {
         top: 30%;
     }
@@ -38,14 +48,27 @@ body {
     width: 34.5%;
     height: 71%;
     z-index: 3;
-    bottom: 0;
-    animation: animateBuildingUp 5s;
-    animation-timing-function: ease-out;
+    bottom: -75%;
+    -webkit-animation: animateBuildingUp 5s forwards;
+            animation: animateBuildingUp 5s forwards;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+    -webkit-animation-delay: 2.5s;
+            animation-delay: 2.5s;
 }
 
 @-webkit-keyframes animateBuildingUp {
     0%   {
-        bottom: -65%;
+        bottom: -75%;
+    }
+    100% {
+        bottom: 0;
+    }
+}
+
+@keyframes animateBuildingUp {
+    0%   {
+        bottom: -75%;
     }
     100% {
         bottom: 0;
@@ -61,11 +84,22 @@ body {
     width: 28%;
     z-index: 5;
     position: fixed;
-    animation: crane-container 2.5s;
-    animation-timing-function: ease-out;
+    -webkit-animation: crane-container 2.5s;
+            animation: crane-container 2.5s;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
 }
 
 @-webkit-keyframes crane-container {
+    0%   {
+        right: -20%;
+    }
+    100% {
+        right: 0;
+    }
+}
+
+@keyframes crane-container {
     0%   {
         right: -20%;
     }
@@ -81,10 +115,20 @@ body {
     top: 6%;
     height: 19%;
     width: 19%;
-    animation: spin 5s;
-    animation-timing-function: ease-out;
-    animation-delay: 2.5s;
+    -webkit-animation: spin 5s forwards;
+            animation: spin 5s forwards;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+    -webkit-animation-delay: 2.5s;
+            animation-delay: 2.5s;
 
+}
+
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(2160deg);
+        transform:rotate(2160deg);
+    }
 }
 
 @keyframes spin {
@@ -110,10 +154,22 @@ body {
     height: 100vh;
     top: 8px;
     left: 12px;
-    animation: fadeIn 2.5s;
-    animation-timing-function: ease-out;
-    animation-delay: 4.5s;
     opacity: 0;
+    -webkit-animation: fadeIn 2.5s forwards;
+            animation: fadeIn 2.5s forwards;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+    -webkit-animation-delay: 8s;
+            animation-delay: 8s;
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {

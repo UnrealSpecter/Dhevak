@@ -1,6 +1,6 @@
-@foreach($projects as $index => $project)
+@foreach($projects as $projectIndex => $project)
 
-<div class="project-content d-none" data-project="{{ $index + 1 }}">
+<div class="project-content d-none" data-project="{{ $projectIndex + 1 }}">
 
     <div class="col-12 project-bg-title flex">{{ $project->title }}</div>
 
@@ -25,11 +25,11 @@
     <!-- bootstrap text carousel carousel -->
     <div id="carousel-{{ $project->id }}-{{ $project->id }}" class="col-lg-8 offset-lg-2 carousel slide">
         <ol class="carousel-indicators">
-            @foreach($project->descriptions as $index => $description)
+            @foreach($project->descriptions as $descriptionIndex => $description)
                 @if($loop->first)
-                    <li data-target="#carousel-{{ $project->id }}-{{ $project->id }}" data-slide-to="{{ $index }}" class="active"></li>
+                    <li data-target="#carousel-{{ $project->id }}-{{ $project->id }}" data-slide-to="{{ $descriptionIndex }}" class="active"></li>
                 @else
-                    <li data-target="#carousel-{{ $project->id }}-{{ $project->id }}" data-slide-to="{{ $index }}"></li>
+                    <li data-target="#carousel-{{ $project->id }}-{{ $project->id }}" data-slide-to="{{ $descriptionIndex }}"></li>
                 @endif
             @endforeach
         </ol>
@@ -50,11 +50,11 @@
     <div id="carousel{{ $project->id }}" class="col-lg-8 offset-lg-2 carousel slide" style="margin-top: 2.5%; margin-bottom: 2.5%;">
         <ol class="carousel-indicators">
             @if(count($project->images) > 1)
-                @foreach($project->images as $index => $image)
+                @foreach($project->images as $imageIndex => $image)
                     @if($loop->first)
-                        <li data-target="#carousel{{ $project->id }}" data-slide-to="{{ $index }}" class="active"></li>
+                        <li data-target="#carousel{{ $project->id }}" data-slide-to="{{ $imageIndex }}" class="active"></li>
                     @else
-                        <li data-target="#carousel{{ $project->id }}" data-slide-to="{{ $index }}"></li>
+                        <li data-target="#carousel{{ $project->id }}" data-slide-to="{{ $imageIndex }}"></li>
                     @endif
                 @endforeach
             @endif
@@ -85,13 +85,13 @@
     <div class="col-12 sub-title center flex">het eindresultaat</div>
     <div class="col-12 flex project-website center">
         @if(! $loop->first)
-            <div class="col-2 switch-project" data-project-index="{{ $index - 1 }}">vorige project</div>
+            <div class="col-2 switch-project" data-project-index="{{ $projectIndex }}">vorige project</div>
         @else
             <div class="col-2"></div>
         @endif
         <a href="http://{{ $project->project_url }}" target="_blank">www.{{ $project->project_url }}</a>
         @if(!$loop->last)
-            <div class="col-2 switch-project" data-project-index="{{ $index + 1 }}">volgende project</div>
+            <div class="col-2 switch-project" data-project-index="{{ $projectIndex + 2 }}">volgende project</div>
         @else
             <div class="col-2"></div>
         @endif

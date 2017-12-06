@@ -24,9 +24,24 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => ['a
 });
 
 // the old test of the video's
-Route::get('/old', function () {
+Route::get('/old-video-test', function () {
     return view('videos.old-loader');
 });
+
+Route::get('/old', function(){
+  return view('analoge-websites.layout');
+});
+
+Route::post('/sendmail', function (\Illuminate\Http\Request $request, \Illuminate\Mail\Mailer $mailer) {
+    $mailer
+        //to who to send the email
+        ->to('tomi_emmen@hotmail.com')
+        // actually send the email
+        ->send(new \App\Mail\ContactMail($request->input('name'), $request->input('email'), $request->input('content')));
+    return redirect()->back();
+
+})->name('sendmail');
+
 
 //routes for our promotion images
 Route::get('/hunebedcentrum', function(){
