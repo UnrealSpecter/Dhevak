@@ -18,6 +18,7 @@ var skipTransitions = false;
 var scrollAllowed = true;
 var navigatingThroughMenu = false;
 var order;
+var waiting = false;
 
 window.onload = function(){
       window.document.body.onload = loaded(); // note removed parentheses
@@ -200,102 +201,100 @@ function loaded(){
         });
 
         // set event listener to execute on timeupdate. This gets invoked every ~250ms or so
-        var lastFired;
         $('.dhevak').on('timeupdate',function() {
+            if(waiting === false){
+                var videoPlayer = $(this);
 
-            var videoPlayer = $(this);
+                // use parseInt to round to whole seconds
+                var currentTime = Math.round(this.currentTime*2)/2;
 
-            // use parseInt to round to whole seconds
-            var currentTime = Math.round(this.currentTime*2)/2;
+                //loop situations - post intro right
+                if(player.listenFor === 'postIntroRight' && currentTime === player.currentVideo.pieces.postIntroRightEnd){
+                    $(videoPlayer).get(0).pause();
+                    $(videoPlayer).get(0).currentTime = player.currentVideo.pieces.mainEnd;
+                    player.showLoop();
+                    wait();
+                }
 
-            //loop situations - post intro right
-            if(player.listenFor === 'postIntroRight' && currentTime === player.currentVideo.pieces.postIntroRightEnd){
-                console.log('show loop after post intro right', player.currentVideo, currentTime);
-                $(videoPlayer).get(0).pause();
-                $(videoPlayer).get(0).currentTime = player.currentVideo.pieces.mainEnd;
-                player.showLoop();
+                //post intro left
+                if(player.listenFor === 'postIntroLeft' && currentTime === player.currentVideo.pieces.postIntroLeftEnd){
+                    $(videoPlayer).get(0).pause();
+                    $(videoPlayer).get(0).currentTime = player.currentVideo.pieces.mainEnd;
+                    player.showLoop();
+                    wait();
+                }
+
+                //main intro's end
+                if(player.listenFor === 'main' && currentTime === player.currentVideo.pieces.mainEnd){
+                    $(videoPlayer).get(0).pause();
+                    player.showLoop();
+                    wait();
+                }
+
+                //outro right
+                if(player.listenFor === 'outroRight' && currentTime === player.currentVideo.pieces.outroRightEnd){
+                    if(navigatingThroughMenu === false){
+                        player.setCurrentVideo(player.currentVideo.order + 1);
+                    }
+                    else if(navigatingThroughMenu === true){
+                        player.setCurrentVideo(order);
+                    }
+
+                    if(player.currentVideo.introPlayed === true){
+                        player.play(player.currentVideo.pieces.postIntroLeftStart, 'postIntroLeft');
+                        wait();
+                    }
+
+                    else if(player.currentVideo.introPlayed === false){
+                        player.play(player.currentVideo.pieces.mainStart, 'main');
+                        player.currentVideo.introPlayed = true;
+                        wait();
+                    }
+
+                    //reset navigate through menu so that it can be used again
+                    if(navigatingThroughMenu === true){
+                      navigatingThroughMenu = false;
+                    }
+
+                }
+
+                //outro left
+                if(player.listenFor === 'outroLeft' && currentTime === player.currentVideo.pieces.outroLeftEnd){
+                    if(navigatingThroughMenu === false){
+                        player.setCurrentVideo(player.currentVideo.order - 1);
+                    }
+                    else if(navigatingThroughMenu === true){
+                        player.setCurrentVideo(order);
+                    }
+
+                    //if intro not played play the pre intro of the page
+                    if(player.currentVideo.introPlayed === false){
+                        player.currentVideo.introPlayed = true;
+                        player.play(player.currentVideo.pieces.mainStart, 'main');
+                        wait();
+                    }
+
+                    //if the intro has played before then just show the post intro of the page
+                    else if(player.currentVideo.introPlayed === true){
+                        player.play(player.currentVideo.pieces.postIntroRightStart, 'postIntroRight');
+                        wait();
+                    }
+
+                    //reset navigate through menu so that it can be used again
+                    if(navigatingThroughMenu === true){
+                      navigatingThroughMenu = false;
+                    }
+                }
             }
-
-            //post intro left
-            if(player.listenFor === 'postIntroLeft' && currentTime === player.currentVideo.pieces.postIntroLeftEnd){
-                console.log('show loop after post intro left', player.currentVideo, currentTime, 'listenFor is: ', player.listenFor);
-                $(videoPlayer).get(0).pause();
-                $(videoPlayer).get(0).currentTime = player.currentVideo.pieces.mainEnd;
-                player.showLoop();
-            }
-
-            //main intro's end
-            if(player.listenFor === 'main' && currentTime === player.currentVideo.pieces.mainEnd){
-                $(videoPlayer).get(0).pause();
-                player.showLoop();
-            }
-
-            //outro right
-            if(player.listenFor === 'outroRight' && currentTime === player.currentVideo.pieces.outroRightEnd){
-                console.log('Piece: outroRightEnd', 'time: ', currentTime, 'object: ', player.currentVideo);
-
-                if(navigatingThroughMenu === false){
-                    player.setCurrentVideo(player.currentVideo.order + 1);
-                }
-                else if(navigatingThroughMenu === true){
-                    player.setCurrentVideo(order);
-                }
-
-                if(player.currentVideo.introPlayed === true){
-                    player.play(player.currentVideo.pieces.postIntroLeftStart, 'postIntroLeft');
-                    console.log('playing post intro left start of HERE', player.currentVideo);
-                }
-
-                else if(player.currentVideo.introPlayed === false){
-                    player.play(player.currentVideo.pieces.mainStart, 'main');
-
-                    player.currentVideo.introPlayed = true;
-                    console.log('playing pre intro left start of', player.currentVideo);
-                }
-
-                //reset navigate through menu so that it can be used again
-                if(navigatingThroughMenu === true){
-                  navigatingThroughMenu = false;
-                }
-
-            }
-
-            //outro left
-            if(player.listenFor === 'outroLeft' && currentTime === player.currentVideo.pieces.outroLeftEnd){
-
-                console.log('Piece: outroLeftEnd', 'time: ', currentTime, 'object: ', player.currentVideo);
-
-                if(navigatingThroughMenu === false){
-                    player.setCurrentVideo(player.currentVideo.order - 1);
-                    console.log('navigatingthroughmenu false');
-                }
-                else if(navigatingThroughMenu === true){
-                    console.log('navigatingthroughmenu true');
-                    player.setCurrentVideo(order);
-                }
-
-                //if intro not played play the pre intro of the page
-                if(player.currentVideo.introPlayed === false){
-                    console.log('playing pre intro left start of', player.currentVideo);
-                    player.currentVideo.introPlayed = true;
-                    player.play(player.currentVideo.pieces.mainStart, 'main');
-                }
-
-                //if the intro has played before then just show the post intro of the page
-                else if(player.currentVideo.introPlayed === true){
-                    console.log('playing pre intro left start of', player.currentVideo);
-                    player.play(player.currentVideo.pieces.postIntroRightStart, 'postIntroRight');
-                }
-
-                //reset navigate through menu so that it can be used again
-                if(navigatingThroughMenu === true){
-                  navigatingThroughMenu = false;
-                }
-
-            }
-
         });
 
+}
+
+function wait(){
+  waiting = true;
+  setTimeout(function(){
+    waiting = false;
+  }, 500);
 }
 
 function roundThing(value, step) {
@@ -312,7 +311,7 @@ function startLoaderQuoteCycling() {
         ++quoteIndex;
         quotes.eq(quoteIndex % quotes.length)
             .fadeIn(1000)
-            .delay(1000)
+            .delay(2000)
             .fadeOut(1000, showNextQuote);
     }
     showNextQuote();
@@ -421,9 +420,6 @@ function Player(videos){
         }
 
         $(playerElement).css({ 'opacity': '1'});
-        // this.switchPlayer($(playerElement));
-
-        console.log('playing nextPiece: ', nextPieceToPlay, ' time: ', time);
 
         this.setListenFor(nextPieceToPlay);
 
@@ -438,17 +434,12 @@ function Player(videos){
     //sets the piece the time functions should be listening for so the overlap doesnt matter.
     this.setListenFor = function(nextPieceOfVideo){
         this.listenFor = nextPieceOfVideo;
-        console.log('listenFor: ', this.listenFor);
     }
 
     this.showLoop = function(){
 
         var loop = $('#loop');
         var videoName = player.currentVideo.name;
-
-        // if(videoName === 'projecten'){
-        //     initializeOrSetProjectNavigation('next');
-        // }
 
         isVideoPlaying = false;
 
@@ -475,40 +466,24 @@ function Player(videos){
         //sets the menu item thats currently active
         setActiveMenuItem(this.currentVideo.name);
 
-        if(!contentToHide){
+        //mobile content revealing
+        if(!contentToHide && isMobile){
             contentToReveal.removeClass('hidden');
         }
-        else if(contentToHide) {
+        else if(contentToHide && isMobile) {
             contentToHide.addClass('hidden');
             contentToReveal.removeClass('hidden');
         }
+
+        if(!contentToHide && !isMobile){
+            contentToReveal.removeClass('hidden').addClass('animated fadeIn');
+        }
+        else if(contentToHide && !isMobile) {
+            contentToReveal.removeClass('animated fadeOut').removeClass('hidden').addClass('animated fadeIn');
+            contentToHide.removeClass('animated fadeIn').addClass('animated fadeOut');
+        }
+
         contentToHide = contentToReveal;
-    }
-
-    this.switchPlayer = function(playerElement){
-
-        var playerToReveal = $(playerElement);
-        //set the poster before switching the player
-
-        //if there isnt a player to hide it means its the first playthrough so just reveal the player and play.
-        if(!playerToHide) {
-            playerToReveal.animate({ opacity: 1 }, 100);
-            playerToHide = playerToReveal;
-        }
-        //if there is a player and its not the same player as the previous one then swap them out.
-        else if(playerToHide){
-            playerToReveal.css({
-                'opacity' : '1',
-                'z-index': '1'
-            });
-            playerToHide.css({
-                'z-index' : '2'
-            });
-            playerToHide.animate({
-                'opacity' : '0'
-            }, 500);
-            playerToHide = playerToReveal;
-        }
     }
 
     this.setCurrentVideo = function(orderToPlay){
@@ -724,7 +699,6 @@ function navigateThroughMenu(video){
         }
         else if(currentVideo.order < order){
             navigatingThroughMenu = true;
-            console.log(order);
             player.play(player.currentVideo.pieces.outroRightStart, 'outroRight');
             //pause the video if its playing
             explanationVideo.pause();
@@ -814,9 +788,7 @@ function setNextPrevious(currentVideo){
 var projectNavigationIndex = 0;
 function initializeOrSetProjectNavigation(direction) {
     //store projects for further use
-
     var projects = document.getElementsByClassName('project');
-      console.log(projects.length, projectNavigationIndex);
     if(direction === 'next' && projectNavigationIndex < projects.length){
         for(counter = 3; counter >= 1; counter--){
             var project = projects[projectNavigationIndex];
