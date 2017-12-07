@@ -319,6 +319,9 @@ function startLoaderQuoteCycling() {
 
 function loadVideo() {
 
+    //loader animation fadeIn
+    $('.loader-wrapper').removeClass('hidden').addClass('animated fadeIn');
+
     //on video load start cycling the quotes
     startLoaderQuoteCycling();
 
