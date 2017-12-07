@@ -21,7 +21,7 @@
         <a href="https://twitter.com/DhevakArt/media" class="facebook"      target="_blank"></a>
         <a href="https://www.facebook.com/dhevakart/" class="twitter"       target="_blank"></a>
         <a href="https://www.instagram.com/dhevakart/" class="instagram"    target="_blank"></a>
-        <a href="https://www.instagram.com/dhevakart/" class="linkedin"     target="_blank"></a>
+        <a href="https://www.linkedin.com/in/tomi-ristic-8b742353/" class="linkedin"     target="_blank"></a>
     </div>
 
 </div>

@@ -23,12 +23,6 @@ window.onload = function(){
       window.document.body.onload = loaded(); // note removed parentheses
 };
 
-$(window).ready(function(){
-
-
-});
-
-
 function loaded(){
 
         //check if we're on a mobile device
@@ -191,9 +185,8 @@ function loaded(){
 
         // scroll to certain element
         $('.scroll-down-button').on('click', function() {
-            console.log(' clicked');
              var projectContent = $(this).parent().parent();
-             var scrollToSubtitle = projectContent.scrollTop() + projectContent.find('.subtitle-role').offset().top;
+             var scrollToSubtitle = projectContent.find('.subtitle-role').offset().top - projectContent.offset().top;
              $('.project-overlay').animate({
                 scrollTop: scrollToSubtitle
             }, 1500);
@@ -214,8 +207,6 @@ function loaded(){
 
             // use parseInt to round to whole seconds
             var currentTime = Math.round(this.currentTime*2)/2;
-
-            // console.log(currentTime);
 
             //loop situations - post intro right
             if(player.listenFor === 'postIntroRight' && currentTime === player.currentVideo.pieces.postIntroRightEnd){
@@ -455,15 +446,11 @@ function Player(videos){
         var loop = $('#loop');
         var videoName = player.currentVideo.name;
 
-        if(videoName === 'projecten'){
-            initializeOrSetProjectNavigation('next');
-        }
+        // if(videoName === 'projecten'){
+        //     initializeOrSetProjectNavigation('next');
+        // }
 
         isVideoPlaying = false;
-
-        if(!isMobile){
-            // this.switchPlayer(loop);
-        }
 
         if(!explanationShown){
             $('.explanation-container').removeClass('d-none');
@@ -502,8 +489,6 @@ function Player(videos){
 
         var playerToReveal = $(playerElement);
         //set the poster before switching the player
-
-        // playerToReveal.attr('poster', '/images/posters/' + this.currentVideo.name + '/' + this.currentVideo.name + '-' + this.currentVideoPiece + '-poster.jpg' );
 
         //if there isnt a player to hide it means its the first playthrough so just reveal the player and play.
         if(!playerToHide) {
@@ -551,7 +536,6 @@ function Video(name, order, introPlayed, pieces) {
 //initializes the different video objects and the main player object that will handle them all.
 function initializePlayer() {
 
-    //DATA
     var homePieces = {
         postIntroRightStart : 19.5,
         postIntroRightEnd   : 21,
@@ -646,6 +630,8 @@ function initializePlayer() {
     $('.project-content').each(function(index, project){
         projectCount++;
     });
+
+    initializeOrSetProjectNavigation('next');
 
     return player;
 }
@@ -828,8 +814,10 @@ function setNextPrevious(currentVideo){
 var projectNavigationIndex = 0;
 function initializeOrSetProjectNavigation(direction) {
     //store projects for further use
+
     var projects = document.getElementsByClassName('project');
-    if(direction === 'next' && projectNavigationIndex <= projects.length){
+      console.log(projects.length, projectNavigationIndex);
+    if(direction === 'next' && projectNavigationIndex < projects.length){
         for(counter = 3; counter >= 1; counter--){
             var project = projects[projectNavigationIndex];
             //unhide the projectthumbnail if it exists
@@ -895,28 +883,3 @@ function hideProjectDetails(){
     }, 1000);
     projectContentActive = false;
 }
-
-// switch projects that are visible on the project page. Up or Down based on direction.
-// function navigateUpOrDownThroughProjects(direction){
-//
-//     var modifier;
-//     if(direction === 'previous-projects'){
-//         modifier = 3;
-//     }
-//     else if(direction === 'next-projects') {
-//         modifier = -3;
-//     }
-//
-//     $.each(projectNavigation, function(index, project){
-//
-//         var projectId = parseInt($(project).attr('data-project'));
-//         var newProjectValue = (projectId + modifier);
-//
-//         if(newProjectValue > projectCount || newProjectValue < 0){
-//             newProjectValue = "";
-//         }
-//
-//         $(project).attr('data-project', newProjectValue);
-//
-//     });
-// }
