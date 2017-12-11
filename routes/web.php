@@ -60,5 +60,9 @@ Route::get('/gevangenis-museum', function () {
     return view('big-promotion.gevangenis-museum');
 });
 
+Route::get('/portfolio', function(){
+    return response()->file(public_path('images/promotion/Dhevak/Dhevak-Portfolio.pdf'));
+});
+
 // auth
 Auth::routes();
