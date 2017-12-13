@@ -1136,6 +1136,18 @@ a {
     }
 }
 
+.container {
+    width: 100vw; /* Or whatever you want it to be */
+    height: 100vh; /* Or whatever you want it to be */
+}
+
+.media {
+    width: 100%;
+    height: 100%;
+    object-fit: fill; /* Or whatever object-fit you want */
+}
+
+
 .content-wrapper {
     height: 100vh;
     width: 100vw;

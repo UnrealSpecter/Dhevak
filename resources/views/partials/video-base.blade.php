@@ -2,7 +2,7 @@
     <link rel="stylesheet" type="text/css" href="css/videos/style.css" />
 @endsection
 @section('js')
-    <script type="text/javascript" src="js/videos/script.js"></script>
+    <script src="js/videos/script.js"></script>
 @endsection
 @extends('layout')
 @section('content')

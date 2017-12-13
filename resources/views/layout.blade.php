@@ -35,22 +35,9 @@
         @yield('css')
 
         @yield('js')
-
-        <!-- Minimum CSS -->
-        <style>
-        .container {
-          width: 100vw; /* Or whatever you want it to be */
-          height: 100vh; /* Or whatever you want it to be */
-        }
-        .media {
-          width: 100%;
-          height: 100%;
-          object-fit: fill; /* Or whatever object-fit you want */
-        }
-        </style>
     </head>
     <body>
-        <div class="" style="height: 100vh; width: 100vw;" data-enhance="false" data-role="page">
+        <div style="height: 100vh; width: 100vw;" data-enhance="false" data-role="page">
             <div class="row">
                 @yield('content')
             </div>
