@@ -1,5 +1,5 @@
 <!-- projecten partial -->
-<div id="content-wrapper" class="projecten-content hidden animated fadeIn">
+<div class="content-wrapper projecten-content hidden animated fadeIn">
     <!-- projecten menu -->
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 projecten-menu" onclick="openNav()"></div>
 

@@ -12,7 +12,7 @@
     <div class="container">
         @include('partials.videos.dhevak-video')
     </div>
-    
+
     <!-- misc/helpers -->
     @include('partials.content.landscape-indicator-content')
     @include('partials.content.pre-loader-choice-content')

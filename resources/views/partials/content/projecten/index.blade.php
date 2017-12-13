@@ -5,7 +5,7 @@
     <div class="col-12 project-bg-title flex">{{ $project->title }}</div>
 
     <div class="col-12 scroll-down-indicator flex ">
-        <img class="img-responsive scroll-down-button" src="{{ URL::asset('/images/arrow-down.jpg') }}">
+        <img class="img-responsive scroll-down-button" src="{{ URL::asset('/images/arrow-down.jpg') }}" alt="scroll-down-arrow">
     </div>
 
     <div class="col-12 flex project-title center">{{ $project->title }}</div>

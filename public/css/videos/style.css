@@ -863,6 +863,17 @@ h1 {
 .progress {
     background-color: #3a3a3a;
     height: 7.5px;
+    border-radius: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1500000;
+}
+
+.progress-bar {
+    background-color: white;
+    color: black;
 }
 
 .loader-wrapper {
@@ -1125,7 +1136,7 @@ a {
     }
 }
 
-#content-wrapper {
+.content-wrapper {
     height: 100vh;
     width: 100vw;
     position: fixed;

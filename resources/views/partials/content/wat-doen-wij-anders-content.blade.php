@@ -1,5 +1,5 @@
 <!-- wat-doen-wij-anders-partial -->
-<div id="content-wrapper" class="wat-doen-wij-anders-content animated fadeIn hidden">
+<div class="content-wrapper wat-doen-wij-anders-content animated fadeIn hidden">
     <div class="theater-ambiance animated fadeIn"></div>
     <div class="wat-doen-wij-anders-explanation-video">
         <video controls preload="auto" class="explanation-video" id="explanation-video">
