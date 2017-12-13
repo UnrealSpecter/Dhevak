@@ -28,7 +28,7 @@ Route::get('/old-video-test', function () {
     return view('videos.old-loader');
 });
 
-Route::get('/old', function(){
+Route::get('/oud', function(){
   return view('analoge-websites.layout');
 });
 
