@@ -121,6 +121,7 @@ function loaded(){
             }
             if(choice === 'simple-experience'){
                 $('.progress').addClass('d-none');
+                $('#loop').removeClass('d-none');
                 setTimeout(function(){
                     isMobile = true;
                     introAnimation();

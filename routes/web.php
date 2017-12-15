@@ -61,7 +61,7 @@ Route::get('/gevangenis-museum', function () {
 });
 
 Route::get('/portfolio', function(){
-    return response()->file(public_path('images/promotion/Dhevak/Dhevak-Portfolio.pdf'));
+    return redirect('https://issuu.com/dhevak/docs/ogen-openen-en-mensen-inkleuren');
 });
 
 // auth
