@@ -33,7 +33,7 @@
         <script src="{{ URL::asset('plugins/object-fit-polyfill/js/objectFitPolyfill.min.js') }}"></script>
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90310031-5"></script>
+        <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90310031-5"></script> -->
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
