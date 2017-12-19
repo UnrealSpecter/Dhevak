@@ -1,5 +1,5 @@
 <!-- loop poster element -->
-<!-- <img src="{{ URL::asset('/images/posters/home/home-main-poster.jpg') }}" class="loop-poster" id="loop"/> -->
+<img src="{{ asset('/images/posters/home/home-loop-poster.jpg') }}" class="loop-poster d-none" id="loop" alt="background-image">
 
 <!-- loader-wrapper -->
 <div class="loader-wrapper hidden flex col-12">

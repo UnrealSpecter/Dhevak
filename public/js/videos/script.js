@@ -115,7 +115,7 @@ function loaded(){
         //simpel version of the website or the complete version
         $('.dhevak-experience, .simple-experience').on('click', function(){
             var choice = $(this).attr('data-choice');
-            $('.pre-loader-wrapper').addClass('d-none');
+            $('.pre-loader-wrapper').addClass('animated fadeOut').css({'pointer-events': 'none'});
             if(choice === 'dhevak-experience'){
                 loadVideo();
             }
@@ -383,7 +383,6 @@ function introAnimation() {
         $('.intro-quote-block').removeClass('d-none').addClass('animated fadeIn');
 
         if(!isMobile){
-
             setTimeout(function(){
                 $('.loader-wrapper').fadeOut('500', function(){
                     player.play(player.currentVideo.pieces.mainStart, 'main');
@@ -392,11 +391,9 @@ function introAnimation() {
         }
         else if(isMobile){
             $('.loader-text-block').addClass('d-none');
-            setTimeout(function(){
-                $('.loader-wrapper').fadeOut('500', function(){
-                     player.showLoop();
-                });
-            }, 2000);
+            $('.loader-wrapper').fadeOut('500', function(){
+                 player.showLoop();
+            });
         }
     }
 };

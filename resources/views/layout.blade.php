@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="nl">
     <head data-enhance="false">
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <!-- <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"> -->
-        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
         <title>Dhevak | Experimenteel Webdesign & Culturele Projecten</title>
 
@@ -38,10 +38,8 @@
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
             gtag('config', 'UA-90310031-5');
         </script>
-
         @yield('css')
 
         @yield('js')
