@@ -5,6 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+        <meta name="description" content="Dhevak verteld verhalen. Wij vertalen een identiteit naar online/offline design. Never be afraid to try something new.">
+
         <title>Dhevak | Experimenteel Webdesign & Culturele Projecten</title>
 
         <link rel="icon" href="{{ URL::asset('/images/dhevak-logo.png')}}">
