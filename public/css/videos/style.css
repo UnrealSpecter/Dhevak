@@ -678,7 +678,7 @@
 .landscape-indicator {
     z-index: 1000;
     display: block;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     position: absolute;
     top: 0;
@@ -897,7 +897,7 @@ h1 {
 }
 
 .loader-wrapper {
-    height: 100vh;
+    height: 100%;
     z-index: 1000;
     background: url('/images/posters/home/home-main-poster.jpg');
     background-size: cover;
@@ -909,7 +909,7 @@ h1 {
 
 /* PRE LOADER */
 .pre-loader-wrapper {
-    height: 100vh;
+    height: 100%;
     z-index: 1501;
     background: url('/images/posters/home/home-main-poster.jpg');
     background-size: cover;
@@ -935,7 +935,7 @@ h1 {
 
 .loader-background {
     position: absolute;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     opacity: 0.4;
     background-color: white;
@@ -949,7 +949,7 @@ h1 {
 .loader-title {
     pointer-events: none;
     position: absolute;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     top: 0;
     left: 0;
@@ -978,7 +978,7 @@ h1 {
 }
 
 .intro-quote-block {
-    height: 100vh;
+    height: 100%;
 }
 
 .intro-text {
@@ -1020,7 +1020,7 @@ h1 {
 
 /* player stuff */
 .video-wrapper {
-    height: 100vh;
+    height: 100%;
     overflow: hidden;
     position: absolute;
     top: 0;
@@ -1036,9 +1036,9 @@ h1 {
     z-index: 1;
     -o-object-fit: fill;
        object-fit: fill;
-    min-height: 100vh;
+    min-height: 100%;
     min-width: 100%;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     opacity: 0;
 }
@@ -1158,7 +1158,7 @@ a {
 
 .container {
     width: 100%; /* Or whatever you want it to be */
-    height: 100vh; /* Or whatever you want it to be */
+    height: 100%; /* Or whatever you want it to be */
 }
 
 .media {
@@ -1169,7 +1169,7 @@ a {
 
 
 .content-wrapper {
-    height: 100vh;
+    height: 100%;
     width: 100%;
     position: fixed;
     top: 0;
@@ -1290,7 +1290,7 @@ a {
     text-transform: uppercase;
     pointer-events: none;
     overflow: hidden;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     position: absolute;
     font-family: Raleway;
@@ -1300,14 +1300,14 @@ a {
 
 .project-title {
     pointer-events: none;
-    height: 100vh;
+    height: 100%;
     text-transform: uppercase;
     font-family: Raleway;
     font-weight: bold;
 }
 
 .scroll-down-indicator {
-    height: 100vh;
+    height: 100%;
     width: 100%;
     position: absolute;
     top: 0;
@@ -1508,7 +1508,7 @@ a {
 .theater-ambiance {
     background: rgba(0, 0, 0, 0.4);
     opacity: 0.4;
-    height: 100vh;
+    height: 100%;
     width: 100%;
 }
 
