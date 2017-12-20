@@ -46,8 +46,8 @@
         @yield('js')
     </head>
     <body>
-        <div style="height: 100%; width: 100%;" data-enhance="false" data-role="page">
-            <div class="row">
+        <div style="height: 100%; width: 100%; padding: 0; margin: 0;" data-enhance="false" data-role="page">
+            <div class="row" style="height: 100vh; width: 100%; margin: 0; padding: 0;">
                 @yield('content')
             </div>
         </div>
