@@ -85,13 +85,15 @@
     <div class="col-12 sub-title center flex">het eindresultaat</div>
     <div class="col-12 flex project-website center">
         @if(! $loop->first)
-            <div class="col-2 switch-project" data-project-index="{{ $projectIndex }}">vorige project</div>
+            <div class="col-2 d-block d-sm-none d-md-block switch-project" data-project-index="{{ $projectIndex }}">vorige project</div>
+            <div class="col-2 d-md-none switch-project" data-project-index="{{ $projectIndex }}">vorige</div>
         @else
             <div class="col-2"></div>
         @endif
         <a href="http://{{ $project->project_url }}" target="_blank">www.{{ $project->project_url }}</a>
         @if(!$loop->last)
-            <div class="col-2 switch-project" data-project-index="{{ $projectIndex + 2 }}">volgende project</div>
+            <div class="col-2 d-block d-sm-none d-md-block switch-project" data-project-index="{{ $projectIndex + 2 }}">volgende project</div>
+            <div class="col-2 d-md-none switch-project" data-project-index="{{ $projectIndex + 2 }}">volgende </div>
         @else
             <div class="col-2"></div>
         @endif

@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="nl">
     <head data-enhance="false">
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <meta name="description" content="Dhevak verteld verhalen. Wij vertalen een identiteit naar online/offline design. Never be afraid to try something new.">
 
         <title>Dhevak | Experimenteel Webdesign & Culturele Projecten</title>
 
@@ -45,8 +46,8 @@
         @yield('js')
     </head>
     <body>
-        <div style="height: 100vh; width: 100vw;" data-enhance="false" data-role="page">
-            <div class="row">
+        <div style="height: 100%; width: 100%; padding: 0; margin: 0;" data-enhance="false" data-role="page">
+            <div class="row" style="height: 100vh; width: 100%; margin: 0; padding: 0;">
                 @yield('content')
             </div>
         </div>

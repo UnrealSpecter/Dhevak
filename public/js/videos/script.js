@@ -390,6 +390,7 @@ function introAnimation() {
             }, 2000);
         }
         else if(isMobile){
+            $('#loop').removeClass('d-none');
             $('.loader-text-block').addClass('d-none');
             $('.loader-wrapper').fadeOut('500', function(){
                  player.showLoop();
