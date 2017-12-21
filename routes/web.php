@@ -64,5 +64,8 @@ Route::get('/portfolio', function(){
     return redirect('https://issuu.com/dhevak/docs/ogen-openen-en-mensen-inkleuren');
 });
 
+//experimental Route
+Route::get('/experimental', 'Frontend\ExperimentalController@index');
+
 // auth
 Auth::routes();
