@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
 
 use App\Models\SocialMedia;
+use App\Http\Requests\SocialMediaForm;
 
 class SocialMediaController extends Controller
 {
@@ -53,7 +54,7 @@ class SocialMediaController extends Controller
         Image::make(Input::file('image_url'))->save($path);
 
         $socialMedia->image_url = $fileName;
-
+        
         if($socialMedia->save()){
             return redirect()->route('social-media.index');
         }
@@ -74,6 +75,7 @@ class SocialMediaController extends Controller
         $socialMedia->name = $request->name;
 
         if(Input::file('image_url')){
+
             $path = public_path('uploads/social-media');
 
             $fileName = $socialMedia->id . "." . Input::file('image_url')->getClientOriginalExtension();
@@ -83,6 +85,7 @@ class SocialMediaController extends Controller
             Image::make(Input::file('image_url'))->save($path);
 
             $socialMedia->image_url = $fileName;
+
         }
 
         if($socialMedia->save()){
@@ -111,5 +114,5 @@ class SocialMediaController extends Controller
     }
     public function ValidatorHandlingError(){
       // Validator that handles the errors that come up with faulty uploads or unsuccesfull upload
-    }    
+    }
 }

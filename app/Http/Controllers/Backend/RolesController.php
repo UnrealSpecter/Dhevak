@@ -4,8 +4,13 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\File;
 
 use App\Models\Role;
+use App\Http\Requests\RolesForm;
+
 
 class RolesController extends Controller
 {
@@ -28,14 +33,18 @@ class RolesController extends Controller
         return view('backend.roles.create');
     }
 
+// function to store the data we wnna store
+
     public function store(Request $request)
     {
-        $role = new Role($request->all());
 
-        if($role->save()){
-            return redirect()->route('roles.index');
-        }
+        $role = Role::create($request->all());
+
+        return redirect()->route('roles.index');
+
     }
+
+    // function to edit
 
     public function edit($id)
     {
@@ -62,19 +71,5 @@ class RolesController extends Controller
         if($role->delete()){
             return redirect()->route('roles.index');
         }
-    }
-    public function ValidatorAllFilled()
-    {
-      // Validator to check if all fields are filled
-    }
-    public function ValidatorHTMLchars()
-    {
-      // Validator to check and remove all html specialchars
-    }
-    public function ValidatorInsertDBsuccesfull(){
-      // Validator to check if the upload to the database went well and nothing got lost
-    }
-    public function ValidatorErrorHandling(){
-      // The errorhandling for when stuff goes wrong on validation
     }
 }

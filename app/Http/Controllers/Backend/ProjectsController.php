@@ -15,14 +15,17 @@ use App\Models\Role;
 use App\Models\SocialMedia;
 use App\Models\Image;
 use App\Models\Description;
+use App\Http\Requests\ProjectsForm;
 
 class ProjectsController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
 
+        $projects = Project::all();
+        // dd($projects[0]->descriptions[0]->content);
         return view('backend.projects.index', compact('projects'));
+
     }
 
     public function show($id)
@@ -153,6 +156,7 @@ class ProjectsController extends Controller
 
         $project->thumbnail_image_url = $fileName;
 
+
         if($project->save()){
             return redirect()->route('projects.index');
         }
@@ -161,12 +165,30 @@ class ProjectsController extends Controller
 
     public function edit($id)
     {
-        return view('backend.projects.edit');
+        $project = project::findOrFail($id);
+
+        return view('backend.projects.edit', compact('project'));
     }
 
     public function update($id, Request $request)
     {
+      
+      $project = Project::findOrFail($id);
 
+      $project->title = $request->title;
+
+      if($request['project_description']){
+          foreach($request['project_description'] as $descriptionContent){
+              $description = Description::create();
+              $description->project_id = $project->id;
+              $description->content = $descriptionContent;
+              $description->save();
+          }
+      }
+
+      if($project->save()){
+          return redirect()->route('projects.index');
+      }
     }
 
     public function destroy($id)
@@ -181,17 +203,5 @@ class ProjectsController extends Controller
         if($project->delete()){
             return redirect()->route('projects.index');
         }
-    }
-    public function ValidatorAllFilled(){
-      // Validator to check if all fiels are filled in
-    }
-    public function ValidatorHTMLchars(){
-      // Validator to remove html special chars so no malicous code can be inserted
-    }
-    public function ValidatorInsertDBsuccesfull(){
-      // Validator to check if the data actually succesfully got inserted into the DB
-    }
-    public function ValidatorErrorHandling(){
-      // Error handler that handles the errors that come up when validating data
     }
 }

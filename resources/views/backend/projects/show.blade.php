@@ -8,10 +8,7 @@
                 <th>Title</th>
                 <th>{{ $project->title }}</th>
             </tr>
-            <tr>
-                <th>Description</th>
-                <th>{{ $project->description }}</th>
-            </tr>
+            <tr><th>&nbsp;</th><th>&nbsp;</th></tr>
             <tr>
                 <th>Project Website</th>
                 <th>{{ $project->project_url }}</th>

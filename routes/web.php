@@ -11,6 +11,10 @@
 |
 */
 
+
+
+
+
 //load frontend
 Route::get('/', 'Frontend\ProjectsController@index');
 
@@ -40,6 +44,23 @@ Route::get('/petervandijk', function(){
 Route::get('/whitegoblingames', function(){
     return view('big-promotion.white-goblin-games');
 });
+
+// routes for store function Roles
+
+Route::get('/rolesvalidator','Backend\RolesController@store');
+Route::post('/rolesvalidator','Backend\RolesController@store');
+
+
+// routes for store function Social media
+
+
+Route::get('/socialmediavalidator','Backend\SocialMediaController@store');
+Route::post('/socialmediavalidator','Backend\SocialMediaController@store');
+
+// routes fo store function ProjectsController
+
+Route::get('/projectsvalidator','Backend\ProjectsController@store');
+Route::post('/projectsvalidator','Backend\ProjectsController@store');
 
 // auth
 Auth::routes();

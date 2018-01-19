@@ -6,15 +6,11 @@
             <thead>
                 <tr>
                     <th>Title</th>
-                    <th>Description</th>
-                    <th>Project Website</th>
                 </tr>
             </thead>
             @foreach($projects as $project)
                 <tr class='clickable-row' data-href="/admin/projects/{{$project->id}}">
                     <th>{{$project->title}}</th>
-                    <th>{{$project->description}}</th>
-                    <th>{{$project->project_url}}</th>
                 </tr>
             @endforeach
         </table>
