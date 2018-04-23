@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
         <meta name="description" content="Dhevak verteld verhalen. Wij vertalen een identiteit naar online/offline design. Never be afraid to try something new.">
+        <meta name="google-site-verification" content="isd3UpdRa3pcKsh_V1BpIcwvhDUn7t_SQSTWPbNMzbc" />
 
         <title>Dhevak | Experimenteel Webdesign & Culturele Projecten</title>
 

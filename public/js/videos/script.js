@@ -38,7 +38,7 @@ function loaded(){
             introAnimation();
         };
 
-
+        //navigational arrows clicked
         $('.arrow').on('click', function(e){
             var arrow = $(e.target);
             if(arrow.hasClass('next')){
@@ -49,7 +49,7 @@ function loaded(){
             }
         });
 
-        //set contact copy elements
+        //instantiate clipboard contact so elements can be copied
         var clipboard = new Clipboard('.btn');
         clipboard.on('success', function(e) {
             var toastrText = e.text;
@@ -71,7 +71,6 @@ function loaded(){
 
         //activate swipe only on mobile devices.
         if(isMobile){
-
             //initiate hammer.js this way otherwise chrome touch events dont work.
             var swipeManager = new Hammer.Manager(window, {
                 touchAction: 'auto',
@@ -98,7 +97,7 @@ function loaded(){
             });
         }
 
-        //remove explanation when the confirm is clicked. / ++ this needs functionality so that it doesnt pop every time. ++ /
+        //remove explanation when the confirm is clicked.
         $('.explanation-confirm').on('click', function(){
             $('.explanation-container').removeClass('fadeInUp').addClass('fadeOutDown');
             explanationConfirmed = true;
@@ -291,6 +290,7 @@ function loaded(){
 
 }
 
+//wait function so the video doesnt skip
 function wait(){
   waiting = true;
   setTimeout(function(){
@@ -298,12 +298,14 @@ function wait(){
   }, 500);
 }
 
+//rounding of time values
 function roundThing(value, step) {
     step || (step = 1.0);
     var inv = 1.0 / step;
     return Math.round(value * inv) / inv;
 }
 
+//intro quotes cycling
 function startLoaderQuoteCycling() {
     //cycle through quotes
     var quotes = $(".quotes");
@@ -438,6 +440,7 @@ function Player(videos){
         this.listenFor = nextPieceOfVideo;
     }
 
+    //show the still images
     this.showLoop = function(){
 
         var loop = $('#loop');
@@ -462,6 +465,7 @@ function Player(videos){
 
     }
 
+    // activate the hidden content
     this.makeContentActive = function(videoName){
         var contentToReveal = $('.' + videoName + '-content');
 
